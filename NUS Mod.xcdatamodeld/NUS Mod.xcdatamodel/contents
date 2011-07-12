@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="837" systemVersion="10J869" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="CodeWords" representedClassName="CodeWords">
+        <attribute name="normalizedWord" optional="YES" attributeType="String"/>
+        <relationship name="module" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Module" inverseName="normalizedCodeWords" inverseEntity="Module"/>
+    </entity>
+    <entity name="DescriptionWords" representedClassName="DescriptionWords">
+        <attribute name="normalizedWord" optional="YES" attributeType="String"/>
+        <relationship name="module" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Module" inverseName="normalizedDescriptionWords" inverseEntity="Module"/>
+    </entity>
+    <entity name="Keyword" representedClassName="Keyword">
+        <attribute name="normalizedWord" optional="YES" attributeType="String"/>
+        <relationship name="module" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Module" inverseName="normalizedWords" inverseEntity="Module"/>
+    </entity>
+    <entity name="Module" representedClassName="Module">
+        <attribute name="code" optional="YES" attributeType="String"/>
+        <attribute name="color" optional="YES" transient="YES" attributeType="Transformable"/>
+        <attribute name="examDate" optional="YES" attributeType="String"/>
+        <attribute name="modularCredit" optional="YES" attributeType="String"/>
+        <attribute name="moduleDescription" optional="YES" attributeType="String"/>
+        <attribute name="preclusion" optional="YES" attributeType="String"/>
+        <attribute name="prerequisite" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="workload" optional="YES" attributeType="String"/>
+        <relationship name="moduleClasses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ModuleClass" inverseName="module" inverseEntity="ModuleClass"/>
+        <relationship name="normalizedCodeWords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CodeWords" inverseName="module" inverseEntity="CodeWords"/>
+        <relationship name="normalizedDescriptionWords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DescriptionWords" inverseName="module" inverseEntity="DescriptionWords"/>
+        <relationship name="normalizedTitleWords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TitleWords" inverseName="module" inverseEntity="TitleWords"/>
+        <relationship name="normalizedWords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Keyword" inverseName="module" inverseEntity="Keyword"/>
+        <relationship name="timetable" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Timetable" inverseName="modules" inverseEntity="Timetable"/>
+    </entity>
+    <entity name="ModuleClass" representedClassName="ModuleClass">
+        <attribute name="classNumber" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="details" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ModuleClassDetail" inverseName="moduleClass" inverseEntity="ModuleClassDetail"/>
+        <relationship name="module" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Module" inverseName="moduleClasses" inverseEntity="Module"/>
+        <relationship name="timetable" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Timetable" inverseName="selections" inverseEntity="Timetable"/>
+    </entity>
+    <entity name="ModuleClassDetail" representedClassName="ModuleClassDetail">
+        <attribute name="day" optional="YES" attributeType="String"/>
+        <attribute name="endTime" optional="YES" attributeType="String"/>
+        <attribute name="startTime" optional="YES" attributeType="String"/>
+        <attribute name="venue" optional="YES" attributeType="String"/>
+        <attribute name="weeks" optional="YES" attributeType="String"/>
+        <relationship name="moduleClass" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ModuleClass" inverseName="details" inverseEntity="ModuleClass"/>
+    </entity>
+    <entity name="Timetable" representedClassName="Timetable">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0"/>
+        <relationship name="modules" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Module" inverseName="timetable" inverseEntity="Module"/>
+        <relationship name="selections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ModuleClass" inverseName="timetable" inverseEntity="ModuleClass"/>
+    </entity>
+    <entity name="TitleWords" representedClassName="TitleWords">
+        <attribute name="normalizedWord" optional="YES" attributeType="String"/>
+        <relationship name="module" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Module" inverseName="normalizedTitleWords" inverseEntity="Module"/>
+    </entity>
+    <elements>
+        <element name="CodeWords" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="DescriptionWords" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="Keyword" positionX="304" positionY="36" width="128" height="75"/>
+        <element name="Module" positionX="160" positionY="192" width="128" height="255"/>
+        <element name="ModuleClass" positionX="421" positionY="222" width="128" height="120"/>
+        <element name="ModuleClassDetail" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="Timetable" positionX="412" positionY="405" width="128" height="90"/>
+        <element name="TitleWords" positionX="160" positionY="192" width="128" height="75"/>
+    </elements>
+</model>

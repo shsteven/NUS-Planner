@@ -1,0 +1,6 @@
+- NUS_ModAppDelegate now use Core Data
+- Core Data model for Module and Module Class
+I've not finished importing the data into the database..
+
+
+- Added basic elements for the home screen: navigation bar, action button, search field and table view.
