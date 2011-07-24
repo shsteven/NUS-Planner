@@ -47,7 +47,7 @@
     
     CGFloat lineWidth = 1.0;
 
-    color = [UIColor redColor]; // Debug
+//    color = [UIColor redColor]; // Debug
     
     CGContextSaveGState(ctx);
     

@@ -8,7 +8,7 @@
 
 #import "EventView.h"
 @class WeekViewController;
-
+@class ModuleClassDetail;
 
 typedef NSInteger ClassType;
 
@@ -26,6 +26,8 @@ enum ClassType {
     
     __unsafe_unretained WeekViewController *weekViewController;
     
+    __unsafe_unretained ModuleClassDetail *classDetail;
+    
 }
 
 @property (assign) ClassType classType;
@@ -34,5 +36,6 @@ enum ClassType {
 @property (nonatomic, strong) IBOutlet UILabel *venueLabel;
 @property (weak) UIColor *tintColor;
 @property (assign) IBOutlet WeekViewController *weekViewController;
+@property (assign) ModuleClassDetail *classDetail;
 
 @end

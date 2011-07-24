@@ -2,11 +2,13 @@
 //  Module.m
 //  NUS Mod
 //
-//  Created by Raymond Hendy on 7/12/11.
+//  Created by Raymond Hendy on 7/16/11.
 //  Copyright (c) 2011 NUS. All rights reserved.
 //
 
 #import "Module.h"
+#import "AcademicPeriod.h"
+#import "Categories.h"
 #import "CodeWords.h"
 #import "DescriptionWords.h"
 #import "Keyword.h"
@@ -17,6 +19,8 @@
 
 @implementation Module
 @dynamic code;
+@dynamic color;
+@dynamic enabled;
 @dynamic examDate;
 @dynamic modularCredit;
 @dynamic moduleDescription;
@@ -24,12 +28,13 @@
 @dynamic prerequisite;
 @dynamic title;
 @dynamic workload;
-@dynamic color;
+@dynamic category;
 @dynamic moduleClasses;
 @dynamic normalizedCodeWords;
 @dynamic normalizedDescriptionWords;
 @dynamic normalizedTitleWords;
 @dynamic normalizedWords;
+@dynamic semester;
 @dynamic timetable;
 
 @end

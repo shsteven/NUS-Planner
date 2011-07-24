@@ -9,6 +9,7 @@
 @class Module;
 @class ModuleClass;
 @class Timetable;
+@class User;
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
@@ -20,7 +21,8 @@
     
     NSArray *sessions;
     NSMutableArray *selections;
-    NSMutableArray *generateCombinations;
+    NSMutableArray *generatedCombinations;
+    NSMutableSet *constraints;
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -33,7 +35,9 @@
 /*
  * RETURNS: Array of possible valid timetable of modules listed by user
  */
-@property (readonly, strong, nonatomic) NSMutableArray *generateCombinations;
+@property (strong, nonatomic) NSMutableArray *combinations;
+
+@property (strong) NSMutableSet *constraints;
 
 /*
  * RETURNS: Array of of subarrays of ModuleClass objects (auto-generated slots for timetable). Subarrays are categorized by day, sorted by time.
@@ -56,10 +60,21 @@
 - (void)readModule;
 
 /*
+ * EFFECTS: Populating generatedCombinations array.
+ */
+- (void)generateCombinations;
+
+/*
  * Interface for database query.
  * RETURNS: Modules that contain the specified keyword(s). Returns an empty array if not found.
  */
 - (NSArray *)modulesBySearchTerm:(NSString *)keywordsString;
+
+- (NSArray *)allModulesByCode:(NSString *)code;
+
+- (NSArray *)allModulesByTitle:(NSString *)title;
+
+- (NSArray *)allModulesByDescription:(NSString *)description;
 
 /*
  * Interface for database query.
@@ -75,10 +90,22 @@
                            classNo:(NSString *)no
                               type:(NSString *)type;
 
+
+/*
+ * RETURNS: Alternative ModuleClass objects
+ */
+- (NSArray *)alternativesForClass:(ModuleClass *)class;
+
 /*
  * EFFECTS: Add the specified module into timetable. Context is saved.
  */
 - (void)addModule:(Module *)m;
+
+- (void)removeModule:(Module *)m;
+
+- (void)enableModule:(Module *)m;
+
+- (void)disableModule:(Module *)m;
 
 /*
  * REQUIRES: Time slot is available/not occupied
@@ -86,4 +113,16 @@
  */
 - (void)addClass:(ModuleClass *)c;
 
+- (void)addConstraint:(NSNumber *)constraint;
+
+- (void)removeConstraint:(NSNumber *)constraint;
+
+- (BOOL)overlapModuleClass:(ModuleClass *)a withOtherModuleClass: (ModuleClass *)b;
+
+- (BOOL)overlapsWithSet:(NSSet *)setOfSelections withModuleClass:(ModuleClass *)c;
+
+- (BOOL)colorIsUsed: (UIColor *)color;
+
+
+- (NSMutableSet *)splitAndNormalized:(NSString *)str;
 @end

@@ -15,6 +15,7 @@
     NSRange columnRange;
     NSRange rowRange;
     
+//    NSTimer *blinkTimer;
 //    UIColor *tintColor;
 }
 
@@ -24,5 +25,6 @@
 @property (weak) UIColor *tintColor;
 
 - (void)configureView;
+- (void)setBlinking: (BOOL)blink;
 
 @end

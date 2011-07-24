@@ -7,49 +7,83 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		670495C113C2DD250039D0DC /* links.txt in Resources */ = {isa = PBXBuildFile; fileRef = 670495C013C2DD250039D0DC /* links.txt */; };
+		6713193713D0008B00F29AF4 /* MilestoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713192F13D0008B00F29AF4 /* MilestoneViewController.m */; };
+		6713193813D0008B00F29AF4 /* MilestoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6713193013D0008B00F29AF4 /* MilestoneViewController.xib */; };
+		6713193913D0008B00F29AF4 /* CategoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713193213D0008B00F29AF4 /* CategoryDetailViewController.m */; };
+		6713193A13D0008B00F29AF4 /* CategoryDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6713193313D0008B00F29AF4 /* CategoryDetailViewController.xib */; };
+		6713193B13D0008B00F29AF4 /* AddCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713193513D0008B00F29AF4 /* AddCategoryViewController.m */; };
+		6713193C13D0008B00F29AF4 /* AddCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6713193613D0008B00F29AF4 /* AddCategoryViewController.xib */; };
 		6718248513BE1A0D00443C08 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6718248413BE1A0D00443C08 /* UIKit.framework */; };
 		6718248713BE1A0D00443C08 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6718248613BE1A0D00443C08 /* Foundation.framework */; };
 		6718248913BE1A0D00443C08 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6718248813BE1A0D00443C08 /* CoreGraphics.framework */; };
 		6718248F13BE1A0D00443C08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6718248D13BE1A0D00443C08 /* InfoPlist.strings */; };
 		6718249113BE1A0D00443C08 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6718249013BE1A0D00443C08 /* main.m */; };
-		6718249513BE1A0D00443C08 /* NUS_ModAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6718249413BE1A0D00443C08 /* NUS_ModAppDelegate.m */; };
 		671824A413BE1AC700443C08 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 671824A313BE1AC700443C08 /* AccountManager.m */; };
-		6770C5AD13CBD80B00B31801 /* TitleWords.m in Sources */ = {isa = PBXBuildFile; fileRef = 6770C5AC13CBD80B00B31801 /* TitleWords.m */; };
-		6770C5B013CBD80C00B31801 /* ModuleClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 6770C5AF13CBD80C00B31801 /* ModuleClass.m */; };
-		6770C5B313CBD80C00B31801 /* Keyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 6770C5B213CBD80C00B31801 /* Keyword.m */; };
-		6770C5B613CBD80C00B31801 /* DescriptionWords.m in Sources */ = {isa = PBXBuildFile; fileRef = 6770C5B513CBD80C00B31801 /* DescriptionWords.m */; };
-		6770C5B913CBD80C00B31801 /* ModuleClassDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 6770C5B813CBD80C00B31801 /* ModuleClassDetail.m */; };
-		6770C5BC13CBD80C00B31801 /* CodeWords.m in Sources */ = {isa = PBXBuildFile; fileRef = 6770C5BB13CBD80C00B31801 /* CodeWords.m */; };
-		6770C5BF13CBD80C00B31801 /* Timetable.m in Sources */ = {isa = PBXBuildFile; fileRef = 6770C5BE13CBD80C00B31801 /* Timetable.m */; };
-		6770C5C613CBDA4900B31801 /* Module.m in Sources */ = {isa = PBXBuildFile; fileRef = 6770C5C513CBDA4900B31801 /* Module.m */; };
+		6758102913D0136300EA6969 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758102713D0136300EA6969 /* LoginViewController.m */; };
+		6758102C13D01C3A00EA6969 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6758102B13D01C3A00EA6969 /* LoginViewController.xib */; };
+		6758103613D024CF00EA6969 /* Keyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758103513D024CF00EA6969 /* Keyword.m */; };
+		6758103913D024D000EA6969 /* Timetable.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758103813D024D000EA6969 /* Timetable.m */; };
+		6758104513D024D000EA6969 /* DescriptionWords.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758104413D024D000EA6969 /* DescriptionWords.m */; };
+		6758104813D024D100EA6969 /* ModuleClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758104713D024D100EA6969 /* ModuleClass.m */; };
+		6758104B13D024D100EA6969 /* CodeWords.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758104A13D024D100EA6969 /* CodeWords.m */; };
+		6758104E13D024D100EA6969 /* TitleWords.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758104D13D024D100EA6969 /* TitleWords.m */; };
+		6758105113D024D100EA6969 /* ModuleClassDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758105013D024D100EA6969 /* ModuleClassDetail.m */; };
+		6758105B13D0416300EA6969 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758105A13D0416300EA6969 /* User.m */; };
+		6758105E13D0416500EA6969 /* AcademicPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758105D13D0416400EA6969 /* AcademicPeriod.m */; };
+		6758106A13D0738900EA6969 /* AcademicProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758106813D0738600EA6969 /* AcademicProgressViewController.m */; };
+		6758106B13D0738900EA6969 /* AcademicProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6758106913D0738800EA6969 /* AcademicProgressViewController.xib */; };
+		6758107A13D1381D00EA6969 /* Module.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758107913D1381C00EA6969 /* Module.m */; };
+		6758107D13D1381E00EA6969 /* Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758107C13D1381E00EA6969 /* Categories.m */; };
+		6758108113D13BA500EA6969 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758108013D13BA500EA6969 /* SearchViewController.m */; };
+		6758108A13D1446200EA6969 /* AddModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758108813D1444100EA6969 /* AddModuleViewController.m */; };
+		6758108B13D1446200EA6969 /* AddModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6758108913D1444300EA6969 /* AddModuleViewController.xib */; };
+		6772ED8513DC55D400DB129A /* NUS Mod.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 6772ED8413DC55D400DB129A /* NUS Mod.sqlite */; };
 		677A3D4513C1914000A20041 /* ModuleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677A3D4413C1914000A20041 /* ModuleManager.m */; };
+		678536A613D20082003F753E /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678536A513D20082003F753E /* SearchViewController.xib */; };
+		678536AA13D2018F003F753E /* ClassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536A813D2018F003F753E /* ClassView.m */; };
+		678536AB13D2018F003F753E /* ClassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678536A913D2018F003F753E /* ClassView.xib */; };
+		678536B913D20290003F753E /* WeekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536AF13D20290003F753E /* WeekViewController.m */; };
+		678536BA13D20290003F753E /* WeekViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678536B013D20290003F753E /* WeekViewController.xib */; };
+		678536BB13D20290003F753E /* EventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536B213D20290003F753E /* EventView.m */; };
+		678536BC13D20290003F753E /* ZSVerticalGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536B413D20290003F753E /* ZSVerticalGridView.m */; };
+		678536BD13D20290003F753E /* TimelineLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536B613D20290003F753E /* TimelineLabelView.m */; };
+		678536BE13D20290003F753E /* ZSHorizontalGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536B813D20290003F753E /* ZSHorizontalGridView.m */; };
+		678536C213D202A0003F753E /* ModuleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536C013D202A0003F753E /* ModuleDetailViewController.m */; };
+		678536C313D202A0003F753E /* ModuleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678536C113D202A0003F753E /* ModuleDetailViewController.xib */; };
+		678536C513D203E4003F753E /* NUS_ModAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536C413D203E4003F753E /* NUS_ModAppDelegate.m */; };
+		678536C913D2048C003F753E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536C713D2048C003F753E /* MainViewController.m */; };
+		678536CA13D2048C003F753E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678536C813D2048C003F753E /* MainViewController.xib */; };
 		67FA75A413BF9B8E002C6BA1 /* NUS Mod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67FA75A213BF9B8E002C6BA1 /* NUS Mod.xcdatamodeld */; };
 		67FA75EF13C03F10002C6BA1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FA75EE13C03F10002C6BA1 /* CoreData.framework */; };
 		67FA760513C08D97002C6BA1 /* Changelogs.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67FA760413C08D97002C6BA1 /* Changelogs.txt */; };
-		B082E59413CC9385008BB446 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B082E59313CC9385008BB446 /* LoginViewController.xib */; };
-		B082E59613CC9391008BB446 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B082E59513CC9391008BB446 /* MainViewController.xib */; };
-		B082E59913CC93AC008BB446 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E59813CC93AC008BB446 /* MainViewController.m */; };
+		B00A2DF413D2DC0000EB062D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00A2DF313D2DC0000EB062D /* MessageUI.framework */; };
+		B00A2DF813D2DD0D00EB062D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B00A2DF713D2DD0D00EB062D /* NSData+Base64.m */; };
+		B0688AF313D2926E00817DB8 /* CirclePlus.png in Resources */ = {isa = PBXBuildFile; fileRef = B0688AF213D2926E00817DB8 /* CirclePlus.png */; };
+		B0688AF713D2959200817DB8 /* AddCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0688AF613D2959200817DB8 /* AddCell.m */; };
+		B06B594913CF41C5005614E6 /* ModuleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06B594813CF41C5005614E6 /* ModuleCell.xib */; };
+		B06B594C13CF42EC005614E6 /* ModuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06B594B13CF42EC005614E6 /* ModuleCell.m */; };
 		B082E5A513CC9436008BB446 /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E5A413CC9436008BB446 /* UIColor+Random.m */; };
-		B082E5A913CC9448008BB446 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E5A713CC9448008BB446 /* SearchViewController.m */; };
-		B082E5AA13CC9448008BB446 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B082E5A813CC9448008BB446 /* SearchViewController.xib */; };
-		B082E5AE13CC9462008BB446 /* WeekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E5AC13CC9462008BB446 /* WeekViewController.m */; };
-		B082E5AF13CC9462008BB446 /* WeekViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B082E5AD13CC9462008BB446 /* WeekViewController.xib */; };
-		B082E5B513CC947F008BB446 /* ClassView.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E5B313CC947F008BB446 /* ClassView.m */; };
-		B082E5B613CC947F008BB446 /* ClassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B082E5B413CC947F008BB446 /* ClassView.xib */; };
-		B082E5BF13CC9488008BB446 /* EventView.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E5B813CC9488008BB446 /* EventView.m */; };
-		B082E5C013CC9488008BB446 /* ZSVerticalGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E5BA13CC9488008BB446 /* ZSVerticalGridView.m */; };
-		B082E5C113CC9488008BB446 /* TimelineLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E5BC13CC9488008BB446 /* TimelineLabelView.m */; };
-		B082E5C213CC9488008BB446 /* ZSHorizontalGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E5BE13CC9488008BB446 /* ZSHorizontalGridView.m */; };
-		B082E5C613CC9494008BB446 /* ModuleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E5C413CC9494008BB446 /* ModuleDetailViewController.m */; };
-		B082E5C713CC9494008BB446 /* ModuleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B082E5C513CC9494008BB446 /* ModuleDetailViewController.xib */; };
+		B082E5D613CC9824008BB446 /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = B082E5D513CC9824008BB446 /* NSManagedObjectContext+Fetch.m */; };
+		B09699A713D32EA100E878CB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B09699A613D32EA100E878CB /* Icon.png */; };
+		B09699AA13D32EB900E878CB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B09699A913D32EB900E878CB /* Icon.png */; };
+		B099DCDD13CDF7DD00AE9877 /* NSString+Time.m in Sources */ = {isa = PBXBuildFile; fileRef = B099DCDC13CDF7DD00AE9877 /* NSString+Time.m */; };
+		B0C0D8D113CDCA6A007C7D69 /* TimetableController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0D8CE13CDCA6A007C7D69 /* TimetableController.m */; };
+		B0C0D8D213CDCA6A007C7D69 /* ModuleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0D8D013CDCA6A007C7D69 /* ModuleListViewController.m */; };
+		B0CD167A13D2861E009B4CB5 /* StartHere.png in Resources */ = {isa = PBXBuildFile; fileRef = B0CD167913D2861E009B4CB5 /* StartHere.png */; };
 		B0D59C2D13BE9E55008785D5 /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B0D59C2C13BE9E54008785D5 /* README.rtf */; };
-		B0D59C3213BEAD19008785D5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D59C3013BEAD19008785D5 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		670495C013C2DD250039D0DC /* links.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = links.txt; sourceTree = "<group>"; };
-		6718248013BE1A0D00443C08 /* NUS Mod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NUS Mod.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6713192E13D0008B00F29AF4 /* MilestoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MilestoneViewController.h; sourceTree = "<group>"; };
+		6713192F13D0008B00F29AF4 /* MilestoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MilestoneViewController.m; sourceTree = "<group>"; };
+		6713193013D0008B00F29AF4 /* MilestoneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MilestoneViewController.xib; sourceTree = "<group>"; };
+		6713193113D0008B00F29AF4 /* CategoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryDetailViewController.h; sourceTree = "<group>"; };
+		6713193213D0008B00F29AF4 /* CategoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryDetailViewController.m; sourceTree = "<group>"; };
+		6713193313D0008B00F29AF4 /* CategoryDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryDetailViewController.xib; sourceTree = "<group>"; };
+		6713193413D0008B00F29AF4 /* AddCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCategoryViewController.h; sourceTree = "<group>"; };
+		6713193513D0008B00F29AF4 /* AddCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCategoryViewController.m; sourceTree = "<group>"; };
+		6713193613D0008B00F29AF4 /* AddCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCategoryViewController.xib; sourceTree = "<group>"; };
+		6718248013BE1A0D00443C08 /* NUS Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NUS Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6718248413BE1A0D00443C08 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6718248613BE1A0D00443C08 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6718248813BE1A0D00443C08 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -57,61 +91,94 @@
 		6718248E13BE1A0D00443C08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6718249013BE1A0D00443C08 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6718249213BE1A0D00443C08 /* NUS Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NUS Mod-Prefix.pch"; sourceTree = "<group>"; };
-		6718249313BE1A0D00443C08 /* NUS_ModAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NUS_ModAppDelegate.h; sourceTree = "<group>"; };
-		6718249413BE1A0D00443C08 /* NUS_ModAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NUS_ModAppDelegate.m; sourceTree = "<group>"; };
 		671824A213BE1AC700443C08 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
 		671824A313BE1AC700443C08 /* AccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManager.m; sourceTree = "<group>"; };
-		6770C5AB13CBD80B00B31801 /* TitleWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleWords.h; sourceTree = "<group>"; };
-		6770C5AC13CBD80B00B31801 /* TitleWords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleWords.m; sourceTree = "<group>"; };
-		6770C5AE13CBD80C00B31801 /* ModuleClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleClass.h; sourceTree = "<group>"; };
-		6770C5AF13CBD80C00B31801 /* ModuleClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleClass.m; sourceTree = "<group>"; };
-		6770C5B113CBD80C00B31801 /* Keyword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Keyword.h; sourceTree = "<group>"; };
-		6770C5B213CBD80C00B31801 /* Keyword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Keyword.m; sourceTree = "<group>"; };
-		6770C5B413CBD80C00B31801 /* DescriptionWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionWords.h; sourceTree = "<group>"; };
-		6770C5B513CBD80C00B31801 /* DescriptionWords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionWords.m; sourceTree = "<group>"; };
-		6770C5B713CBD80C00B31801 /* ModuleClassDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleClassDetail.h; sourceTree = "<group>"; };
-		6770C5B813CBD80C00B31801 /* ModuleClassDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleClassDetail.m; sourceTree = "<group>"; };
-		6770C5BA13CBD80C00B31801 /* CodeWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeWords.h; sourceTree = "<group>"; };
-		6770C5BB13CBD80C00B31801 /* CodeWords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeWords.m; sourceTree = "<group>"; };
-		6770C5BD13CBD80C00B31801 /* Timetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timetable.h; sourceTree = "<group>"; };
-		6770C5BE13CBD80C00B31801 /* Timetable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Timetable.m; sourceTree = "<group>"; };
-		6770C5C413CBDA4900B31801 /* Module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
-		6770C5C513CBDA4900B31801 /* Module.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Module.m; sourceTree = "<group>"; };
+		6758102613D0136300EA6969 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		6758102713D0136300EA6969 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		6758102B13D01C3A00EA6969 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		6758103413D024CF00EA6969 /* Keyword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Keyword.h; sourceTree = "<group>"; };
+		6758103513D024CF00EA6969 /* Keyword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Keyword.m; sourceTree = "<group>"; };
+		6758103713D024D000EA6969 /* Timetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timetable.h; sourceTree = "<group>"; };
+		6758103813D024D000EA6969 /* Timetable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Timetable.m; sourceTree = "<group>"; };
+		6758104313D024D000EA6969 /* DescriptionWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionWords.h; sourceTree = "<group>"; };
+		6758104413D024D000EA6969 /* DescriptionWords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionWords.m; sourceTree = "<group>"; };
+		6758104613D024D100EA6969 /* ModuleClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleClass.h; sourceTree = "<group>"; };
+		6758104713D024D100EA6969 /* ModuleClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleClass.m; sourceTree = "<group>"; };
+		6758104913D024D100EA6969 /* CodeWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeWords.h; sourceTree = "<group>"; };
+		6758104A13D024D100EA6969 /* CodeWords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeWords.m; sourceTree = "<group>"; };
+		6758104C13D024D100EA6969 /* TitleWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleWords.h; sourceTree = "<group>"; };
+		6758104D13D024D100EA6969 /* TitleWords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleWords.m; sourceTree = "<group>"; };
+		6758104F13D024D100EA6969 /* ModuleClassDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleClassDetail.h; sourceTree = "<group>"; };
+		6758105013D024D100EA6969 /* ModuleClassDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleClassDetail.m; sourceTree = "<group>"; };
+		6758105913D0416200EA6969 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		6758105A13D0416300EA6969 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6758105C13D0416400EA6969 /* AcademicPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcademicPeriod.h; sourceTree = "<group>"; };
+		6758105D13D0416400EA6969 /* AcademicPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcademicPeriod.m; sourceTree = "<group>"; };
+		6758106713D0738500EA6969 /* AcademicProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcademicProgressViewController.h; sourceTree = "<group>"; };
+		6758106813D0738600EA6969 /* AcademicProgressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcademicProgressViewController.m; sourceTree = "<group>"; };
+		6758106913D0738800EA6969 /* AcademicProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcademicProgressViewController.xib; sourceTree = "<group>"; };
+		6758107813D1381C00EA6969 /* Module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
+		6758107913D1381C00EA6969 /* Module.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Module.m; sourceTree = "<group>"; };
+		6758107B13D1381D00EA6969 /* Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categories.h; sourceTree = "<group>"; };
+		6758107C13D1381E00EA6969 /* Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categories.m; sourceTree = "<group>"; };
+		6758107F13D13BA500EA6969 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		6758108013D13BA500EA6969 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		6758108713D1443400EA6969 /* AddModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddModuleViewController.h; sourceTree = "<group>"; };
+		6758108813D1444100EA6969 /* AddModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddModuleViewController.m; sourceTree = "<group>"; };
+		6758108913D1444300EA6969 /* AddModuleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddModuleViewController.xib; sourceTree = "<group>"; };
+		6772ED8413DC55D400DB129A /* NUS Mod.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NUS Mod.sqlite"; sourceTree = "<group>"; };
 		677A3D4313C1914000A20041 /* ModuleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleManager.h; sourceTree = "<group>"; };
 		677A3D4413C1914000A20041 /* ModuleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleManager.m; sourceTree = "<group>"; };
+		678536A513D20082003F753E /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
+		678536A713D2018F003F753E /* ClassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassView.h; sourceTree = "<group>"; };
+		678536A813D2018F003F753E /* ClassView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassView.m; sourceTree = "<group>"; };
+		678536A913D2018F003F753E /* ClassView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClassView.xib; sourceTree = "<group>"; };
+		678536AE13D20290003F753E /* WeekViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeekViewController.h; sourceTree = "<group>"; };
+		678536AF13D20290003F753E /* WeekViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeekViewController.m; sourceTree = "<group>"; };
+		678536B013D20290003F753E /* WeekViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekViewController.xib; sourceTree = "<group>"; };
+		678536B113D20290003F753E /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
+		678536B213D20290003F753E /* EventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventView.m; sourceTree = "<group>"; };
+		678536B313D20290003F753E /* ZSVerticalGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSVerticalGridView.h; sourceTree = "<group>"; };
+		678536B413D20290003F753E /* ZSVerticalGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSVerticalGridView.m; sourceTree = "<group>"; };
+		678536B513D20290003F753E /* TimelineLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineLabelView.h; sourceTree = "<group>"; };
+		678536B613D20290003F753E /* TimelineLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineLabelView.m; sourceTree = "<group>"; };
+		678536B713D20290003F753E /* ZSHorizontalGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSHorizontalGridView.h; sourceTree = "<group>"; };
+		678536B813D20290003F753E /* ZSHorizontalGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSHorizontalGridView.m; sourceTree = "<group>"; };
+		678536BF13D202A0003F753E /* ModuleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleDetailViewController.h; sourceTree = "<group>"; };
+		678536C013D202A0003F753E /* ModuleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleDetailViewController.m; sourceTree = "<group>"; };
+		678536C113D202A0003F753E /* ModuleDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleDetailViewController.xib; sourceTree = "<group>"; };
+		678536C413D203E4003F753E /* NUS_ModAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUS_ModAppDelegate.m; sourceTree = "<group>"; };
+		678536C613D2048C003F753E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		678536C713D2048C003F753E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		678536C813D2048C003F753E /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		67FA75A313BF9B8E002C6BA1 /* NUS Mod.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NUS Mod.xcdatamodel"; sourceTree = "<group>"; };
 		67FA75EE13C03F10002C6BA1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		67FA760413C08D97002C6BA1 /* Changelogs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changelogs.txt; sourceTree = SOURCE_ROOT; };
-		B082E59313CC9385008BB446 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		B082E59513CC9391008BB446 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
-		B082E59713CC93AC008BB446 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		B082E59813CC93AC008BB446 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		B00A2DF313D2DC0000EB062D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		B00A2DF613D2DD0D00EB062D /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		B00A2DF713D2DD0D00EB062D /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		B0688AF213D2926E00817DB8 /* CirclePlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CirclePlus.png; sourceTree = "<group>"; };
+		B0688AF513D2959200817DB8 /* AddCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCell.h; sourceTree = "<group>"; };
+		B0688AF613D2959200817DB8 /* AddCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCell.m; sourceTree = "<group>"; };
+		B06B594813CF41C5005614E6 /* ModuleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleCell.xib; sourceTree = "<group>"; };
+		B06B594A13CF42EC005614E6 /* ModuleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleCell.h; sourceTree = "<group>"; };
+		B06B594B13CF42EC005614E6 /* ModuleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleCell.m; sourceTree = "<group>"; };
 		B082E59F13CC93FD008BB446 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		B082E5A313CC9436008BB446 /* UIColor+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Random.h"; sourceTree = "<group>"; };
 		B082E5A413CC9436008BB446 /* UIColor+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Random.m"; sourceTree = "<group>"; };
-		B082E5A613CC9448008BB446 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
-		B082E5A713CC9448008BB446 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
-		B082E5A813CC9448008BB446 /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
-		B082E5AB13CC9462008BB446 /* WeekViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeekViewController.h; sourceTree = "<group>"; };
-		B082E5AC13CC9462008BB446 /* WeekViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeekViewController.m; sourceTree = "<group>"; };
-		B082E5AD13CC9462008BB446 /* WeekViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekViewController.xib; sourceTree = "<group>"; };
-		B082E5B213CC947F008BB446 /* ClassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassView.h; sourceTree = "<group>"; };
-		B082E5B313CC947F008BB446 /* ClassView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassView.m; sourceTree = "<group>"; };
-		B082E5B413CC947F008BB446 /* ClassView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClassView.xib; sourceTree = "<group>"; };
-		B082E5B713CC9488008BB446 /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
-		B082E5B813CC9488008BB446 /* EventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventView.m; sourceTree = "<group>"; };
-		B082E5B913CC9488008BB446 /* ZSVerticalGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSVerticalGridView.h; sourceTree = "<group>"; };
-		B082E5BA13CC9488008BB446 /* ZSVerticalGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSVerticalGridView.m; sourceTree = "<group>"; };
-		B082E5BB13CC9488008BB446 /* TimelineLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineLabelView.h; sourceTree = "<group>"; };
-		B082E5BC13CC9488008BB446 /* TimelineLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineLabelView.m; sourceTree = "<group>"; };
-		B082E5BD13CC9488008BB446 /* ZSHorizontalGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSHorizontalGridView.h; sourceTree = "<group>"; };
-		B082E5BE13CC9488008BB446 /* ZSHorizontalGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSHorizontalGridView.m; sourceTree = "<group>"; };
-		B082E5C313CC9494008BB446 /* ModuleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleDetailViewController.h; sourceTree = "<group>"; };
-		B082E5C413CC9494008BB446 /* ModuleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleDetailViewController.m; sourceTree = "<group>"; };
-		B082E5C513CC9494008BB446 /* ModuleDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleDetailViewController.xib; sourceTree = "<group>"; };
+		B082E5D413CC9824008BB446 /* NSManagedObjectContext+Fetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Fetch.h"; sourceTree = "<group>"; };
+		B082E5D513CC9824008BB446 /* NSManagedObjectContext+Fetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Fetch.m"; sourceTree = "<group>"; };
+		B09699A613D32EA100E878CB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		B09699A913D32EB900E878CB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		B099DCDB13CDF7DD00AE9877 /* NSString+Time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Time.h"; sourceTree = "<group>"; };
+		B099DCDC13CDF7DD00AE9877 /* NSString+Time.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Time.m"; sourceTree = "<group>"; };
+		B0C0D8CD13CDCA6A007C7D69 /* TimetableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimetableController.h; sourceTree = "<group>"; };
+		B0C0D8CE13CDCA6A007C7D69 /* TimetableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimetableController.m; sourceTree = "<group>"; };
+		B0C0D8CF13CDCA6A007C7D69 /* ModuleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleListViewController.h; sourceTree = "<group>"; };
+		B0C0D8D013CDCA6A007C7D69 /* ModuleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleListViewController.m; sourceTree = "<group>"; };
+		B0C0D8DD13CDCAF8007C7D69 /* NUS_ModAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NUS_ModAppDelegate.h; sourceTree = "<group>"; };
+		B0CD167913D2861E009B4CB5 /* StartHere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartHere.png; sourceTree = "<group>"; };
 		B0D59C2C13BE9E54008785D5 /* README.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
-		B0D59C2F13BEAD19008785D5 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		B0D59C3013BEAD19008785D5 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B00A2DF413D2DC0000EB062D /* MessageUI.framework in Frameworks */,
 				67FA75EF13C03F10002C6BA1 /* CoreData.framework in Frameworks */,
 				6718248513BE1A0D00443C08 /* UIKit.framework in Frameworks */,
 				6718248713BE1A0D00443C08 /* Foundation.framework in Frameworks */,
@@ -129,10 +197,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6713192413D0003000F29AF4 /* Milestone */ = {
+			isa = PBXGroup;
+			children = (
+				6713192E13D0008B00F29AF4 /* MilestoneViewController.h */,
+				6713192F13D0008B00F29AF4 /* MilestoneViewController.m */,
+				6713193013D0008B00F29AF4 /* MilestoneViewController.xib */,
+				6713193113D0008B00F29AF4 /* CategoryDetailViewController.h */,
+				6713193213D0008B00F29AF4 /* CategoryDetailViewController.m */,
+				6713193313D0008B00F29AF4 /* CategoryDetailViewController.xib */,
+				6713193413D0008B00F29AF4 /* AddCategoryViewController.h */,
+				6713193513D0008B00F29AF4 /* AddCategoryViewController.m */,
+				6713193613D0008B00F29AF4 /* AddCategoryViewController.xib */,
+				6758102613D0136300EA6969 /* LoginViewController.h */,
+				6758102713D0136300EA6969 /* LoginViewController.m */,
+				6758102B13D01C3A00EA6969 /* LoginViewController.xib */,
+				6758106713D0738500EA6969 /* AcademicProgressViewController.h */,
+				6758106813D0738600EA6969 /* AcademicProgressViewController.m */,
+				6758106913D0738800EA6969 /* AcademicProgressViewController.xib */,
+				6758108713D1443400EA6969 /* AddModuleViewController.h */,
+				6758108813D1444100EA6969 /* AddModuleViewController.m */,
+				6758108913D1444300EA6969 /* AddModuleViewController.xib */,
+			);
+			name = Milestone;
+			sourceTree = "<group>";
+		};
 		6718247513BE1A0D00443C08 = {
 			isa = PBXGroup;
 			children = (
+				B09699A913D32EB900E878CB /* Icon.png */,
 				B082E59F13CC93FD008BB446 /* Constants.h */,
+				B082E5A213CC9411008BB446 /* Categories */,
 				B082E59E13CC93E0008BB446 /* UI */,
 				6718248A13BE1A0D00443C08 /* NUS Mod */,
 				6718248313BE1A0D00443C08 /* Frameworks */,
@@ -143,7 +238,7 @@
 		6718248113BE1A0D00443C08 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6718248013BE1A0D00443C08 /* NUS Mod.app */,
+				6718248013BE1A0D00443C08 /* NUS Planner.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,6 +246,7 @@
 		6718248313BE1A0D00443C08 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B00A2DF313D2DC0000EB062D /* MessageUI.framework */,
 				67FA75EE13C03F10002C6BA1 /* CoreData.framework */,
 				6718248413BE1A0D00443C08 /* UIKit.framework */,
 				6718248613BE1A0D00443C08 /* Foundation.framework */,
@@ -166,9 +262,8 @@
 				B0D59C2C13BE9E54008785D5 /* README.rtf */,
 				677A3D4113C1912600A20041 /* Utility */,
 				B0D59C2913BE9DF7008785D5 /* Models */,
-				6718249313BE1A0D00443C08 /* NUS_ModAppDelegate.h */,
-				6718249413BE1A0D00443C08 /* NUS_ModAppDelegate.m */,
-				B0D59C2E13BE9EC4008785D5 /* Controllers */,
+				B0C0D8DD13CDCAF8007C7D69 /* NUS_ModAppDelegate.h */,
+				678536C413D203E4003F753E /* NUS_ModAppDelegate.m */,
 				6718248B13BE1A0D00443C08 /* Supporting Files */,
 			);
 			path = "NUS Mod";
@@ -177,7 +272,9 @@
 		6718248B13BE1A0D00443C08 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				670495C013C2DD250039D0DC /* links.txt */,
+				6772ED8413DC55D400DB129A /* NUS Mod.sqlite */,
+				B09699A613D32EA100E878CB /* Icon.png */,
+				B0CD167813D28603009B4CB5 /* Artwork */,
 				6718248C13BE1A0D00443C08 /* NUS Mod-Info.plist */,
 				6718248D13BE1A0D00443C08 /* InfoPlist.strings */,
 				6718249013BE1A0D00443C08 /* main.m */,
@@ -186,29 +283,91 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6758105513D024DF00EA6969 /* Keyword */ = {
+			isa = PBXGroup;
+			children = (
+				6758103413D024CF00EA6969 /* Keyword.h */,
+				6758103513D024CF00EA6969 /* Keyword.m */,
+				6758104313D024D000EA6969 /* DescriptionWords.h */,
+				6758104413D024D000EA6969 /* DescriptionWords.m */,
+				6758104913D024D100EA6969 /* CodeWords.h */,
+				6758104A13D024D100EA6969 /* CodeWords.m */,
+				6758104C13D024D100EA6969 /* TitleWords.h */,
+				6758104D13D024D100EA6969 /* TitleWords.m */,
+			);
+			name = Keyword;
+			sourceTree = "<group>";
+		};
 		677A3D4113C1912600A20041 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				677A3D4313C1914000A20041 /* ModuleManager.h */,
 				677A3D4413C1914000A20041 /* ModuleManager.m */,
+				671824A213BE1AC700443C08 /* AccountManager.h */,
+				671824A313BE1AC700443C08 /* AccountManager.m */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		678536AC13D20252003F753E /* Building blocks */ = {
+			isa = PBXGroup;
+			children = (
+				678536AE13D20290003F753E /* WeekViewController.h */,
+				678536AF13D20290003F753E /* WeekViewController.m */,
+				678536B013D20290003F753E /* WeekViewController.xib */,
+				678536B113D20290003F753E /* EventView.h */,
+				678536B213D20290003F753E /* EventView.m */,
+				678536B313D20290003F753E /* ZSVerticalGridView.h */,
+				678536B413D20290003F753E /* ZSVerticalGridView.m */,
+				678536B513D20290003F753E /* TimelineLabelView.h */,
+				678536B613D20290003F753E /* TimelineLabelView.m */,
+				678536B713D20290003F753E /* ZSHorizontalGridView.h */,
+				678536B813D20290003F753E /* ZSHorizontalGridView.m */,
+			);
+			name = "Building blocks";
+			sourceTree = "<group>";
+		};
+		678536AD13D2026C003F753E /* Module Detail */ = {
+			isa = PBXGroup;
+			children = (
+				678536BF13D202A0003F753E /* ModuleDetailViewController.h */,
+				678536C013D202A0003F753E /* ModuleDetailViewController.m */,
+				678536C113D202A0003F753E /* ModuleDetailViewController.xib */,
+			);
+			name = "Module Detail";
 			sourceTree = "<group>";
 		};
 		B0412EC613C05B2B0091C63E /* Main (Timetable) */ = {
 			isa = PBXGroup;
 			children = (
-				B082E59713CC93AC008BB446 /* MainViewController.h */,
-				B082E59813CC93AC008BB446 /* MainViewController.m */,
-				B082E59513CC9391008BB446 /* MainViewController.xib */,
+				678536C613D2048C003F753E /* MainViewController.h */,
+				678536C713D2048C003F753E /* MainViewController.m */,
+				678536C813D2048C003F753E /* MainViewController.xib */,
 			);
 			name = "Main (Timetable)";
+			path = "NUS Mod";
+			sourceTree = "<group>";
+		};
+		B06B594613CF3E4A005614E6 /* Module List */ = {
+			isa = PBXGroup;
+			children = (
+				B0C0D8CF13CDCA6A007C7D69 /* ModuleListViewController.h */,
+				B0C0D8D013CDCA6A007C7D69 /* ModuleListViewController.m */,
+				B06B594A13CF42EC005614E6 /* ModuleCell.h */,
+				B06B594B13CF42EC005614E6 /* ModuleCell.m */,
+				B0688AF513D2959200817DB8 /* AddCell.h */,
+				B0688AF613D2959200817DB8 /* AddCell.m */,
+				B06B594813CF41C5005614E6 /* ModuleCell.xib */,
+			);
+			name = "Module List";
 			sourceTree = "<group>";
 		};
 		B082E59E13CC93E0008BB446 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				B082E5A213CC9411008BB446 /* Categories */,
+				B0412EC613C05B2B0091C63E /* Main (Timetable) */,
+				6713192413D0003000F29AF4 /* Milestone */,
+				B06B594613CF3E4A005614E6 /* Module List */,
 				B082E5A113CC940F008BB446 /* Search */,
 				B082E5A013CC940B008BB446 /* Timetable */,
 			);
@@ -218,14 +377,11 @@
 		B082E5A013CC940B008BB446 /* Timetable */ = {
 			isa = PBXGroup;
 			children = (
-				B082E5AB13CC9462008BB446 /* WeekViewController.h */,
-				B082E5AC13CC9462008BB446 /* WeekViewController.m */,
-				B082E5AD13CC9462008BB446 /* WeekViewController.xib */,
+				B0C0D8CD13CDCA6A007C7D69 /* TimetableController.h */,
+				B0C0D8CE13CDCA6A007C7D69 /* TimetableController.m */,
 				B082E5B113CC946F008BB446 /* Views */,
-				B082E5B013CC9468008BB446 /* Building blocks */,
-				B082E5C313CC9494008BB446 /* ModuleDetailViewController.h */,
-				B082E5C413CC9494008BB446 /* ModuleDetailViewController.m */,
-				B082E5C513CC9494008BB446 /* ModuleDetailViewController.xib */,
+				678536AC13D20252003F753E /* Building blocks */,
+				678536AD13D2026C003F753E /* Module Detail */,
 			);
 			name = Timetable;
 			sourceTree = "<group>";
@@ -233,9 +389,9 @@
 		B082E5A113CC940F008BB446 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				B082E5A613CC9448008BB446 /* SearchViewController.h */,
-				B082E5A713CC9448008BB446 /* SearchViewController.m */,
-				B082E5A813CC9448008BB446 /* SearchViewController.xib */,
+				6758107F13D13BA500EA6969 /* SearchViewController.h */,
+				6758108013D13BA500EA6969 /* SearchViewController.m */,
+				678536A513D20082003F753E /* SearchViewController.xib */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -245,70 +401,56 @@
 			children = (
 				B082E5A313CC9436008BB446 /* UIColor+Random.h */,
 				B082E5A413CC9436008BB446 /* UIColor+Random.m */,
+				B082E5D413CC9824008BB446 /* NSManagedObjectContext+Fetch.h */,
+				B082E5D513CC9824008BB446 /* NSManagedObjectContext+Fetch.m */,
+				B099DCDB13CDF7DD00AE9877 /* NSString+Time.h */,
+				B099DCDC13CDF7DD00AE9877 /* NSString+Time.m */,
+				B00A2DF613D2DD0D00EB062D /* NSData+Base64.h */,
+				B00A2DF713D2DD0D00EB062D /* NSData+Base64.m */,
 			);
 			name = Categories;
-			sourceTree = "<group>";
-		};
-		B082E5B013CC9468008BB446 /* Building blocks */ = {
-			isa = PBXGroup;
-			children = (
-				B082E5B713CC9488008BB446 /* EventView.h */,
-				B082E5B813CC9488008BB446 /* EventView.m */,
-				B082E5B913CC9488008BB446 /* ZSVerticalGridView.h */,
-				B082E5BA13CC9488008BB446 /* ZSVerticalGridView.m */,
-				B082E5BB13CC9488008BB446 /* TimelineLabelView.h */,
-				B082E5BC13CC9488008BB446 /* TimelineLabelView.m */,
-				B082E5BD13CC9488008BB446 /* ZSHorizontalGridView.h */,
-				B082E5BE13CC9488008BB446 /* ZSHorizontalGridView.m */,
-			);
-			name = "Building blocks";
 			sourceTree = "<group>";
 		};
 		B082E5B113CC946F008BB446 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B082E5B213CC947F008BB446 /* ClassView.h */,
-				B082E5B313CC947F008BB446 /* ClassView.m */,
-				B082E5B413CC947F008BB446 /* ClassView.xib */,
+				678536A713D2018F003F753E /* ClassView.h */,
+				678536A813D2018F003F753E /* ClassView.m */,
+				678536A913D2018F003F753E /* ClassView.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		B0CD167813D28603009B4CB5 /* Artwork */ = {
+			isa = PBXGroup;
+			children = (
+				B0688AF213D2926E00817DB8 /* CirclePlus.png */,
+				B0CD167913D2861E009B4CB5 /* StartHere.png */,
+			);
+			name = Artwork;
 			sourceTree = "<group>";
 		};
 		B0D59C2913BE9DF7008785D5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6758105513D024DF00EA6969 /* Keyword */,
 				67FA75A213BF9B8E002C6BA1 /* NUS Mod.xcdatamodeld */,
-				6770C5C413CBDA4900B31801 /* Module.h */,
-				6770C5C513CBDA4900B31801 /* Module.m */,
-				6770C5AE13CBD80C00B31801 /* ModuleClass.h */,
-				6770C5AF13CBD80C00B31801 /* ModuleClass.m */,
-				6770C5B713CBD80C00B31801 /* ModuleClassDetail.h */,
-				6770C5B813CBD80C00B31801 /* ModuleClassDetail.m */,
-				6770C5BD13CBD80C00B31801 /* Timetable.h */,
-				6770C5BE13CBD80C00B31801 /* Timetable.m */,
-				6770C5B113CBD80C00B31801 /* Keyword.h */,
-				6770C5B213CBD80C00B31801 /* Keyword.m */,
-				6770C5BA13CBD80C00B31801 /* CodeWords.h */,
-				6770C5BB13CBD80C00B31801 /* CodeWords.m */,
-				6770C5AB13CBD80B00B31801 /* TitleWords.h */,
-				6770C5AC13CBD80B00B31801 /* TitleWords.m */,
-				6770C5B413CBD80C00B31801 /* DescriptionWords.h */,
-				6770C5B513CBD80C00B31801 /* DescriptionWords.m */,
+				6758103713D024D000EA6969 /* Timetable.h */,
+				6758103813D024D000EA6969 /* Timetable.m */,
+				6758104613D024D100EA6969 /* ModuleClass.h */,
+				6758104713D024D100EA6969 /* ModuleClass.m */,
+				6758104F13D024D100EA6969 /* ModuleClassDetail.h */,
+				6758105013D024D100EA6969 /* ModuleClassDetail.m */,
+				6758105913D0416200EA6969 /* User.h */,
+				6758105A13D0416300EA6969 /* User.m */,
+				6758105C13D0416400EA6969 /* AcademicPeriod.h */,
+				6758105D13D0416400EA6969 /* AcademicPeriod.m */,
+				6758107813D1381C00EA6969 /* Module.h */,
+				6758107913D1381C00EA6969 /* Module.m */,
+				6758107B13D1381D00EA6969 /* Categories.h */,
+				6758107C13D1381E00EA6969 /* Categories.m */,
 			);
 			name = Models;
-			sourceTree = "<group>";
-		};
-		B0D59C2E13BE9EC4008785D5 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				B0D59C2F13BEAD19008785D5 /* LoginViewController.h */,
-				B0D59C3013BEAD19008785D5 /* LoginViewController.m */,
-				B082E59313CC9385008BB446 /* LoginViewController.xib */,
-				B0412EC613C05B2B0091C63E /* Main (Timetable) */,
-				671824A213BE1AC700443C08 /* AccountManager.h */,
-				671824A313BE1AC700443C08 /* AccountManager.m */,
-			);
-			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,7 +470,7 @@
 			);
 			name = "NUS Mod";
 			productName = "NUS Mod";
-			productReference = 6718248013BE1A0D00443C08 /* NUS Mod.app */;
+			productReference = 6718248013BE1A0D00443C08 /* NUS Planner.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -337,6 +479,7 @@
 		6718247713BE1A0D00443C08 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = NUS;
 			};
 			buildConfigurationList = 6718247A13BE1A0D00443C08 /* Build configuration list for PBXProject "NUS Mod" */;
@@ -364,13 +507,23 @@
 				6718248F13BE1A0D00443C08 /* InfoPlist.strings in Resources */,
 				B0D59C2D13BE9E55008785D5 /* README.rtf in Resources */,
 				67FA760513C08D97002C6BA1 /* Changelogs.txt in Resources */,
-				670495C113C2DD250039D0DC /* links.txt in Resources */,
-				B082E59413CC9385008BB446 /* LoginViewController.xib in Resources */,
-				B082E59613CC9391008BB446 /* MainViewController.xib in Resources */,
-				B082E5AA13CC9448008BB446 /* SearchViewController.xib in Resources */,
-				B082E5AF13CC9462008BB446 /* WeekViewController.xib in Resources */,
-				B082E5B613CC947F008BB446 /* ClassView.xib in Resources */,
-				B082E5C713CC9494008BB446 /* ModuleDetailViewController.xib in Resources */,
+				B06B594913CF41C5005614E6 /* ModuleCell.xib in Resources */,
+				6713193813D0008B00F29AF4 /* MilestoneViewController.xib in Resources */,
+				6713193A13D0008B00F29AF4 /* CategoryDetailViewController.xib in Resources */,
+				6713193C13D0008B00F29AF4 /* AddCategoryViewController.xib in Resources */,
+				6758102C13D01C3A00EA6969 /* LoginViewController.xib in Resources */,
+				6758106B13D0738900EA6969 /* AcademicProgressViewController.xib in Resources */,
+				6758108B13D1446200EA6969 /* AddModuleViewController.xib in Resources */,
+				678536A613D20082003F753E /* SearchViewController.xib in Resources */,
+				678536AB13D2018F003F753E /* ClassView.xib in Resources */,
+				678536BA13D20290003F753E /* WeekViewController.xib in Resources */,
+				678536C313D202A0003F753E /* ModuleDetailViewController.xib in Resources */,
+				678536CA13D2048C003F753E /* MainViewController.xib in Resources */,
+				B0CD167A13D2861E009B4CB5 /* StartHere.png in Resources */,
+				B0688AF313D2926E00817DB8 /* CirclePlus.png in Resources */,
+				B09699A713D32EA100E878CB /* Icon.png in Resources */,
+				B09699AA13D32EB900E878CB /* Icon.png in Resources */,
+				6772ED8513DC55D400DB129A /* NUS Mod.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,29 +535,44 @@
 			buildActionMask = 2147483647;
 			files = (
 				6718249113BE1A0D00443C08 /* main.m in Sources */,
-				6718249513BE1A0D00443C08 /* NUS_ModAppDelegate.m in Sources */,
 				671824A413BE1AC700443C08 /* AccountManager.m in Sources */,
-				B0D59C3213BEAD19008785D5 /* LoginViewController.m in Sources */,
 				67FA75A413BF9B8E002C6BA1 /* NUS Mod.xcdatamodeld in Sources */,
 				677A3D4513C1914000A20041 /* ModuleManager.m in Sources */,
-				6770C5AD13CBD80B00B31801 /* TitleWords.m in Sources */,
-				6770C5B013CBD80C00B31801 /* ModuleClass.m in Sources */,
-				6770C5B313CBD80C00B31801 /* Keyword.m in Sources */,
-				6770C5B613CBD80C00B31801 /* DescriptionWords.m in Sources */,
-				6770C5B913CBD80C00B31801 /* ModuleClassDetail.m in Sources */,
-				6770C5BC13CBD80C00B31801 /* CodeWords.m in Sources */,
-				6770C5BF13CBD80C00B31801 /* Timetable.m in Sources */,
-				6770C5C613CBDA4900B31801 /* Module.m in Sources */,
-				B082E59913CC93AC008BB446 /* MainViewController.m in Sources */,
 				B082E5A513CC9436008BB446 /* UIColor+Random.m in Sources */,
-				B082E5A913CC9448008BB446 /* SearchViewController.m in Sources */,
-				B082E5AE13CC9462008BB446 /* WeekViewController.m in Sources */,
-				B082E5B513CC947F008BB446 /* ClassView.m in Sources */,
-				B082E5BF13CC9488008BB446 /* EventView.m in Sources */,
-				B082E5C013CC9488008BB446 /* ZSVerticalGridView.m in Sources */,
-				B082E5C113CC9488008BB446 /* TimelineLabelView.m in Sources */,
-				B082E5C213CC9488008BB446 /* ZSHorizontalGridView.m in Sources */,
-				B082E5C613CC9494008BB446 /* ModuleDetailViewController.m in Sources */,
+				B082E5D613CC9824008BB446 /* NSManagedObjectContext+Fetch.m in Sources */,
+				B0C0D8D113CDCA6A007C7D69 /* TimetableController.m in Sources */,
+				B0C0D8D213CDCA6A007C7D69 /* ModuleListViewController.m in Sources */,
+				B099DCDD13CDF7DD00AE9877 /* NSString+Time.m in Sources */,
+				B06B594C13CF42EC005614E6 /* ModuleCell.m in Sources */,
+				6713193713D0008B00F29AF4 /* MilestoneViewController.m in Sources */,
+				6713193913D0008B00F29AF4 /* CategoryDetailViewController.m in Sources */,
+				6713193B13D0008B00F29AF4 /* AddCategoryViewController.m in Sources */,
+				6758102913D0136300EA6969 /* LoginViewController.m in Sources */,
+				6758103613D024CF00EA6969 /* Keyword.m in Sources */,
+				6758103913D024D000EA6969 /* Timetable.m in Sources */,
+				6758104513D024D000EA6969 /* DescriptionWords.m in Sources */,
+				6758104813D024D100EA6969 /* ModuleClass.m in Sources */,
+				6758104B13D024D100EA6969 /* CodeWords.m in Sources */,
+				6758104E13D024D100EA6969 /* TitleWords.m in Sources */,
+				6758105113D024D100EA6969 /* ModuleClassDetail.m in Sources */,
+				6758105B13D0416300EA6969 /* User.m in Sources */,
+				6758105E13D0416500EA6969 /* AcademicPeriod.m in Sources */,
+				6758106A13D0738900EA6969 /* AcademicProgressViewController.m in Sources */,
+				6758107A13D1381D00EA6969 /* Module.m in Sources */,
+				6758107D13D1381E00EA6969 /* Categories.m in Sources */,
+				6758108113D13BA500EA6969 /* SearchViewController.m in Sources */,
+				6758108A13D1446200EA6969 /* AddModuleViewController.m in Sources */,
+				678536AA13D2018F003F753E /* ClassView.m in Sources */,
+				678536B913D20290003F753E /* WeekViewController.m in Sources */,
+				678536BB13D20290003F753E /* EventView.m in Sources */,
+				678536BC13D20290003F753E /* ZSVerticalGridView.m in Sources */,
+				678536BD13D20290003F753E /* TimelineLabelView.m in Sources */,
+				678536BE13D20290003F753E /* ZSHorizontalGridView.m in Sources */,
+				678536C213D202A0003F753E /* ModuleDetailViewController.m in Sources */,
+				678536C513D203E4003F753E /* NUS_ModAppDelegate.m in Sources */,
+				678536C913D2048C003F753E /* MainViewController.m in Sources */,
+				B0688AF713D2959200817DB8 /* AddCell.m in Sources */,
+				B00A2DF813D2DD0D00EB062D /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +610,11 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -461,8 +633,12 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -476,7 +652,8 @@
 				GCC_PREFIX_HEADER = "NUS Mod/NUS Mod-Prefix.pch";
 				INFOPLIST_FILE = "NUS Mod/NUS Mod-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "NUS Planner";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -488,7 +665,8 @@
 				GCC_PREFIX_HEADER = "NUS Mod/NUS Mod-Prefix.pch";
 				INFOPLIST_FILE = "NUS Mod/NUS Mod-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "NUS Planner";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -14,4 +14,6 @@
 #define GRID_COLOR_B 0.761
 #define GRID_LINE_WIDTH 1.0
 
+#define kGeneratedCombinationsDidUpdateNotification @"GeneratedCombinationsDidUpdate"
+
 #endif

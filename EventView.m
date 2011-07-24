@@ -40,6 +40,7 @@
     rowRange.length = 0;
     self.layer.cornerRadius = 5.0;
     self.opaque = YES;
+    self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 }
 
 /*
@@ -62,7 +63,30 @@
 //    tintColor = color;
     CGFloat r, g, b, a;
     [color getRed:&r green:&g blue:&b alpha:&a];
-    self.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:0.5];
+    self.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:0.8];
 }
+
+- (void)setBlinking: (BOOL)blink {
+    if (blink) {
+        CGFloat duration = 0.5;
+        
+        self.alpha = 0.8;
+        
+        [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat animations:^{
+            self.alpha = 0.3;
+        } completion:^(BOOL finished) {
+            //        [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationCurveEaseInOut animations:^{
+            //            self.alpha = 1.0;
+            //        } completion:^(BOOL finished) {
+            //            
+            //        }];
+        }];
+    } else {
+        self.alpha = 1;
+    }
+    
+}
+
+
 
 @end

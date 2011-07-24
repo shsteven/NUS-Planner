@@ -16,12 +16,25 @@
 #import "SearchViewController.h"
 
 #import "WeekViewController.h"
+#import "ModuleManager.h"
+#import "ModuleListViewController.h"
+#import "TimetableController.h"
+#import "Constants.h"
+#import "Timetable.h"
+
+#import "MilestoneViewController.h"
+#import <MessageUI/MessageUI.h>
+#import "NSData+Base64.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation MainViewController
 
 @synthesize managedObjectContext = __managedObjectContext;
-@synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize timetable = __timetable;
+@synthesize moduleManager;
+@synthesize moduleList;
+@synthesize searchViewController;
+@synthesize popover;
 
 - (void)didReceiveMemoryWarning
 {
@@ -34,32 +47,285 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.title = @"My Timetable";
+	
     
-    self.navigationItem.leftBarButtonItem = actionButton;
+    moduleManager = [ModuleManager sharedManager];
+    self.title = @"My Timetable 1";
     
-    searchField.autocorrectionType = UITextAutocorrectionTypeNo; // Workaround for A bug in iOS Simulator
-    
-    // Create a search field on the right
-    searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchField];
-    self.navigationItem.rightBarButtonItem = searchItem;
+    self.navigationItem.rightBarButtonItem = actionButton;
     
     id delegate = [[UIApplication sharedApplication] delegate];
     self.managedObjectContext = [delegate managedObjectContext];
+
+
     
-    searchPopOver = [[UIPopoverController alloc] initWithContentViewController:searchViewController];
-    searchPopOver.delegate = self;
+    // The main timetable view
+//    weekViewController = [[WeekViewController alloc] initWithNibName:@"WeekViewController" bundle:nil];
     
-    
-    weekViewController = [[WeekViewController alloc] initWithNibName:@"WeekViewController" bundle:nil];
-    
-    CGRect frame = moduleListTableView.frame;
+    CGRect frame = moduleListViewController.view.frame;
     frame.origin.x += frame.size.width;
     frame.size.width = self.view.bounds.size.width - frame.size.width;
-    weekViewController.view.frame = frame;
-    [self.view addSubview:weekViewController.view];
+    
+    visiblePages = [NSMutableSet new];
+    
+    pagingScrollView = [[UIScrollView alloc] initWithFrame:frame];
+    pagingScrollView.delegate = self;
+    pagingScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+//    frame.origin = CGPointZero;
+//    weekViewController.view.frame = [self frameForPageAtIndex: 0];
+
+    pagingScrollView.contentSize = frame.size;
+    pagingScrollView.pagingEnabled = YES;
+    
+//    [pagingScrollView addSubview:weekViewController.view];
+    
+    [self.view addSubview:pagingScrollView];
+    
+    
+//    timetableController.weekViewController = weekViewController;
+//    timetableController.selections = [moduleManager.combinations objectAtIndex:0];
+//    [timetableController reloadData];
+    [self tilePages];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(configurePagingScrollView) name:kGeneratedCombinationsDidUpdateNotification object:nil];
+    
+    [self setPagingMode:YES];
+    
+    
+    actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Milestones", @"Email my timetable", @"Clear all modules",nil];
 }
+
+
+- (IBAction)handleActionButton:(id)sender {
+    if([actionSheet isVisible]) {
+        [actionSheet dismissWithClickedButtonIndex:4 animated:YES];
+        return;
+    }
+    [actionSheet showFromBarButtonItem:actionButton animated:YES];
+}
+
+- (void)setPagingMode: (BOOL)mode {
+    inPagingMode = mode;
+    [self configurePagingScrollView];
+    if (inPagingMode) {
+        for (WeekViewController *weekVC in visiblePages) {
+            [weekVC setInPagingMode:inPagingMode animated:YES];
+        }
+    }
+}
+
+- (void)configurePagingScrollView {
+    NSLog(@"configure paging scroll view");
+    
+    NSUInteger pageCount = 1;
+    pagingScrollView.contentOffset = CGPointZero;
+
+    
+    if (inPagingMode) {
+        pageCount = [moduleManager.combinations count];
+//        if (pageCount == 0) pageCount = 1;
+        if (pageCount == 0) {
+            pagingScrollView.scrollEnabled = NO;
+            [self setShowsNoCombinationView: YES];
+            
+            return;
+        } else
+            [self setShowsNoCombinationView: NO];
+        pagingScrollView.scrollEnabled = YES; 
+    } else 
+        pagingScrollView.scrollEnabled = NO;
+    
+    CGSize size = pagingScrollView.bounds.size;
+    size.width *= pageCount;
+    pagingScrollView.contentSize = size;
+    
+    
+    [self reloadData];
+    
+    [self scrollViewDidEndDecelerating:pagingScrollView]; // Trigger data source to be set correctly
+
+
+}
+
+- (void) setShowsNoCombinationView: (BOOL)show {
+    if (show) {
+        WeekViewController *weekVC = [self pageAtIndex:0];
+        [weekVC clearAllEventViews];
+        
+        CGRect frame = CGRectMake(0, 0, 500, 44);
+        UILabel *label = [[UILabel alloc] initWithFrame:frame];
+        label.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
+        label.textColor = [UIColor whiteColor];
+        label.text = @"Unable to generate timetables because of clashes.\nPlease try removing a module from the list.";
+        [weekVC.view addSubview:label];
+        label.numberOfLines = 2;
+        label.textAlignment = UITextAlignmentCenter;
+        label.center = weekVC.view.center;
+        label.layer.cornerRadius = 10.0;
+    }
+}
+
+
+- (void)reloadData {
+    for (WeekViewController *page in visiblePages) {
+        [page.view removeFromSuperview];
+    }
+    
+    [visiblePages removeAllObjects];
+    
+    if (![moduleManager.combinations count]) return;
+    [self tilePages];
+    NSSet *set = [NSSet setWithArray:[moduleManager.combinations objectAtIndex:0]];
+    moduleManager.timetable.selections = set;
+    
+    [self scrollViewDidEndDecelerating:pagingScrollView];   // Update page number etc.
+}
+
+- (void) reloadPageAtIndex: (NSUInteger)pageIndex {
+    WeekViewController *page = [self pageAtIndex:pageIndex];
+    if (page)
+        [page.view setNeedsDisplay];
+    
+}
+
+
+- (BOOL)isDisplayingPageForIndex: (NSUInteger)index {
+    for (WeekViewController *pageVC in visiblePages) {
+        if (pageVC.index == index) return YES;
+    }
+    
+    return NO;
+}
+
+- (WeekViewController *)pageAtIndex: (NSUInteger)pageIndex {
+    for (WeekViewController *page in visiblePages) {
+        if (page.index == pageIndex)
+            return page;
+    }
+    return nil;
+}
+
+
+- (CGRect)frameForPageAtIndex: (NSUInteger) index {
+    CGRect frame = pagingScrollView.bounds;
+    frame.origin.x = index * frame.size.width;
+    return frame;
+}
+
+#pragma mark - PagingScrollView delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    [self tilePages];
+    self.title = [NSString stringWithFormat:@"My Timetable %d", currentPageIndex + 1];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSSet *set = [NSSet setWithArray:[moduleManager.combinations objectAtIndex:currentPageIndex]];
+    moduleManager.timetable.selections = set;
+
+    for (WeekViewController *pageVC in visiblePages) {
+        // Swap the data source if appropriate
+        if (pageVC.index == currentPageIndex) {
+            WeekViewController *pageVC = [self pageAtIndex:currentPageIndex];
+            pageVC.timetableController.selections = moduleManager.timetable.selections;
+        } else {
+            pageVC.timetableController.selections = [moduleManager.combinations objectAtIndex:pageVC.index];
+        }
+    }
+    
+}
+
+- (NSUInteger) numberOfPages {
+    return MAX(1, [moduleManager.combinations count]);
+}
+
+- (void)tilePages
+{    
+    // Calculate which pages are visible
+    CGRect visibleBounds = pagingScrollView.bounds;
+    int firstNeededPageIndex = floorf(CGRectGetMinX(visibleBounds) / CGRectGetWidth(visibleBounds));
+    int lastNeededPageIndex  = floorf((CGRectGetMaxX(visibleBounds)-1) / CGRectGetWidth(visibleBounds));
+    
+
+    firstNeededPageIndex = MAX(firstNeededPageIndex, 0);
+    lastNeededPageIndex  = MIN(lastNeededPageIndex, [self numberOfPages] - 1);
+    
+    currentPageIndex = firstNeededPageIndex;
+    
+    
+    // Check datasource
+    if (![moduleManager.timetable.selections count] && ![moduleManager.combinations count]) return;
+    
+//    [pageVC.timetableController reloadData];
+    
+    // Recycle no-longer-visible pages 
+    
+    NSMutableSet *removedPages = [NSMutableSet set];
+    
+    for (WeekViewController *pageVC in visiblePages) {
+
+        
+        if (pageVC.index < firstNeededPageIndex || pageVC.index > lastNeededPageIndex) {
+            //            [recycledPages addObject:page];
+            [pageVC.view removeFromSuperview];
+            [removedPages addObject:pageVC];
+        }
+    }
+    [visiblePages minusSet:removedPages];
+    
+    // add missing pages
+    for (int index = firstNeededPageIndex; index <= lastNeededPageIndex; index++) {
+        if (![self isDisplayingPageForIndex:index] && index < self.numberOfPages) {
+            // ImageScrollView *page = [self dequeueRecycledPage];
+            NSLog(@"addPage: %d", index);
+            WeekViewController *pageVC = [self pageViewControllerAtIndex:index];
+            
+            
+            CGRect frame;
+            
+
+                frame = CGRectMake(visibleBounds.size.width * index, 0, visibleBounds.size.width, visibleBounds.size.height);
+            
+            pageVC.view.frame = frame;
+
+            [pagingScrollView addSubview:pageVC.view];
+            [visiblePages addObject:pageVC];
+        }
+    }    
+}
+
+
+- (WeekViewController *)pageViewControllerAtIndex: (NSUInteger)index {
+    // Create a week view controller and hook up to a timetable controller
+    
+    WeekViewController *weekVC = [[WeekViewController alloc] initWithNibName:@"WeekViewController" bundle:nil];
+    weekVC.view.frame = [self frameForPageAtIndex:index];
+    
+    weekVC.index = index;
+    
+    // Hook up to timetableController
+    TimetableController *tc = [[TimetableController alloc] init];
+    if (index < [moduleManager.combinations count])
+    tc.selections = [moduleManager.combinations objectAtIndex:index];
+    tc.weekViewController = weekVC;
+    weekVC.timetableController = tc;   // WeekVC owns timetableController
+    
+    [weekVC setInPagingMode:inPagingMode animated:NO];
+    
+    [tc reloadData];
+    
+    
+    return weekVC;
+    
+}
+
+
+#pragma mark PagingScrollView
+
 
 - (void)viewDidUnload
 {
@@ -67,13 +333,11 @@
     actionButton = nil;
     searchField = nil;
     searchItem = nil;
-    searchPopOver = nil;
-    searchViewController = nil;
-    moduleListTableView = nil;
-    weekViewController = nil;
+//    weekViewController = nil;
+    moduleListViewController = nil;
+    timetableController = nil;
+    [self setSearchViewController:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -99,241 +363,113 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return YES;
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    if (tableView == moduleListTableView) {
-        
-        return 0;
-    }
-    
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    // Configure the cell...
-    
-    return cell;
-}
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
-}
-
-- (Timetable *)timetable {
-    if(__timetable != nil) {
-        return __timetable;
-    }
-    
-    Timetable *aTimetable = [[self.fetchedResultsController fetchedObjects] objectAtIndex:0];
-    self.timetable = aTimetable;
-    
-    return __timetable;
-}
-
-#pragma mark - Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (__fetchedResultsController != nil)
-    {
-        return __fetchedResultsController;
-    }
-    
-    /*
-     Set up the fetched results controller.
-     */
-    // Create the fetch request for the entity.
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Timetable" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
-    //[fetchRequest setFetchBatchSize:20];
-    
-    // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"id" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error])
-    {
-	    /*
-	     Replace this implementation with code to handle the error appropriately.
-         
-	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-	     */
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
-    
-    return __fetchedResultsController;
-}    
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    //[self.tableView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    switch(type)
-    {
-        case NSFetchedResultsChangeInsert:
-            //[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            //[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    /*UITableView *tableView = self.tableView;
-    
-    switch(type)
-    {
-            
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }*/
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    //[self.tableView endUpdates];
-}
-
-/*
- // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
- {
- // In the simplest, most efficient, case, reload the table view.
- [self.tableView reloadData];
- }
- */
-
-#pragma mark - Text field delegate
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [searchPopOver presentPopoverFromBarButtonItem:searchItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    [searchPopOver dismissPopoverAnimated:YES];
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self configurePagingScrollView];
+//    [weekViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 #pragma mark - Popover delegate
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-    if (popoverController == searchPopOver)
-        [searchField resignFirstResponder];
+//    if (popoverController == searchPopOver)
+//        [searchField resignFirstResponder];
 }
+
+#pragma mark ActionSheet delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            [self presentMilestoneVC];
+            break;
+        case 1:
+            [self emailTimetable];
+            break;
+        case 2:
+            [self clearAllModules];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)presentMilestoneVC {
+
+    milestoneVC = [[MilestoneViewController alloc] initWithNibName:@"MilestoneViewController" bundle:nil];
+    
+    milestoneNavigationVC = [[UINavigationController alloc] initWithRootViewController:milestoneVC];
+    milestoneNavigationVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:milestoneNavigationVC animated:YES];
+    
+}
+
+- (void)emailTimetable {
+    //Create a string with HTML formatting for the email body
+    NSMutableString *emailBody = [[NSMutableString alloc] initWithString:@"<html><body>"];
+    //Add some text to it however you want
+    [emailBody appendString:@"<p>Hey, check this out!</p>"];
+    //Pick an image to insert
+    //This example would come from the main bundle, but your source can be elsewhere
+    
+    // Borrow the timetable controller
+//    WeekViewController *weekVCForSnapshot = [[WeekViewController alloc] initWithNibName:@"WeekViewController" bundle:nil];
+//    
+//    WeekViewController *originalWeekVC = [self pageAtIndex:currentPageIndex];
+//    weekVCForSnapshot.timetableController = originalWeekVC.timetableController;
+//    CGRect frame = weekViewController.view.frame;
+//    
+//    frame.size.height *= 2;
+//    weekViewController.view.frame = frame;
+//    
+//    weekVCForSnapshot.timetableController.weekViewController = weekVCForSnapshot;
+//    [weekVCForSnapshot.timetableController reloadData];
+    
+    WeekViewController *currentWeekVC = [self pageAtIndex:currentPageIndex];
+    
+    UIImage *emailImage = [currentWeekVC snapshot];
+    
+//    // Restore to orignal
+//    originalWeekVC.timetableController = weekVCForSnapshot.timetableController;
+//    originalWeekVC.timetableController.weekViewController = originalWeekVC;
+    
+    //Convert the image into data
+    NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation(emailImage)];
+    //Create a base64 string representation of the data using NSData+Base64
+    NSString *base64String = [imageData base64EncodedString];
+    //Add the encoded string to the emailBody string
+    //Don't forget the "<b>" tags are required, the "<p>" tags are optional
+    [emailBody appendString:[NSString stringWithFormat:@"<p><b><img src='data:image/png;base64,%@'></b></p>",base64String]];
+    //You could repeat here with more text or images, otherwise
+    //close the HTML formatting
+    [emailBody appendString:@"</body></html>"];
+    NSLog(@"%@",emailBody);
+    
+    //Create the mail composer window
+    MFMailComposeViewController *emailDialog = [[MFMailComposeViewController alloc] init];
+    emailDialog.mailComposeDelegate = (id)self;
+    [emailDialog setSubject:@"My Timetable"];
+    [emailDialog setMessageBody:emailBody isHTML:YES];
+    
+    [self presentModalViewController:emailDialog animated:YES];
+
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller  
+          didFinishWithResult:(MFMailComposeResult)result 
+                        error:(NSError*)error;
+{
+    if (result == MFMailComposeResultSent) {
+        NSLog(@"Email Sent!");
+    }
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)clearAllModules {
+    [moduleManager.timetable setModules:[NSSet set]];
+    [moduleManager generateCombinations];
+}
+
 
 @end

@@ -4,18 +4,16 @@
    version = "1.0">
    <FileBreakpoints>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "NUS Mod/ModuleManager.m"
-         timestampString = "332174188.885577"
+         filePath = "SearchViewController.m"
+         timestampString = "332597832.593362"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "305"
-         endingLineNumber = "305"
-         landmarkName = "-modulesBySearchTerm:"
-         landmarkType = "5">
+         startingLineNumber = "364"
+         endingLineNumber = "364">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

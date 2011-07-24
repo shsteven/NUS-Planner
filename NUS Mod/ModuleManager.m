@@ -15,6 +15,9 @@
 #import "TitleWords.h"
 #import "CodeWords.h"
 #import "DescriptionWords.h"
+#import "UIColor+Random.h"
+#import "Constants.h"
+#include <dispatch/dispatch.h>
 
 @interface ModuleManager()
 int dayToInt(NSString *day);
@@ -34,7 +37,8 @@ static ModuleManager *sharedManager = nil;
 
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize timetable = __timetable;
-@synthesize generateCombinations = __generateCombinations;
+@synthesize combinations = __combinations;
+@synthesize constraints = __constraints;
 
 + (id)sharedManager {
     if(sharedManager) {
@@ -49,6 +53,7 @@ static ModuleManager *sharedManager = nil;
     if(self) {
         id delegate = [[UIApplication sharedApplication] delegate];
         self.managedObjectContext = [delegate managedObjectContext];
+        [self generateCombinations];
     }
     return self;
 }
@@ -99,18 +104,38 @@ NSInteger sort(id arr1, id arr2, void *context) {
 NSInteger sortByClashes(id arr1, id arr2, void *context) {
     NSMutableArray *a1 = (NSMutableArray *)arr1;
     NSMutableArray *a2 = (NSMutableArray *)arr2;
-    return (NSNumber *)a1.lastObject < (NSNumber *)a2.lastObject;
+    NSNumber *n1 = (NSNumber *)[a1 objectAtIndex:1];
+    NSNumber *n2 = (NSNumber *)[a2 objectAtIndex:1];
+    return [n1 intValue] < [n2 intValue];
 }
 
 NSInteger sortByCounter(id arr1, id arr2, void *context) {
     NSMutableArray *a1 = (NSMutableArray *)arr1;
     NSMutableArray *a2 = (NSMutableArray *)arr2;
-    Module *m1 = (Module *)[a1 objectAtIndex:0];
-    Module *m2 = (Module *)[a2 objectAtIndex:0];
-    NSString *m1_c = m1.code;
-    NSString *m2_c = m2.code;
-    return ((NSNumber *)a1.lastObject > (NSNumber *)a2.lastObject)
-            && [m1_c compare:m2_c];
+    NSString *m1 = (NSString *)[a1 objectAtIndex:0];
+    NSString *m2 = (NSString *)[a2 objectAtIndex:0];
+    NSNumber *n1 = (NSNumber *)[a1 objectAtIndex:1];
+    NSNumber *n2 = (NSNumber *)[a2 objectAtIndex:1];
+    
+    if([n1 intValue] > [n2 intValue]) {
+        return NSOrderedAscending;
+    } else if([n1 intValue] < [n2 intValue]) {
+        return NSOrderedDescending;
+    } else {
+        return [m1 compare:m2];
+    }
+}
+
+- (NSArray *)alternativesForClass:(ModuleClass *)class {
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    Module *m = class.module;
+    NSString *type = class.type;
+    for(ModuleClass *c in m.moduleClasses) {
+        if(class != c && [c.type isEqualToString:type]) {
+            [results addObject:c];
+        }
+    }
+    return results;
 }
 
 bool used_slots[28*6+1]; // 28 30-min slots, 6 days
@@ -123,6 +148,7 @@ bool flagFreeSlots[28*6+1];
 - (void)groupSession {
     NSMutableArray *sessionArray = [[NSMutableArray alloc] init];
     for (Module *m in self.timetable.modules) {
+        if(![m.enabled boolValue]) continue;
         NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"type" ascending:YES]];
         NSArray *classes = [[m.moduleClasses allObjects] sortedArrayUsingDescriptors:sortDescriptors];
         
@@ -168,6 +194,35 @@ bool flagFreeSlots[28*6+1];
     return NO;
 }
 
+- (BOOL)overlapModuleClass:(ModuleClass *)a withOtherModuleClass: (ModuleClass *)b {
+    NSLog(@"check overlaps");
+    for (ModuleClassDetail *d in a.details) {
+        for (ModuleClassDetail *e in b.details) {
+            int sa = convertTimeToIndex(d.startTime, d.day);
+            int ea = convertTimeToIndex(d.endTime, d.day);
+            int sb = convertTimeToIndex(e.startTime, e.day);
+            int eb = convertTimeToIndex(e.endTime, e.day);
+            NSLog(@"%@ %d %d %@ %d %d", d.day, sa, ea, e.day, sb, eb);
+            if (sa <= sb && sb < ea) return YES;
+            if (sa < eb && eb < ea) return YES;
+        }
+    }
+    NSLog(@"Fine");
+    return NO;
+}
+
+- (BOOL)overlapsWithSet:(NSSet *)setOfSelections withModuleClass:(ModuleClass *)c {
+    NSLog(@"Count = %d", [setOfSelections count]);
+    for (ModuleClass *sel in setOfSelections) {
+        if (sel != c) {
+            if ([self overlapModuleClass:sel withOtherModuleClass:c]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
 - (void)markTimetable:(ModuleClass *)c withBoolean:(bool)b{
     for(ModuleClassDetail *d in c.details) {
         int s = convertTimeToIndex(d.startTime, d.day);
@@ -180,9 +235,10 @@ bool flagFreeSlots[28*6+1];
 }
 
 - (void)permute:(NSInteger)idx {
+    if([generatedCombinations count] > 20) return;
     if(idx == [sessions count]) {
         NSMutableArray *newSelections = [[NSMutableArray alloc] initWithArray:selections];
-        [generateCombinations addObject:newSelections];
+        [generatedCombinations addObject:newSelections];
         return;
     }
     
@@ -201,7 +257,7 @@ bool flagFreeSlots[28*6+1];
     return;
 }
 
-- (NSMutableArray *)sortCombinationsFromGenerator:(NSMutableArray *)generator withConstraint:(NSMutableArray *)freeSlots{
+- (NSMutableArray *)sortCombinationsFromGenerator:(NSMutableArray *)generator withConstraint:(NSArray *)freeSlots{
     int i, j, k;
     memset(flagFreeSlots, false, sizeof(flagFreeSlots));
     for (i = 0; i < [freeSlots count]; i++) {
@@ -237,15 +293,25 @@ bool flagFreeSlots[28*6+1];
 /*
  * RETURNS: Array of possible valid timetable of modules listed by user
  */
-- (NSMutableArray *)generateCombinations {
+- (void)generateCombinations {
     //NSLog(@"Generating timetable...");
+//    [self willChangeValueForKey:@"generatedCombinations"];
     memset(used_slots, false, sizeof(used_slots));
-    generateCombinations = [[NSMutableArray alloc] init];
+    generatedCombinations = [[NSMutableArray alloc] init];
     selections = [[NSMutableArray alloc] init];
     [self groupSession];
     [self permute:0];
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGeneratedCombinationsDidUpdateNotification object:self];
+//     [self didChangeValueForKey:@"generatedCombinations"];
     //NSLog(@"Done!");
-    return generateCombinations;
+}
+
+- (NSMutableArray *)combinations {
+    self.combinations = generatedCombinations;
+    return __combinations;
 }
 
 /*
@@ -299,9 +365,26 @@ bool flagFreeSlots[28*6+1];
 
 /*
  * Interface for database query.
+ * RETURNS: Module with the specified code. Returns nil if not found.
+ */
+- (Module *)moduleByCode:(NSString *)code {
+    NSFetchRequest *req = [[NSFetchRequest alloc] init];
+    NSEntityDescription *ent = [NSEntityDescription entityForName:@"Module" inManagedObjectContext:self.managedObjectContext];
+    req.entity = ent;
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"code CONTAINS[cd] %@",code];
+    req.predicate = pre;
+    req.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"code" ascending:YES]];
+    NSArray *res = [self.managedObjectContext executeFetchRequest:req error:nil];
+    if([res count] == 0) return nil;
+    return [res objectAtIndex:0];
+}
+
+/*
+ * Interface for database query.
  * RETURNS: Modules that contain the specified keyword(s). Returns an empty array if not found.
  */
 - (NSArray *)modulesBySearchTerm:(NSString *)keywordsString {
+    
     NSMutableSet *splitAndNormalize = [self splitAndNormalized:keywordsString];
     
     NSMutableArray *modules = [[NSMutableArray alloc] init];
@@ -316,50 +399,36 @@ bool flagFreeSlots[28*6+1];
         req.predicate = pre;
         NSArray *res = [self.managedObjectContext executeFetchRequest:req error:nil];
         for(Keyword *k in res) {
+            NSString *key = [NSString stringWithFormat:@"%@",k.module.code];
             NSInteger cnt = 1;
-            if([counter objectForKey:k]) {
-                cnt = [[counter objectForKey:k] intValue];
+            if([counter objectForKey:key]) {
+                cnt = [[counter objectForKey:key] intValue];
                 cnt++;
             }
-            [counter setObject:[NSNumber numberWithInt:cnt] forKey:k];
+            [counter setObject:[NSNumber numberWithInt:cnt] forKey:key];
         }
     }
-    for (Keyword *k in counter) {
+    for (NSString *key in counter) {
         NSMutableArray *pair = [[NSMutableArray alloc] init];
-        [pair addObject:k.module];
-        NSNumber *tmp = [[NSNumber alloc] initWithInt:[[counter objectForKey:k] intValue]];
+        NSNumber *tmp = [[NSNumber alloc] initWithInt:[[counter objectForKey:key] intValue]];
+        [pair addObject:key];
         [pair addObject:tmp];
         [sortedModules addObject:pair];
     }
-    
     NSArray *sorted = [sortedModules sortedArrayUsingFunction:sortByCounter context:NULL];
     for (NSMutableArray *k in sorted) {
-        [modules addObject:[k objectAtIndex:0]];
+        [modules addObject:[self moduleByCode:[k objectAtIndex:0]]];
     }
     return modules;
 }
 
-/*
- * Interface for database query.
- * RETURNS: Module with the specified code. Returns nil if not found.
- */
-- (Module *)moduleByCode:(NSString *)code {
-    NSFetchRequest *req = [[NSFetchRequest alloc] init];
-    NSEntityDescription *ent = [NSEntityDescription entityForName:@"Module" inManagedObjectContext:self.managedObjectContext];
-    req.entity = ent;
-    NSPredicate *pre = [NSPredicate predicateWithFormat:@"code LIKE %@",code];
-    req.predicate = pre;
-    req.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"module" ascending:YES]];
-    NSArray *res = [self.managedObjectContext executeFetchRequest:req error:nil];
-    if([res count] == 0) return nil;
-    return [res objectAtIndex:0];
-}
 
 /*
  * Interface for database query.
  * RETURNS: Modules that contain the specified code. The result is sorted by the number of matches. Returns an empty array if not found.
  */
 - (NSArray *)allModulesByCode:(NSString *)code {
+    
     NSMutableSet *splitAndNormalize = [self splitAndNormalized:code];
     
     NSMutableArray *modules = [[NSMutableArray alloc] init];
@@ -368,33 +437,42 @@ bool flagFreeSlots[28*6+1];
     
     for(NSString *str in splitAndNormalize) {
         NSFetchRequest *req = [[NSFetchRequest alloc] init];
+//        [req setFetchBatchSize:20];
         NSEntityDescription *ent = [NSEntityDescription entityForName:@"CodeWords" inManagedObjectContext:self.managedObjectContext];
         req.entity = ent;
         NSPredicate *pre = [NSPredicate predicateWithFormat:@"normalizedWord CONTAINS[cd] %@",str];
         req.predicate = pre;
-        NSArray *res = [self.managedObjectContext executeFetchRequest:req error:nil];
+        NSArray *res;
+
+        res = [self.managedObjectContext executeFetchRequest:req error:nil];
         for(CodeWords *k in res) {
+            NSString *key = [NSString stringWithFormat:@"%@",k.module.code];
             NSInteger cnt = 1;
-            if([counter objectForKey:k]) {
-                cnt = [[counter objectForKey:k] intValue];
+            if([counter objectForKey:key]) {
+                cnt = [[counter objectForKey:key] intValue];
                 cnt++;
             }
-            [counter setObject:[NSNumber numberWithInt:cnt] forKey:k];
+            [counter setObject:[NSNumber numberWithInt:cnt] forKey:key];
         }
     }
-    for (CodeWords *k in counter) {
+    for (NSString *key in counter) {
         NSMutableArray *pair = [[NSMutableArray alloc] init];
-        [pair addObject:k.module];
-        NSNumber *tmp = [[NSNumber alloc] initWithInt:[[counter objectForKey:k] intValue]];
+        NSNumber *tmp = [[NSNumber alloc] initWithInt:[[counter objectForKey:key] intValue]];
+        [pair addObject:key];
         [pair addObject:tmp];
         [sortedModules addObject:pair];
     }
     
     NSArray *sorted = [sortedModules sortedArrayUsingFunction:sortByCounter context:NULL];
     for (NSMutableArray *k in sorted) {
-        [modules addObject:[k objectAtIndex:0]];
+        //NSLog(@"%@ = %@",[k objectAtIndex:0],[k objectAtIndex:1]);
+        [modules addObject:[self moduleByCode:[k objectAtIndex:0]]];
     }
-    return modules;
+    
+    
+    
+    return  modules;
+
 }
 
 /*
@@ -416,25 +494,26 @@ bool flagFreeSlots[28*6+1];
         req.predicate = pre;
         NSArray *res = [self.managedObjectContext executeFetchRequest:req error:nil];
         for(TitleWords *k in res) {
+            NSString *key = [NSString stringWithFormat:@"%@",k.module.code];
             NSInteger cnt = 1;
-            if([counter objectForKey:k]) {
-                cnt = [[counter objectForKey:k] intValue];
+            if([counter objectForKey:key]) {
+                cnt = [[counter objectForKey:key] intValue];
                 cnt++;
             }
-            [counter setObject:[NSNumber numberWithInt:cnt] forKey:k];
+            [counter setObject:[NSNumber numberWithInt:cnt] forKey:key];
         }
     }
-    for (TitleWords *k in counter) {
+    for (NSString *key in counter) {
         NSMutableArray *pair = [[NSMutableArray alloc] init];
-        [pair addObject:k.module];
-        NSNumber *tmp = [[NSNumber alloc] initWithInt:[[counter objectForKey:k] intValue]];
+        NSNumber *tmp = [[NSNumber alloc] initWithInt:[[counter objectForKey:key] intValue]];
+        [pair addObject:key];
         [pair addObject:tmp];
         [sortedModules addObject:pair];
     }
     
     NSArray *sorted = [sortedModules sortedArrayUsingFunction:sortByCounter context:NULL];
     for (NSMutableArray *k in sorted) {
-        [modules addObject:[k objectAtIndex:0]];
+        [modules addObject:[self moduleByCode:[k objectAtIndex:0]]];
     }
     return modules;
 }
@@ -458,25 +537,26 @@ bool flagFreeSlots[28*6+1];
         req.predicate = pre;
         NSArray *res = [self.managedObjectContext executeFetchRequest:req error:nil];
         for(DescriptionWords *k in res) {
+            NSString *key = [NSString stringWithFormat:@"%@",k.module.code];
             NSInteger cnt = 1;
-            if([counter objectForKey:k]) {
-                cnt = [[counter objectForKey:k] intValue];
+            if([counter objectForKey:key]) {
+                cnt = [[counter objectForKey:key] intValue];
                 cnt++;
             }
-            [counter setObject:[NSNumber numberWithInt:cnt] forKey:k];
+            [counter setObject:[NSNumber numberWithInt:cnt] forKey:key];
         }
     }
-    for (DescriptionWords *k in counter) {
+    for (NSString *key in counter) {
         NSMutableArray *pair = [[NSMutableArray alloc] init];
-        [pair addObject:k.module];
-        NSNumber *tmp = [[NSNumber alloc] initWithInt:[[counter objectForKey:k] intValue]];
+        NSNumber *tmp = [[NSNumber alloc] initWithInt:[[counter objectForKey:key] intValue]];
+        [pair addObject:key];
         [pair addObject:tmp];
         [sortedModules addObject:pair];
     }
     
     NSArray *sorted = [sortedModules sortedArrayUsingFunction:sortByCounter context:NULL];
     for (NSMutableArray *k in sorted) {
-        [modules addObject:[k objectAtIndex:0]];
+        [modules addObject:[self moduleByCode:[k objectAtIndex:0]]];
     }
     return modules;
 }
@@ -501,8 +581,8 @@ bool flagFreeSlots[28*6+1];
  */
 - (void)grabLink {
     NSLog(@"Downloading links.");
-    NSString *corsUrl = @"https://aces01.nus.edu.sg/cors/jsp/report/ModuleInfoListing.jsp?mod_c=CS&#37;";
-    //NSString *corsUrl = @"https://aces01.nus.edu.sg/cors/jsp/report/ModuleInfoListing.jsp";
+    //NSString *corsUrl = @"https://aces01.nus.edu.sg/cors/jsp/report/ModuleInfoListing.jsp?mod_c=CS#37;";
+    NSString *corsUrl = @"https://aces01.nus.edu.sg/cors/jsp/report/ModuleInfoListing.jsp";
     NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:corsUrl] usedEncoding:nil error:nil];
     
     NSString *pattern = @"<a href=\"(ModuleDetailedInfo\\.jsp.+?)\">";
@@ -523,6 +603,8 @@ bool flagFreeSlots[28*6+1];
             link = [@"https://aces01.nus.edu.sg/cors/jsp/report/" stringByAppendingString:link];
             fprintf(f,"%s\n",[link UTF8String]);
             fflush(f);
+            // DEBUG
+            //if (counter > 5) break;
         }
     }
     fclose(f);
@@ -563,10 +645,56 @@ bool flagFreeSlots[28*6+1];
  * EFFECTS: Add the specified module into timetable. Context is saved.
  */
 - (void)addModule:(Module *)m {
+    UIColor *color = [UIColor randomColor];
+    while ([self colorIsUsed: color]) 
+        color = [UIColor randomColor];
+    m.color = color;
+    
+    m.enabled = [NSNumber numberWithBool:YES];
     [self.timetable addModulesObject:m];
+    [self generateCombinations];
+    NSLog(@"%d count",[generatedCombinations count]);
     NSError *err;
     if(![self.managedObjectContext save:&err]) {
         NSLog(@"Saving error: %@",[err userInfo]);
+    }
+}
+
+/*
+ * EFFECTS: Remove the specified module into timetable. Context is saved.
+ */
+- (void)removeModule:(Module *)m {
+    m.color = nil;
+    [self.timetable removeModulesObject:m];
+    [self generateCombinations];
+    NSError *err;
+    if(![self.managedObjectContext save:&err]) {
+        NSLog(@"Saving error: %@",[err userInfo]);
+    }
+}
+
+- (void)enableModule:(Module *)m {
+    m.enabled = [NSNumber numberWithBool:YES];
+    [self generateCombinations];
+}
+
+- (void)disableModule:(Module *)m {
+    m.enabled = [NSNumber numberWithBool:NO];
+    [self generateCombinations];
+}
+
+- (void)addConstraint:(NSNumber *)constraint {
+    if(!constraints) {
+        self.constraints = [[NSMutableSet alloc] init];
+    }
+    [constraints addObject:constraint];
+    [self sortCombinationsFromGenerator:generatedCombinations withConstraint:[constraints allObjects]];
+}
+
+- (void)removeConstraint:(NSNumber *)constraint {
+    if(constraints) {
+        [constraints removeObject:constraint];
+        [self sortCombinationsFromGenerator:generatedCombinations withConstraint:[constraints allObjects]];
     }
 }
 
@@ -576,7 +704,7 @@ bool flagFreeSlots[28*6+1];
  */
 - (void)addClass:(ModuleClass *)c {
     for(ModuleClass *class in self.timetable.selections) {
-        if([class.type isEqual:c.type] && [class.module.code isEqual:c.module.code]) {
+        if([class.type isEqualToString:c.type] && [class.module.code isEqualToString:c.module.code]) {
             [self.timetable removeSelectionsObject:class];
             break;
         }
@@ -593,7 +721,8 @@ bool flagFreeSlots[28*6+1];
 #define CODE_PATTERN @"<td width=\"70%\">(.+?)</td>"
 #define TITLE_PATTERN  @"<td>Module Title :</td>.+?<td>(.+?)</td>"
 #define DESC_PATTERN @"<td valign=top>Module Description :</td>.+?<td valign=top>(.+?)</td>"
-#define DATE_PATTERN @"(\\d\\d\\-\\d\\d\\-\\d\\d\\d\\d)\\s\\w+\\<br\\>"
+//#define DATE_PATTERN @"(\\d\\d\\-\\d\\d\\-\\d\\d\\d\\d)\\s\\w+\\<br\\>"
+#define DATE_PATTERN @"<td>Exam Date :</td>.+?<td>(.+?)</td>"
 #define MC_PATTERN  @"<td>Modular Credits :</td>.+?<td>(.+?)</td>"
 #define PREREQ_PATTERN @"<td>Pre-requisite :</td>.+?<td>(.+?)</td>"
 #define PRECL_PATTERN @"<td>Preclusion :</td>.+?<td>(.+?)</td>"
@@ -612,6 +741,7 @@ bool flagFreeSlots[28*6+1];
     NSString *code = [htmlContent substringWithRange:[result rangeAtIndex:1]];
     code = [code stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if(shouldFormat) {
+        code = [code stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
         NSArray *components = [code componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSArray *filtered = [components filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != ''"]];
         
@@ -760,7 +890,7 @@ bool flagFreeSlots[28*6+1];
 - (void)readModuleFromHtml {
     NSString *code = [self extractInfoWithPattern:CODE_PATTERN formatted:YES];
     NSString *title = [self extractInfoWithPattern:TITLE_PATTERN formatted:NO];
-    NSString *exam = [self extractInfoWithPattern:DATE_PATTERN formatted:NO];
+    NSString *exam = [self extractInfoWithPattern:DATE_PATTERN formatted:YES];
     NSString *desc = [self extractInfoWithPattern:DESC_PATTERN formatted:NO];
     NSString *mc = [self extractInfoWithPattern:MC_PATTERN formatted:NO];
     NSString *prereq = [self extractInfoWithPattern:PREREQ_PATTERN formatted:NO];
@@ -800,9 +930,15 @@ bool flagFreeSlots[28*6+1];
 /**
  Returns the URL to the application's Documents directory.
  */
-- (NSURL *)applicationDocumentsDirectory
-{
+- (NSURL *)applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (BOOL)colorIsUsed:(UIColor *)color {
+    for (Module *aModule in self.timetable.modules) {
+        if ([aModule.color colorIsSimilarToColor:color]) return YES;
+    }
+    return NO;
 }
 
 @end

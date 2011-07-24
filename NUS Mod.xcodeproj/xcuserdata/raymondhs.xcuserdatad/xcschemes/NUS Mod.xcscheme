@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6718247F13BE1A0D00443C08"
-               BuildableName = "NUS Mod.app"
+               BuildableName = "NUS Planner.app"
                BlueprintName = "NUS Mod"
                ReferencedContainer = "container:NUS Mod.xcodeproj">
             </BuildableReference>
@@ -40,7 +40,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6718247F13BE1A0D00443C08"
-            BuildableName = "NUS Mod.app"
+            BuildableName = "NUS Planner.app"
             BlueprintName = "NUS Mod"
             ReferencedContainer = "container:NUS Mod.xcodeproj">
          </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6718247F13BE1A0D00443C08"
-            BuildableName = "NUS Mod.app"
+            BuildableName = "NUS Planner.app"
             BlueprintName = "NUS Mod"
             ReferencedContainer = "container:NUS Mod.xcodeproj">
          </BuildableReference>

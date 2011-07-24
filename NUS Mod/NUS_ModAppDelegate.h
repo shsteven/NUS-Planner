@@ -13,7 +13,6 @@
 
 @interface NUS_ModAppDelegate : UIResponder <UIApplicationDelegate> {
     MainViewController *mainViewController;
-
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -29,4 +28,7 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
+- (void)testData;
+
+- (void)copyBundleData;
 @end

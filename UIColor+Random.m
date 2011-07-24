@@ -10,10 +10,14 @@
 
 @implementation UIColor (UIColor_Random)
 
+const double eps = (double)0.01;
+
 + (UIColor *) randomColor {
-    CGFloat red =  (CGFloat)random()/(CGFloat)RAND_MAX;
-    CGFloat blue = (CGFloat)random()/(CGFloat)RAND_MAX;
-    CGFloat green = (CGFloat)random()/(CGFloat)RAND_MAX;
+    CGFloat minValue = 0.6;
+    
+    CGFloat red =  minValue + (1-minValue)* (CGFloat)random()/(CGFloat)RAND_MAX;
+    CGFloat blue = minValue + (1-minValue)*(CGFloat)random()/(CGFloat)RAND_MAX;
+    CGFloat green = minValue + (1-minValue)*(CGFloat)random()/(CGFloat)RAND_MAX;
     return [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
 }
 
@@ -31,6 +35,54 @@
     CGFloat blue = 0.5- 0.5*(CGFloat)random()/(CGFloat)RAND_MAX;
     CGFloat green = 0.5- 0.5*(CGFloat)random()/(CGFloat)RAND_MAX;
     return [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+}
+
+- (BOOL)getRed:(CGFloat *)red green:(CGFloat *)green blue:(CGFloat *)blue alpha:(CGFloat *)alpha {
+    CGFloat components[3];
+    [self getRGBComponents:components];
+    *red = components[0];
+    *green = components[1];
+    *blue = components[2];
+   *alpha = 1;  // TODO: get proper alpha
+    
+    return YES;
+}
+
+- (void)getRGBComponents:(CGFloat [3])components {
+    CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
+    unsigned char resultingPixel[4];
+    CGContextRef context = CGBitmapContextCreate(&resultingPixel,
+                                                 1,
+                                                 1,
+                                                 8,
+                                                 4,
+                                                 rgbColorSpace,
+                                                 kCGImageAlphaNoneSkipLast);
+    CGContextSetFillColorWithColor(context, [self CGColor]);
+    CGContextFillRect(context, CGRectMake(0, 0, 1, 1));
+    CGContextRelease(context);
+    CGColorSpaceRelease(rgbColorSpace);
+    
+    for (int component = 0; component < 3; component++) {
+        components[component] = resultingPixel[component] / 255.0f;
+    }
+}
+
+-(CGFloat)sqr:(CGFloat)diff {
+    return diff * diff;
+}
+
+- (BOOL)colorIsSimilarToColor: (UIColor *)anotherColor {
+    CGFloat r,g,b, a;
+    CGFloat r2, g2, b2, a2;
+    
+    [self getRed:&r green:&g blue:&b alpha:&a];
+    [anotherColor getRed:&r2 green:&g2 blue:&b2 alpha:&a2];
+    
+    if ([self sqr:(r - r2)] < eps && [self sqr:(g - g2)] < eps && [self sqr:(b-b2)] < eps && [self sqr:(a - a2)] < eps) {
+        return YES;
+    }
+    return NO;
 }
 
 @end

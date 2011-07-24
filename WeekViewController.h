@@ -12,7 +12,7 @@
 @class ZSHorizontalGridView;
 @class EventView;
 @class ClassView;
-
+@class TimetableController;
 static NSString const * const HOURS_AM_PM[] = {
 	@" 12 AM", @" 1 AM", @" 2 AM", @" 3 AM", @" 4 AM", @" 5 AM", @" 6 AM", @" 7 AM", @" 8 AM", @" 9 AM", @" 10 AM", @" 11 AM",
 	@" Noon", @" 1 PM", @" 2 PM", @" 3 PM", @" 4 PM", @" 5 PM", @" 6 PM", @" 7 PM", @" 8 PM", @" 9 PM", @" 10 PM", @" 11 PM", @" 12 PM"
@@ -36,19 +36,39 @@ static NSString const * const HOURS_24[] = {
     NSMutableSet *eventViews;
     
     ClassView *classView; // For loading from nib only
+    
+    NSUInteger index;
+    
+    TimetableController *timetableController;
+//    BOOL isHandlingLongPress;
+
+    UIView *viewForDragging;
+    
+    CGPoint viewDraggingOffset;
 }
 
 @property (strong) NSMutableSet *eventViews;
 @property (strong, atomic) IBOutlet ClassView *classView;
-
+@property (assign) NSUInteger index;
+@property (strong) TimetableController *timetableController;
 - (void)addEventView: (EventView *)view;
 - (void)removeEventView: (EventView *)view;
 - (void)clearAllEventViews;
+
+- (ClassView *)newClassView;
 
 - (void)testEventViews;
 
 
 - (void)classViewWasTapped: (ClassView *)view;
+
+- (void)setInPagingMode: (BOOL)mode animated: (BOOL)animated;
+
+- (ClassView *)destinationClassViewForGestureRecognizer: (UIGestureRecognizer *)gr;
+
+- (UIImage *)snapshot;
+
+CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2);
 
 @end
 

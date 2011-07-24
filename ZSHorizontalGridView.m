@@ -32,6 +32,7 @@
 
 - (void)layoutSubviews {
     for (UIView *aView in self.subviews) {
+        if (!CGAffineTransformIsIdentity(aView.transform)) continue; // Leave the dragged view alone
         if (aView.class == [EventView class] || [aView.class isSubclassOfClass:[EventView class]]) {
             EventView *eventView = (EventView *)aView;
             eventView.frame = [self frameForEventView:eventView];
@@ -69,7 +70,7 @@
     
     CGFloat lineWidth = 1.0;
     
-    color = [UIColor redColor]; // Debug
+//    color = [UIColor redColor]; // Debug
     
     /*
     CGContextSaveGState(ctx);

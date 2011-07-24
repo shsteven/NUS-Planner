@@ -14,4 +14,9 @@
 + (UIColor *) darkRandomColor;
 - (UIColor *)darkerColor;
 
+- (BOOL)getRed:(CGFloat *)red green:(CGFloat *)green blue:(CGFloat *)blue alpha:(CGFloat *)alpha;
+
+- (void)getRGBComponents:(CGFloat [3])components;
+
+- (BOOL)colorIsSimilarToColor: (UIColor *)anotherColor;
 @end

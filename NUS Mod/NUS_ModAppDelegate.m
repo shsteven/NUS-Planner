@@ -10,7 +10,9 @@
 
 #import "MainViewController.h"
 
+#import "NSManagedObjectContext+Fetch.h"
 #import "ModuleManager.h"
+#import "User.h"
 #import "Timetable.h"
 #import "Module.h"
 #import "ModuleClass.h"
@@ -25,6 +27,14 @@
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize navigationController = _navigationController;
 @synthesize manager;
+
+
++ (void)initialize {
+    NSDictionary *defaults = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithBool:NO], @"DataLoaded", 
+                              nil];
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+}
 
 - (void)printEachDay:(NSMutableArray *)day {
     for(ModuleClassDetail *d in day) {
@@ -76,35 +86,39 @@
 }
 
 - (void)initTesting {
-    const char mods_arr[][10] = {"CS1010","CS1231","CS1020","CS1281","CS2010","CS2101", "CS3230"};
-    NSMutableArray *mods = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 6; i++) {
-        [mods addObject:[NSString stringWithCString:mods_arr[i] encoding:NSUTF8StringEncoding]];
-    }
-    
-    [manager.timetable removeModules:manager.timetable.modules];
-    [manager.timetable removeSelections:manager.timetable.selections];
-    
-    for (NSString *str in mods) {
-        Module *m = [manager moduleByCode:str];
-        [manager addModule:m];
-    }
-
-    int LIMIT = 5, count = 0;
-    NSArray *allArr = [manager generateCombinations];
-    for(NSMutableArray *arr in allArr) {
-        if(count >= LIMIT) break;
-        printf("\n############### Timetable %d ###############\n\n",++count);
-    NSSet *set = [[NSSet alloc] initWithArray:arr];
-    [manager.timetable setSelections:set];
-    [self printTimetable];
-    }
+//    const char mods_arr[][10] = {"CS1010","CS1231","CS1020","CS1281","CS2010","CS2101", "CS3230"};
+//    NSMutableArray *mods = [[NSMutableArray alloc] init];
+//    for (int i = 0; i < 6; i++) {
+//        [mods addObject:[NSString stringWithCString:mods_arr[i] encoding:NSUTF8StringEncoding]];
+//    }
+//    
+//    [manager.timetable removeModules:manager.timetable.modules];
+//    [manager.timetable removeSelections:manager.timetable.selections];
+//    
+//    for (NSString *str in mods) {
+//        Module *m = [manager moduleByCode:str];
+//        [manager addModule:m];
+//    }
+//
+//    int LIMIT = 5, count = 0;
+//    NSArray *allArr = [manager generateCombinations];
+//    for(NSMutableArray *arr in allArr) {
+//        if(count >= LIMIT) break;
+//        printf("\n############### Timetable %d ###############\n\n",++count);
+//    NSSet *set = [[NSSet alloc] initWithArray:arr];
+//    [manager.timetable setSelections:set];
+//    [self printTimetable];
+//    }
 }
 
 - (void)dataInit {
     // create our timetable (singleton)
     Timetable *tt = [NSEntityDescription insertNewObjectForEntityForName:@"Timetable" inManagedObjectContext:self.managedObjectContext];
     [tt setId:[NSNumber numberWithInt:1]];
+    
+    [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+    
+    [self saveContext];
     
     // download to links.txt
     [manager grabLink];
@@ -115,15 +129,32 @@
     [self saveContext];
 }
 
+- (void)copyBundleData {
+    NSURL *source = [[NSBundle mainBundle] URLForResource:@"NUS Mod" withExtension:@"sqlite"];
+    NSURL *url = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"NUS Mod.sqlite"];
+    
+    NSError *error;
+    BOOL success = [[NSFileManager defaultManager] copyItemAtURL:source toURL:url error:&error];
+    if (!success) {
+        NSLog(@"error copying bundle data: %@", [error description]);
+    }
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"DataLoaded"]) {
+        [self copyBundleData];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DataLoaded"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     manager = [ModuleManager sharedManager];
     
     // uncomment for first time use
-//    [self dataInit];
+    //[self dataInit];
 //    [self searchTesting];
     //[self initTesting];
     
@@ -132,7 +163,15 @@
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     
+    [self testData];
+    
     return YES;
+}
+
+- (void)testData {
+    // Test fetching data from Core Data
+//    NSSet *set = [self.managedObjectContext fetchObjectsForEntityName:@"Module" withPredicate:nil];
+//    NSLog(@"%@", set);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -222,7 +261,8 @@
     {
         return __managedObjectModel;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"NUS MOD" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"NUS Mod" withExtension:@"momd"];
+
     __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
     return __managedObjectModel;
 }
