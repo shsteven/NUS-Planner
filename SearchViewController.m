@@ -87,7 +87,7 @@
     
     
     NSError *error;
-//    fetchedResultsController = nil;
+    //    fetchedResultsController = nil;
     [self updatePredicate];
     
     if (![[self fetchedResultsController] performFetch:&error]) {
@@ -98,37 +98,37 @@
     
     [self.tableView reloadData];
     
-//    if (!searchString) {
-//        // Nothing to search, show empty result
-//        [_tableView reloadData];
-//    }
-//    
-//    // Update search result
-//    ModuleManager *manager = [ModuleManager sharedManager];
-//    
-//    switch (segmentedControl.selectedSegmentIndex) {
-//        case kSegmentedControlCodeIndex: {
-//            resultArray = [manager allModulesByCode:string]; // TODO
-//        }
-//            break;
-//        case kSegmentedControlTitleIndex: {
-//            resultArray = [manager allModulesByTitle:string]; // TODO
-//        }
-//            break;
-//        case kSegmentedControlDescriptionIndex: {
-//            resultArray = [manager allModulesByDescription:string]; // TODO
-//        }
-//            break;
-//        case kSegmentedControlAllIndex: {
-//            resultArray = [manager modulesBySearchTerm:string];
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//
-//    [_tableView reloadData];
+    //    if (!searchString) {
+    //        // Nothing to search, show empty result
+    //        [_tableView reloadData];
+    //    }
+    //    
+    //    // Update search result
+    //    ModuleManager *manager = [ModuleManager sharedManager];
+    //    
+    //    switch (segmentedControl.selectedSegmentIndex) {
+    //        case kSegmentedControlCodeIndex: {
+    //            resultArray = [manager allModulesByCode:string]; // TODO
+    //        }
+    //            break;
+    //        case kSegmentedControlTitleIndex: {
+    //            resultArray = [manager allModulesByTitle:string]; // TODO
+    //        }
+    //            break;
+    //        case kSegmentedControlDescriptionIndex: {
+    //            resultArray = [manager allModulesByDescription:string]; // TODO
+    //        }
+    //            break;
+    //        case kSegmentedControlAllIndex: {
+    //            resultArray = [manager modulesBySearchTerm:string];
+    //        }
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //    
+    //
+    //    [_tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -139,7 +139,7 @@
     return [[fetchedResultsController sections] count];
     
     if (resultArray)
-    return 1;
+        return 1;
     
     
     return 0;
@@ -168,7 +168,7 @@
     
     // Configure the cell...
     Module *aModule = [fetchedResultsController objectAtIndexPath:indexPath];
-
+    
     cell.textLabel.text = aModule.code;
     cell.detailTextLabel.text = aModule.title;
     cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
@@ -250,7 +250,7 @@
     switch (mode) {
         case kModeAddToModuleList:
             [manager addModule:aModule];
-
+            
             break;
         case kModeAddToCategory:
             break;
@@ -260,9 +260,9 @@
     
     
     [searchBar resignFirstResponder];
-//    [mainViewController.popover dismissPopoverAnimated:YES];
+    //    [mainViewController.popover dismissPopoverAnimated:YES];
     // Optional: an animation that makes a module jump to 
-
+    
 }
 
 
@@ -271,7 +271,7 @@
     
     [self setSearchString:self.searchString]; // Trigger a search
     [self updatePredicate];
-
+    
 }
 
 #pragma mark - Search Bar delegate
@@ -312,13 +312,13 @@
     
     
     // Configure according to search type
-
-
+    
+    
     pre = [NSPredicate predicateWithValue:YES];
     req.predicate = pre;
     req.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"code" ascending:YES]];
     
-
+    
 	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:req managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
 	self.fetchedResultsController = aFetchedResultsController;
 	fetchedResultsController.delegate = self;
@@ -338,26 +338,26 @@
             pre = [NSPredicate predicateWithFormat:@"code CONTAINS[cd] %@",searchString];
             
             //NSLog(@"%@", pre);
-
+            
             
             req.predicate = pre;
             req.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"code" ascending:YES]];
         }
             break;
         case kSegmentedControlTitleIndex: {
-//            
-//            NSMutableSet *splitAndNormalize = [manager splitAndNormalized:searchString];
-//            NSMutableArray *newArray = [NSMutableArray array];
-//            for (NSString *term in splitAndNormalize) {
-//                [newArray addObject:[NSString stringWithFormat:@"title CONTAINS[cd] \"%@\"", term]];
-//            }
-//                        
-//            NSString *predicateString = predicateString = [newArray componentsJoinedByString:@" OR "];
-//            
+            //            
+            //            NSMutableSet *splitAndNormalize = [manager splitAndNormalized:searchString];
+            //            NSMutableArray *newArray = [NSMutableArray array];
+            //            for (NSString *term in splitAndNormalize) {
+            //                [newArray addObject:[NSString stringWithFormat:@"title CONTAINS[cd] \"%@\"", term]];
+            //            }
+            //                        
+            //            NSString *predicateString = predicateString = [newArray componentsJoinedByString:@" OR "];
+            //            
             
-//            pre = [NSPredicate predicateWithFormat:predicateString];
+            //            pre = [NSPredicate predicateWithFormat:predicateString];
             pre = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@",searchString];
-
+            
         }
             break;
         case kSegmentedControlDescriptionIndex: {
@@ -371,11 +371,11 @@
         default:
             break;
     }
-
+    
     req.predicate = pre;
     req.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"code" ascending:YES]];
-//    if (searchString)
-  //      pre = [NSPredicate predicateWithFormat:@"code CONTAINS[cd] %@", searchString];
+    //    if (searchString)
+    //      pre = [NSPredicate predicateWithFormat:@"code CONTAINS[cd] %@", searchString];
     self.fetchedResultsController.fetchRequest.predicate = pre;
 }
 
@@ -404,7 +404,7 @@
 			break;
 			
 		case NSFetchedResultsChangeUpdate:
-//			[self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            //			[self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
 			break;
 			
 		case NSFetchedResultsChangeMove:
