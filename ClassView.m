@@ -41,7 +41,7 @@
     CGSize size = [text sizeWithFont:typeLabel.font constrainedToSize:CGSizeMake(typeLabel.frame.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
         
     CGRect frame = typeLabel.frame;
-    NSLog(@"frame: %@", NSStringFromCGRect(frame));
+    //NSLog(@"frame: %@", NSStringFromCGRect(frame));
     frame.size = CGSizeMake(frame.size.width, size.height);
     typeLabel.frame = frame;
     typeLabel.adjustsFontSizeToFitWidth = YES;

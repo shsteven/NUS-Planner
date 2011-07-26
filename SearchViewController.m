@@ -332,7 +332,7 @@
 - (void)updatePredicate {
     NSPredicate *pre;
     NSFetchRequest *req = self.fetchedResultsController.fetchRequest;
-    ModuleManager *manager = [ModuleManager sharedManager];
+    //ModuleManager *manager = [ModuleManager sharedManager];
     switch (segmentedControl.selectedSegmentIndex) {
         case kSegmentedControlCodeIndex: {
             pre = [NSPredicate predicateWithFormat:@"code CONTAINS[cd] %@",searchString];

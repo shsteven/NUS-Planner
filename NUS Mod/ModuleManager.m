@@ -195,26 +195,29 @@ bool flagFreeSlots[28*6+1];
 }
 
 - (BOOL)overlapModuleClass:(ModuleClass *)a withOtherModuleClass: (ModuleClass *)b {
-    NSLog(@"check overlaps");
+    //NSLog(@"check overlaps");
+    
     for (ModuleClassDetail *d in a.details) {
         for (ModuleClassDetail *e in b.details) {
             int sa = convertTimeToIndex(d.startTime, d.day);
             int ea = convertTimeToIndex(d.endTime, d.day);
             int sb = convertTimeToIndex(e.startTime, e.day);
             int eb = convertTimeToIndex(e.endTime, e.day);
-            NSLog(@"%@ %d %d %@ %d %d", d.day, sa, ea, e.day, sb, eb);
+            //NSLog(@"%@ %d %d %@ %d %d", d.day, sa, ea, e.day, sb, eb);
             if (sa <= sb && sb < ea) return YES;
             if (sa < eb && eb < ea) return YES;
+            if (sb <= sa && sa < eb) return YES;
+            if (sb < ea && ea < eb) return YES;
         }
     }
-    NSLog(@"Fine");
+    //NSLog(@"Fine");
     return NO;
 }
 
 - (BOOL)overlapsWithSet:(NSSet *)setOfSelections withModuleClass:(ModuleClass *)c {
-    NSLog(@"Count = %d", [setOfSelections count]);
+    //NSLog(@"Count = %d", [setOfSelections count]);
     for (ModuleClass *sel in setOfSelections) {
-        if (sel != c) {
+        if (![sel.module.code isEqualToString:c.module.code]) {
             if ([self overlapModuleClass:sel withOtherModuleClass:c]) {
                 return YES;
             }
