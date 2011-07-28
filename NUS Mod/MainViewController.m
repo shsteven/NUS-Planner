@@ -409,38 +409,24 @@
     //Create a string with HTML formatting for the email body
     NSMutableString *emailBody = [[NSMutableString alloc] initWithString:@"<html><body>"];
     //Add some text to it however you want
-    [emailBody appendString:@"<p>Hey, check this out!</p>"];
-    //Pick an image to insert
-    //This example would come from the main bundle, but your source can be elsewhere
-    
-    // Borrow the timetable controller
-//    WeekViewController *weekVCForSnapshot = [[WeekViewController alloc] initWithNibName:@"WeekViewController" bundle:nil];
-//    
-//    WeekViewController *originalWeekVC = [self pageAtIndex:currentPageIndex];
-//    weekVCForSnapshot.timetableController = originalWeekVC.timetableController;
-//    CGRect frame = weekViewController.view.frame;
-//    
-//    frame.size.height *= 2;
-//    weekViewController.view.frame = frame;
-//    
-//    weekVCForSnapshot.timetableController.weekViewController = weekVCForSnapshot;
-//    [weekVCForSnapshot.timetableController reloadData];
-    
+    [emailBody appendString:@"<p>Hey, check out the attached timetable!</p>"];
+
     WeekViewController *currentWeekVC = [self pageAtIndex:currentPageIndex];
     
     UIImage *emailImage = [currentWeekVC snapshot];
-    
-//    // Restore to orignal
-//    originalWeekVC.timetableController = weekVCForSnapshot.timetableController;
-//    originalWeekVC.timetableController.weekViewController = originalWeekVC;
+
     
     //Convert the image into data
     NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation(emailImage)];
     //Create a base64 string representation of the data using NSData+Base64
-    NSString *base64String = [imageData base64EncodedString];
+
+//    NSString *base64String = [imageData base64EncodedString];
     //Add the encoded string to the emailBody string
     //Don't forget the "<b>" tags are required, the "<p>" tags are optional
-    [emailBody appendString:[NSString stringWithFormat:@"<p><b><img src='data:image/png;base64,%@'></b></p>",base64String]];
+//    [emailBody appendString:[NSString stringWithFormat:@"<p><b><img src='data:image/png;base64,%@'></b></p>",base64String]];
+//    [emailBody appendString:[NSString stringWithFormat:@"<p><b><img src='timetable.png'></b></p>"]];
+
+    
     //You could repeat here with more text or images, otherwise
     //close the HTML formatting
     [emailBody appendString:@"</body></html>"];
@@ -451,6 +437,8 @@
     emailDialog.mailComposeDelegate = (id)self;
     [emailDialog setSubject:@"My Timetable"];
     [emailDialog setMessageBody:emailBody isHTML:YES];
+    
+    [emailDialog addAttachmentData:imageData mimeType:@"image/png" fileName:@"timetable.png"];
     
     [self presentModalViewController:emailDialog animated:YES];
 
