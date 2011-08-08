@@ -103,7 +103,7 @@
     if ([[AccountManager sharedManager] hasUser]) 
         loggedIn = YES;
     else
-        loggedIn = NO;
+        loggedIn = NO;  
     
     NSString *loginTitle = @"Login";
     if (loggedIn) loginTitle = @"Logout";

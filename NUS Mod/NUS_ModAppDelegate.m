@@ -157,8 +157,16 @@
     //[self dataInit];
 //    [self searchTesting];
     //[self initTesting];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+
+    }
+    else
+    {
+        mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController(iPhone)" bundle:nil];
+    }
     
-    mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
