@@ -107,7 +107,15 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
         label.textAlignment = UITextAlignmentCenter;
         label.backgroundColor = [UIColor clearColor];
 
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            
+        } else
+            label.font = [UIFont systemFontOfSize:12];
+        
+        
         [array addObject:label];
+        
+        
     }
     [headerVerticalGridView setTitleViews:array];
  
@@ -249,7 +257,7 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
         }
             break;
         case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateCancelled: {
+         {
             if (!viewForDragging)
                 return;
             
@@ -309,6 +317,20 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
             viewForDragging = nil;
 //            isHandlingLongPress = NO;
             
+        }
+            break;
+        case UIGestureRecognizerStateCancelled: {
+            CGFloat duration = 0.3;
+
+            [UIView animateWithDuration:duration
+                             animations:^{
+                                 viewForDragging.frame = [mainHorizontalGridView frameForEventView:(EventView *)viewForDragging];
+                                 viewForDragging.alpha = 1;
+                                 viewForDragging.transform = CGAffineTransformIdentity;
+                             } completion:^(BOOL finished) {
+                                 [timetableController endChoosingAlternativeClassesWithModuleClassDetail:nil];
+                                 
+                             }];
         }
             break;
         default:

@@ -58,6 +58,7 @@
 		67FA760513C08D97002C6BA1 /* Changelogs.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67FA760413C08D97002C6BA1 /* Changelogs.txt */; };
 		B00A2DF413D2DC0000EB062D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00A2DF313D2DC0000EB062D /* MessageUI.framework */; };
 		B01AC66A13F03128003F695A /* MainViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = B01AC66913F03128003F695A /* MainViewController(iPhone).xib */; };
+		B01AC67013F0DB34003F695A /* WeekViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = B01AC66F13F0DB34003F695A /* WeekViewController(iPhone).xib */; };
 		B0688AF313D2926E00817DB8 /* CirclePlus.png in Resources */ = {isa = PBXBuildFile; fileRef = B0688AF213D2926E00817DB8 /* CirclePlus.png */; };
 		B0688AF713D2959200817DB8 /* AddCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0688AF613D2959200817DB8 /* AddCell.m */; };
 		B06B594913CF41C5005614E6 /* ModuleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06B594813CF41C5005614E6 /* ModuleCell.xib */; };
@@ -156,6 +157,7 @@
 		67FA760413C08D97002C6BA1 /* Changelogs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changelogs.txt; sourceTree = SOURCE_ROOT; };
 		B00A2DF313D2DC0000EB062D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		B01AC66913F03128003F695A /* MainViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainViewController(iPhone).xib"; sourceTree = "<group>"; };
+		B01AC66F13F0DB34003F695A /* WeekViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WeekViewController(iPhone).xib"; sourceTree = "<group>"; };
 		B0688AF213D2926E00817DB8 /* CirclePlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CirclePlus.png; sourceTree = "<group>"; };
 		B0688AF513D2959200817DB8 /* AddCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCell.h; sourceTree = "<group>"; };
 		B0688AF613D2959200817DB8 /* AddCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCell.m; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				678536AE13D20290003F753E /* WeekViewController.h */,
 				678536AF13D20290003F753E /* WeekViewController.m */,
 				678536B013D20290003F753E /* WeekViewController.xib */,
+				B01AC66F13F0DB34003F695A /* WeekViewController(iPhone).xib */,
 				678536B113D20290003F753E /* EventView.h */,
 				678536B213D20290003F753E /* EventView.m */,
 				678536B313D20290003F753E /* ZSVerticalGridView.h */,
@@ -523,6 +526,7 @@
 				B09699AA13D32EB900E878CB /* Icon.png in Resources */,
 				6772ED8513DC55D400DB129A /* NUS Mod.sqlite in Resources */,
 				B01AC66A13F03128003F695A /* MainViewController(iPhone).xib in Resources */,
+				B01AC67013F0DB34003F695A /* WeekViewController(iPhone).xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

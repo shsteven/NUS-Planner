@@ -47,7 +47,7 @@
 
 - (void)reloadData {
 #ifdef DEBUG
-    NSLog(@"reloadData");
+    NSLog(@"timetable controller: reloadData");
 #endif
     [weekViewController clearAllEventViews];
     
@@ -101,6 +101,8 @@
     return classView;
 }
 
+
+#pragma mark Drag and Drop
 - (void)beginChoosingAlternativeClassesWithModuleClassDetail: (ModuleClassDetail *)detail {
     NSArray *array = [moduleManager alternativesForClass: detail.moduleClass];
     // NSLog(@"%@", [[array objectAtIndex:0] class]);
@@ -134,20 +136,4 @@
 
 }
 
-/*
-int dayToInt(NSString *day) {
-    if([day isEqual:@"MONDAY"]) {
-        return 0;
-    } else if([day isEqual:@"TUESDAY"]) {
-        return 1;
-    } else if([day isEqual:@"WEDNESDAY"]) {
-        return 2;
-    } else if([day isEqual:@"THURSDAY"]) {
-        return 3;
-    } else if([day isEqual:@"FRIDAY"]) {
-        return 4;
-    } else {
-        return 5;
-    }
-}*/
 @end
