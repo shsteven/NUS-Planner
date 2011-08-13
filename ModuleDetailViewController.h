@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Module;
 
-@interface ModuleDetailViewController : UITableViewController
+@interface ModuleDetailViewController : UITableViewController {
+    __unsafe_unretained id _delegate;
+    Module *module;
+}
+
+@property (assign) id delegate;
+@property (strong) Module *module;
 
 @end
