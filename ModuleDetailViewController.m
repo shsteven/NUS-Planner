@@ -7,8 +7,12 @@
 //
 
 #import "ModuleDetailViewController.h"
+#import "Module.h"
 
 @implementation ModuleDetailViewController
+
+@synthesize delegate = _delegate;
+@synthesize module;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -95,7 +99,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
