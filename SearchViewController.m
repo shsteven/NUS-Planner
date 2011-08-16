@@ -182,7 +182,7 @@
     if (mainViewController.popover) {        
         ModuleDetailViewController *detailVC = [[ModuleDetailViewController alloc] initWithNibName:@"ModuleDetailViewController" bundle:nil];
         detailVC.module = aModule;
-        detailVC.showButtons = NO;
+//        detailVC.showButtons = NO;
         popover = [[UIPopoverController alloc] initWithContentViewController:detailVC];
         [popover presentPopoverFromRect:[mainViewController.view convertRect:cell.frame fromView:_tableView] inView:mainViewController.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
         
