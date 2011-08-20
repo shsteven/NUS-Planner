@@ -78,9 +78,6 @@
     CGFloat spacing = self.bounds.size.width / numberOfColumns;
     CGFloat height = self.bounds.size.height;
     while (x < self.bounds.size.width) {
-//        if (x >= self.bounds.size.width)
-//            x-=1; // Prevent clipping
-        
         CGContextMoveToPoint(ctx, floorf(x)+0.5, 0.0);
         CGContextAddLineToPoint(ctx, floorf(x)+0.5, height);
         

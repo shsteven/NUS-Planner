@@ -55,14 +55,10 @@
     
     
     for (ModuleClass *class in selections) {
-//        NSLog(@"a class: %@", class.type);
         for (ModuleClassDetail *detail in class.details) {
-//            NSLog(@"a detail: %@", detail.venue);
             ClassView *classView = [self newClassViewFromClassDetail:detail];
             
             [weekViewController addEventView:classView];
-            
-//            [classView setBlinking:YES]; // Testing
             
         }
 
@@ -70,13 +66,47 @@
             
     }
     
+#ifdef DEBUG
     
+    // Debugging only
+    for (int i = 0; i < 2; i++) {
+        // Testing overlapping event views;
+        ClassView *classView = [weekViewController newClassView];
+        //    [weekViewController newClassView];
+        
+        classView.codeLabel.text = @"Test class";
+        
+        //    classView.classDetail = detail;
+        
+        int day = 1;
+        NSRange r = NSMakeRange((NSUInteger)day, 1);  
+        classView.columnRange = r;
+        
+        NSUInteger start = 4;
+        NSUInteger end = 6;
+        classView.rowRange = NSMakeRange(start, end-start);
+        
+        //    NSString *type = detail.moduleClass.type;
+        //    if (detail.moduleClass.classNumber)
+        //        type = [type stringByAppendingFormat:@"(%@)", detail.moduleClass.classNumber];
+        classView.typeLabel.text = @"Type";
+        classView.venueLabel.text = @"venue";
+        
+        classView.tintColor = [UIColor lightGrayColor];
+        
+        [weekViewController addEventView:classView];
+    }
+
+     
+     
+     
+#endif
     
 }
 
 - (ClassView *)newClassViewFromClassDetail: (ModuleClassDetail *)detail {
     ClassView *classView = [weekViewController newClassView];
-    [weekViewController newClassView];
+//    [weekViewController newClassView];
     
     classView.codeLabel.text = detail.moduleClass.module.code;
     
@@ -126,7 +156,7 @@
     }
     
     [alternativeClasses removeAllObjects];
-    NSLog(@"detail: %@", detail);
+//    NSLog(@"detail: %@", detail);
     
     if (detail) {
         // Update logic

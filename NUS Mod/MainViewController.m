@@ -214,6 +214,7 @@
     CGRect frame = pagingScrollView.bounds;
     frame.origin.x = index * frame.size.width;
     return frame;
+
 }
 
 #pragma mark - PagingScrollView delegate

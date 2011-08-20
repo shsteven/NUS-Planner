@@ -20,4 +20,7 @@
 
 - (CGRect)frameForEventView: (EventView *)view;
 
+// Overlapping views: tapped->space out so that they can be dragged
+- (void)spaceOutOverlappingViews: (NSArray *)views;
+- (void)collapseOverllapingViews: (NSArray *)views;
 @end
