@@ -19,6 +19,11 @@
 @property (nonatomic, retain) NSSet *details;
 @property (nonatomic, retain) Module *module;
 @property (nonatomic, retain) Timetable *timetable;
+
+// For iPhone version
+@property (readonly) NSString *abbreviatedType;
+
+
 @end
 
 @interface ModuleClass (CoreDataGeneratedAccessors)

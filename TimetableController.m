@@ -120,7 +120,11 @@
     NSUInteger end = [detail.endTime gridIndexValue];
     classView.rowRange = NSMakeRange(start, end-start);
     
-    NSString *type = detail.moduleClass.type;
+    NSString *type;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        type = detail.moduleClass.type;
+    else
+        type = detail.moduleClass.abbreviatedType;
     if (detail.moduleClass.classNumber)
         type = [type stringByAppendingFormat:@"(%@)", detail.moduleClass.classNumber];
     classView.typeLabel.text = type;

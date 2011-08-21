@@ -19,4 +19,28 @@
 @dynamic module;
 @dynamic timetable;
 
+- (NSString *)abbreviatedType {
+    if ([self.type isEqualToString:@"DESIGN LECTURE"] ||
+        [self.type isEqualToString:@"LECTURE"] ||
+        [self.type isEqualToString:@"PACKAGED LECTURE"] ||
+        [self.type isEqualToString:@"SECTIONAL TEACHING"] ||
+        [self.type isEqualToString:@"SEMINAR-STYLE MODULE CLASS"] ||
+        [self.type isEqualToString:@"RECITATION"])
+        return @"LEC";
+    
+    if ([self.type isEqualToString:@"TUTORIAL"] ||
+        [self.type isEqualToString:@"PACKAGED TUTORIAL"])
+        return @"TUT";
+    
+    if ([self.type isEqualToString:@"TUTORIAL TYPE 2"])
+        return @"TUT2";
+    if ([self.type isEqualToString:@"TUTORIAL TYPE 3"])
+        return @"TUT3";
+    
+    if ([self.type isEqualToString:@"LABORATORY"])
+        return @"LAB";
+    
+    return @"";
+}
+
 @end
