@@ -326,7 +326,7 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
                 
                 if (overlaps) {
                     // Ask the user: "there's a clash..."
-                    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"This time slot is taken by another class" delegate:self cancelButtonTitle:@"Dismiss" destructiveButtonTitle:@"Ignore clash" otherButtonTitles:@"Cancel", nil];
+                    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"This time slot is taken by another class" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Ignore clash" otherButtonTitles:@"Cancel", nil];
                     CGPoint point = [gr locationInView:self.view];
                     [actionSheet showFromRect:CGRectMake(point.x, point.y, 1.0, 1.0) inView:self.view animated:YES];
                     proposedDestinationView = cView;  
