@@ -13,6 +13,7 @@
 @class EventView;
 @class ClassView;
 @class TimetableController;
+
 static NSString const * const HOURS_AM_PM[] = {
 	@" 12 AM", @" 1 AM", @" 2 AM", @" 3 AM", @" 4 AM", @" 5 AM", @" 6 AM", @" 7 AM", @" 8 AM", @" 9 AM", @" 10 AM", @" 11 AM",
 	@" Noon", @" 1 PM", @" 2 PM", @" 3 PM", @" 4 PM", @" 5 PM", @" 6 PM", @" 7 PM", @" 8 PM", @" 9 PM", @" 10 PM", @" 11 PM", @" 12 PM"
@@ -24,7 +25,7 @@ static NSString const * const HOURS_24[] = {
 };
 
 
-@interface WeekViewController : UIViewController {
+@interface WeekViewController : UIViewController <UIActionSheetDelegate> {
     
     IBOutlet ZSVerticalGridView *headerVerticalGridView;
     IBOutlet ZSVerticalGridView *mainVerticalGridView;
@@ -40,11 +41,13 @@ static NSString const * const HOURS_24[] = {
     NSUInteger index;
     
     TimetableController *timetableController;
-//    BOOL isHandlingLongPress;
+
 
     UIView *viewForDragging;
-    
+    ClassView *proposedDestinationView;
     CGPoint viewDraggingOffset;
+   
+    NSArray *overlappingViewsInQuestion;
 }
 
 @property (assign) id delegate;
@@ -61,16 +64,30 @@ static NSString const * const HOURS_24[] = {
 
 - (void)testEventViews;
 
-
+// TODO: show detail view
 - (void)classViewWasTapped: (ClassView *)view;
 
+// This method is not in use
 - (void)setInPagingMode: (BOOL)mode animated: (BOOL)animated;
 
+// Drag N Drop
 - (ClassView *)destinationClassViewForGestureRecognizer: (UIGestureRecognizer *)gr;
 
+// Emailing timetable
 - (UIImage *)snapshot;
 
 - (void)updateScrollViewWithIndex:(NSInteger)idx;
+
+// For checking whether there is a clash
+- (BOOL) eventView: (EventView *)ev1 overlapsWithEventView: (EventView *)ev2;
+
+// Returns an array containing all event views that everlaps with the given view, including the given view itself
+- (NSArray *)overlappingEventViewsForEventView: (EventView *)eventView;
+
+// Tag event views (so that ZSHorizontalGridView knows how to layout)
+// Tag = 0: no clash
+// Tag > 0: this view needs to be offset to reveal other views in the same slot
+- (void)tagEventViews;
 
 CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2);
 

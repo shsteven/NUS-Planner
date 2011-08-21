@@ -31,7 +31,9 @@
 */
 
 - (void)layoutSubviews {
-    for (UIView *aView in self.subviews) {
+    NSLog(@"mainHorizontalGridView layoutSubviews");
+    NSArray *subviews = self.subviews;
+    for (UIView *aView in subviews) {
         if (!CGAffineTransformIsIdentity(aView.transform)) continue; // Leave the dragged view alone
         if (aView.class == [EventView class] || [aView.class isSubclassOfClass:[EventView class]]) {
             EventView *eventView = (EventView *)aView;
@@ -55,9 +57,116 @@
     frame.size.height = ceilf(unitHeight * view.rowRange.length);
     
     frame = CGRectInset(frame, 1.0, 1.0);
+    
+    // Laying out overlapping views
+    if (view.tag) {
+        frame.origin.x += 5.0 * view.tag;
+        frame.origin.y += 25.0 * view.tag;
+    }
     return frame;
     
 }
+
+
+- (void)spaceOutOverlappingViews: (NSArray *)views {
+    // Current implementation supports maximum 4 overlapping views
+    UIView *view0, *view1, *view2, *view3;
+    
+    NSUInteger count = [views count];
+    
+    view0 = [views objectAtIndex:0];
+    if (count > 1)
+        view1 = [views objectAtIndex:1];
+    if (count > 2)
+        view2 = [views objectAtIndex:2];
+    if (count > 3)
+        view3 = [views objectAtIndex:3];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        switch (count) {
+            case 2: {
+                CGRect frame;
+                frame = view0.frame;
+                frame.origin.x -= frame.size.width / 2.0;
+                view0.frame = frame;
+                
+                frame = view1.frame;
+                frame.origin.x += frame.size.width / 2.0;
+                view1.frame = frame;
+                
+            }
+                
+                break;
+                
+            case 3: {
+                CGRect frame;
+                frame = view0.frame;
+                frame.origin.x -= frame.size.width / 2.0;
+                frame.origin.y -= frame.size.height / 2.0;
+                view0.frame = frame;
+                
+                frame = view1.frame;
+                frame.origin.x += frame.size.width / 2.0;
+                frame.origin.y -= frame.size.height / 2.0;
+
+                view1.frame = frame;
+                
+                frame = view2.frame;
+                frame.origin.y += frame.size.height / 2.0;
+                
+                view2.frame = frame;
+
+                
+            }
+                
+                break;
+                
+            case 4: {
+                CGRect frame;
+                frame = view0.frame;
+                frame.origin.x -= frame.size.width / 2.0;
+                frame.origin.y -= frame.size.height / 2.0;
+                view0.frame = frame;
+                
+                frame = view1.frame;
+                frame.origin.x += frame.size.width / 2.0;
+                frame.origin.y -= frame.size.height / 2.0;
+                
+                view1.frame = frame;
+                
+                frame = view2.frame;
+                frame.origin.x -= frame.size.width / 2.0;
+                frame.origin.y += frame.size.height / 2.0;
+                
+                view2.frame = frame;
+                
+                frame = view3.frame;
+                frame.origin.x += frame.size.width / 2.0;
+                frame.origin.y += frame.size.height / 2.0;
+                
+                view3.frame = frame;
+                
+            }
+                
+                break;
+                
+            default:
+                break;
+        }
+    } completion:NULL];
+    
+
+}
+
+- (void)collapseOverllapingViews: (NSArray *)views {
+    for (EventView *view in views) {
+        CGRect frame = [self frameForEventView:view];
+        [UIView animateWithDuration:0.3 animations:^{
+            view.frame = frame;
+        } completion:NULL];
+    }
+}
+
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

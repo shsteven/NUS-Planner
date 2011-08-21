@@ -17,6 +17,7 @@
     
 //    NSTimer *blinkTimer;
 //    UIColor *tintColor;
+    
 }
 
 @property (assign) NSRange columnRange;

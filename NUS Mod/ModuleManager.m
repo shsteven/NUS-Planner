@@ -135,7 +135,7 @@ NSInteger sortByCounter(id arr1, id arr2, void *context) {
             [results addObject:c];
         }
     }
-    return results;
+    return [results copy];
 }
 
 bool used_slots[28*6+1]; // 28 30-min slots, 6 days

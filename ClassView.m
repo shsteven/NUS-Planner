@@ -40,12 +40,18 @@
     NSString *text = typeLabel.text;
     CGSize size = [text sizeWithFont:typeLabel.font constrainedToSize:CGSizeMake(typeLabel.frame.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
         
-    CGRect frame = typeLabel.frame;
-    //NSLog(@"frame: %@", NSStringFromCGRect(frame));
-    frame.size = CGSizeMake(frame.size.width, size.height);
-    typeLabel.frame = frame;
-    typeLabel.adjustsFontSizeToFitWidth = YES;
-    typeLabel.numberOfLines = 0;
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        
+        CGRect frame = typeLabel.frame;
+        //NSLog(@"frame: %@", NSStringFromCGRect(frame));
+        frame.size = CGSizeMake(frame.size.width, size.height);
+        typeLabel.frame = frame;
+        typeLabel.adjustsFontSizeToFitWidth = YES;
+        
+        typeLabel.numberOfLines = 0;
+
+    }
     
     CGRect rect1 = typeLabel.frame;
     CGRect rect2 = venueLabel.frame;

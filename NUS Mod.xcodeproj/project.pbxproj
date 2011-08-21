@@ -19,9 +19,6 @@
 		6718248F13BE1A0D00443C08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6718248D13BE1A0D00443C08 /* InfoPlist.strings */; };
 		6718249113BE1A0D00443C08 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6718249013BE1A0D00443C08 /* main.m */; };
 		671824A413BE1AC700443C08 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 671824A313BE1AC700443C08 /* AccountManager.m */; };
-		673A6E8513F0D17A005B2F4C /* ModuleDetailFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 673A6E8413F0D17A005B2F4C /* ModuleDetailFooterView.xib */; };
-		673A6E8C13F0D453005B2F4C /* ModuleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 673A6E8A13F0D452005B2F4C /* ModuleDetailViewController.m */; };
-		673A6E8D13F0D453005B2F4C /* ModuleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 673A6E8B13F0D452005B2F4C /* ModuleDetailViewController.xib */; };
 		6758102913D0136300EA6969 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758102713D0136300EA6969 /* LoginViewController.m */; };
 		6758102C13D01C3A00EA6969 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6758102B13D01C3A00EA6969 /* LoginViewController.xib */; };
 		6758103613D024CF00EA6969 /* Keyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758103513D024CF00EA6969 /* Keyword.m */; };
@@ -40,6 +37,8 @@
 		6758108113D13BA500EA6969 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758108013D13BA500EA6969 /* SearchViewController.m */; };
 		6758108A13D1446200EA6969 /* AddModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758108813D1444100EA6969 /* AddModuleViewController.m */; };
 		6758108B13D1446200EA6969 /* AddModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6758108913D1444300EA6969 /* AddModuleViewController.xib */; };
+		676736B81400EB1300CA4719 /* ModuleListViewController(iPhone).m in Sources */ = {isa = PBXBuildFile; fileRef = 676736B61400EB1300CA4719 /* ModuleListViewController(iPhone).m */; };
+		676736B91400EB1300CA4719 /* ModuleListViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = 676736B71400EB1300CA4719 /* ModuleListViewController(iPhone).xib */; };
 		6772ED8513DC55D400DB129A /* NUS Mod.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 6772ED8413DC55D400DB129A /* NUS Mod.sqlite */; };
 		677A3D4513C1914000A20041 /* ModuleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677A3D4413C1914000A20041 /* ModuleManager.m */; };
 		678536A613D20082003F753E /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678536A513D20082003F753E /* SearchViewController.xib */; };
@@ -54,15 +53,18 @@
 		678536C513D203E4003F753E /* NUS_ModAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536C413D203E4003F753E /* NUS_ModAppDelegate.m */; };
 		678536C913D2048C003F753E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536C713D2048C003F753E /* MainViewController.m */; };
 		678536CA13D2048C003F753E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678536C813D2048C003F753E /* MainViewController.xib */; };
-		67C9624B13FAA495000CCD96 /* ModuleDetailViewController(iPhone).m in Sources */ = {isa = PBXBuildFile; fileRef = 67C9624913FAA495000CCD96 /* ModuleDetailViewController(iPhone).m */; };
-		67C9624C13FAA495000CCD96 /* ModuleDetailViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = 67C9624A13FAA495000CCD96 /* ModuleDetailViewController(iPhone).xib */; };
-		67F8A3EE13F7FB7500FA3D22 /* ModuleListViewController(iPhone).m in Sources */ = {isa = PBXBuildFile; fileRef = 67F8A3EC13F7FB7500FA3D22 /* ModuleListViewController(iPhone).m */; };
-		67F8A3EF13F7FB7500FA3D22 /* ModuleListViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = 67F8A3ED13F7FB7500FA3D22 /* ModuleListViewController(iPhone).xib */; };
 		67FA75A413BF9B8E002C6BA1 /* NUS Mod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67FA75A213BF9B8E002C6BA1 /* NUS Mod.xcdatamodeld */; };
 		67FA75EF13C03F10002C6BA1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FA75EE13C03F10002C6BA1 /* CoreData.framework */; };
 		67FA760513C08D97002C6BA1 /* Changelogs.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67FA760413C08D97002C6BA1 /* Changelogs.txt */; };
+		67FAFCF71400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m in Sources */ = {isa = PBXBuildFile; fileRef = 67FAFCF51400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m */; };
+		67FAFCF81400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = 67FAFCF61400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib */; };
 		B00A2DF413D2DC0000EB062D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00A2DF313D2DC0000EB062D /* MessageUI.framework */; };
 		B01AC66A13F03128003F695A /* MainViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = B01AC66913F03128003F695A /* MainViewController(iPhone).xib */; };
+		B01AC67013F0DB34003F695A /* WeekViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = B01AC66F13F0DB34003F695A /* WeekViewController(iPhone).xib */; };
+		B05D5B6613FC0CA200319760 /* ClassView(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = B05D5B6513FC0CA200319760 /* ClassView(iPhone).xib */; };
+		B05D5B7613FC0F4900319760 /* ModuleDetailFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B05D5B7213FC0F4900319760 /* ModuleDetailFooterView.xib */; };
+		B05D5B7713FC0F4900319760 /* ModuleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B05D5B7413FC0F4900319760 /* ModuleDetailViewController.m */; };
+		B05D5B7813FC0F4900319760 /* ModuleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B05D5B7513FC0F4900319760 /* ModuleDetailViewController.xib */; };
 		B0688AF313D2926E00817DB8 /* CirclePlus.png in Resources */ = {isa = PBXBuildFile; fileRef = B0688AF213D2926E00817DB8 /* CirclePlus.png */; };
 		B0688AF713D2959200817DB8 /* AddCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0688AF613D2959200817DB8 /* AddCell.m */; };
 		B06B594913CF41C5005614E6 /* ModuleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06B594813CF41C5005614E6 /* ModuleCell.xib */; };
@@ -98,10 +100,6 @@
 		6718249213BE1A0D00443C08 /* NUS Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NUS Mod-Prefix.pch"; sourceTree = "<group>"; };
 		671824A213BE1AC700443C08 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
 		671824A313BE1AC700443C08 /* AccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManager.m; sourceTree = "<group>"; };
-		673A6E8413F0D17A005B2F4C /* ModuleDetailFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ModuleDetailFooterView.xib; path = "NUS Mod/ModuleDetailFooterView.xib"; sourceTree = "<group>"; };
-		673A6E8913F0D452005B2F4C /* ModuleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleDetailViewController.h; sourceTree = "<group>"; };
-		673A6E8A13F0D452005B2F4C /* ModuleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleDetailViewController.m; sourceTree = "<group>"; };
-		673A6E8B13F0D452005B2F4C /* ModuleDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleDetailViewController.xib; sourceTree = "<group>"; };
 		6758102613D0136300EA6969 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		6758102713D0136300EA6969 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		6758102B13D01C3A00EA6969 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -135,6 +133,9 @@
 		6758108713D1443400EA6969 /* AddModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddModuleViewController.h; sourceTree = "<group>"; };
 		6758108813D1444100EA6969 /* AddModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddModuleViewController.m; sourceTree = "<group>"; };
 		6758108913D1444300EA6969 /* AddModuleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddModuleViewController.xib; sourceTree = "<group>"; };
+		676736B51400EB1300CA4719 /* ModuleListViewController(iPhone).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ModuleListViewController(iPhone).h"; sourceTree = "<group>"; };
+		676736B61400EB1300CA4719 /* ModuleListViewController(iPhone).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ModuleListViewController(iPhone).m"; sourceTree = "<group>"; };
+		676736B71400EB1300CA4719 /* ModuleListViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ModuleListViewController(iPhone).xib"; sourceTree = "<group>"; };
 		6772ED8413DC55D400DB129A /* NUS Mod.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NUS Mod.sqlite"; sourceTree = "<group>"; };
 		677A3D4313C1914000A20041 /* ModuleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleManager.h; sourceTree = "<group>"; };
 		677A3D4413C1914000A20041 /* ModuleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleManager.m; sourceTree = "<group>"; };
@@ -157,17 +158,20 @@
 		678536C613D2048C003F753E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		678536C713D2048C003F753E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		678536C813D2048C003F753E /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
-		67C9624813FAA495000CCD96 /* ModuleDetailViewController(iPhone).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ModuleDetailViewController(iPhone).h"; sourceTree = "<group>"; };
-		67C9624913FAA495000CCD96 /* ModuleDetailViewController(iPhone).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ModuleDetailViewController(iPhone).m"; sourceTree = "<group>"; };
-		67C9624A13FAA495000CCD96 /* ModuleDetailViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ModuleDetailViewController(iPhone).xib"; sourceTree = "<group>"; };
-		67F8A3EB13F7FB7500FA3D22 /* ModuleListViewController(iPhone).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ModuleListViewController(iPhone).h"; sourceTree = "<group>"; };
-		67F8A3EC13F7FB7500FA3D22 /* ModuleListViewController(iPhone).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ModuleListViewController(iPhone).m"; sourceTree = "<group>"; };
-		67F8A3ED13F7FB7500FA3D22 /* ModuleListViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ModuleListViewController(iPhone).xib"; sourceTree = "<group>"; };
 		67FA75A313BF9B8E002C6BA1 /* NUS Mod.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NUS Mod.xcdatamodel"; sourceTree = "<group>"; };
 		67FA75EE13C03F10002C6BA1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		67FA760413C08D97002C6BA1 /* Changelogs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changelogs.txt; sourceTree = SOURCE_ROOT; };
+		67FAFCF41400ECCB002C4B0B /* ModuleDetailViewController(iPhone).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ModuleDetailViewController(iPhone).h"; sourceTree = "<group>"; };
+		67FAFCF51400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ModuleDetailViewController(iPhone).m"; sourceTree = "<group>"; };
+		67FAFCF61400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ModuleDetailViewController(iPhone).xib"; sourceTree = "<group>"; };
 		B00A2DF313D2DC0000EB062D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		B01AC66913F03128003F695A /* MainViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainViewController(iPhone).xib"; sourceTree = "<group>"; };
+		B01AC66F13F0DB34003F695A /* WeekViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WeekViewController(iPhone).xib"; sourceTree = "<group>"; };
+		B05D5B6513FC0CA200319760 /* ClassView(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ClassView(iPhone).xib"; sourceTree = "<group>"; };
+		B05D5B7213FC0F4900319760 /* ModuleDetailFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleDetailFooterView.xib; sourceTree = "<group>"; };
+		B05D5B7313FC0F4900319760 /* ModuleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleDetailViewController.h; sourceTree = "<group>"; };
+		B05D5B7413FC0F4900319760 /* ModuleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleDetailViewController.m; sourceTree = "<group>"; };
+		B05D5B7513FC0F4900319760 /* ModuleDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleDetailViewController.xib; sourceTree = "<group>"; };
 		B0688AF213D2926E00817DB8 /* CirclePlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CirclePlus.png; sourceTree = "<group>"; };
 		B0688AF513D2959200817DB8 /* AddCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCell.h; sourceTree = "<group>"; };
 		B0688AF613D2959200817DB8 /* AddCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCell.m; sourceTree = "<group>"; };
@@ -326,6 +330,7 @@
 				678536AE13D20290003F753E /* WeekViewController.h */,
 				678536AF13D20290003F753E /* WeekViewController.m */,
 				678536B013D20290003F753E /* WeekViewController.xib */,
+				B01AC66F13F0DB34003F695A /* WeekViewController(iPhone).xib */,
 				678536B113D20290003F753E /* EventView.h */,
 				678536B213D20290003F753E /* EventView.m */,
 				678536B313D20290003F753E /* ZSVerticalGridView.h */,
@@ -336,17 +341,6 @@
 				678536B813D20290003F753E /* ZSHorizontalGridView.m */,
 			);
 			name = "Building blocks";
-			sourceTree = "<group>";
-		};
-		678536AD13D2026C003F753E /* Module Detail */ = {
-			isa = PBXGroup;
-			children = (
-				673A6E8413F0D17A005B2F4C /* ModuleDetailFooterView.xib */,
-				673A6E8913F0D452005B2F4C /* ModuleDetailViewController.h */,
-				673A6E8A13F0D452005B2F4C /* ModuleDetailViewController.m */,
-				673A6E8B13F0D452005B2F4C /* ModuleDetailViewController.xib */,
-			);
-			name = "Module Detail";
 			sourceTree = "<group>";
 		};
 		B0412EC613C05B2B0091C63E /* Main (Timetable) */ = {
@@ -361,22 +355,33 @@
 			path = "NUS Mod";
 			sourceTree = "<group>";
 		};
+		B05D5B7113FC0EF500319760 /* Module Detail */ = {
+			isa = PBXGroup;
+			children = (
+				B05D5B7213FC0F4900319760 /* ModuleDetailFooterView.xib */,
+				B05D5B7313FC0F4900319760 /* ModuleDetailViewController.h */,
+				B05D5B7413FC0F4900319760 /* ModuleDetailViewController.m */,
+				B05D5B7513FC0F4900319760 /* ModuleDetailViewController.xib */,
+			);
+			name = "Module Detail";
+			sourceTree = "<group>";
+		};
 		B06B594613CF3E4A005614E6 /* Module List */ = {
 			isa = PBXGroup;
 			children = (
 				B0C0D8CF13CDCA6A007C7D69 /* ModuleListViewController.h */,
 				B0C0D8D013CDCA6A007C7D69 /* ModuleListViewController.m */,
+				676736B51400EB1300CA4719 /* ModuleListViewController(iPhone).h */,
+				676736B61400EB1300CA4719 /* ModuleListViewController(iPhone).m */,
+				676736B71400EB1300CA4719 /* ModuleListViewController(iPhone).xib */,
+				67FAFCF41400ECCB002C4B0B /* ModuleDetailViewController(iPhone).h */,
+				67FAFCF51400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m */,
+				67FAFCF61400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib */,
 				B06B594A13CF42EC005614E6 /* ModuleCell.h */,
 				B06B594B13CF42EC005614E6 /* ModuleCell.m */,
 				B0688AF513D2959200817DB8 /* AddCell.h */,
 				B0688AF613D2959200817DB8 /* AddCell.m */,
 				B06B594813CF41C5005614E6 /* ModuleCell.xib */,
-				67F8A3EB13F7FB7500FA3D22 /* ModuleListViewController(iPhone).h */,
-				67F8A3EC13F7FB7500FA3D22 /* ModuleListViewController(iPhone).m */,
-				67F8A3ED13F7FB7500FA3D22 /* ModuleListViewController(iPhone).xib */,
-				67C9624813FAA495000CCD96 /* ModuleDetailViewController(iPhone).h */,
-				67C9624913FAA495000CCD96 /* ModuleDetailViewController(iPhone).m */,
-				67C9624A13FAA495000CCD96 /* ModuleDetailViewController(iPhone).xib */,
 			);
 			name = "Module List";
 			sourceTree = "<group>";
@@ -396,11 +401,11 @@
 		B082E5A013CC940B008BB446 /* Timetable */ = {
 			isa = PBXGroup;
 			children = (
+				B05D5B7113FC0EF500319760 /* Module Detail */,
 				B0C0D8CD13CDCA6A007C7D69 /* TimetableController.h */,
 				B0C0D8CE13CDCA6A007C7D69 /* TimetableController.m */,
 				B082E5B113CC946F008BB446 /* Views */,
 				678536AC13D20252003F753E /* Building blocks */,
-				678536AD13D2026C003F753E /* Module Detail */,
 			);
 			name = Timetable;
 			sourceTree = "<group>";
@@ -433,6 +438,7 @@
 			children = (
 				678536A713D2018F003F753E /* ClassView.h */,
 				678536A813D2018F003F753E /* ClassView.m */,
+				B05D5B6513FC0CA200319760 /* ClassView(iPhone).xib */,
 				678536A913D2018F003F753E /* ClassView.xib */,
 			);
 			name = Views;
@@ -541,10 +547,12 @@
 				B09699AA13D32EB900E878CB /* Icon.png in Resources */,
 				6772ED8513DC55D400DB129A /* NUS Mod.sqlite in Resources */,
 				B01AC66A13F03128003F695A /* MainViewController(iPhone).xib in Resources */,
-				673A6E8513F0D17A005B2F4C /* ModuleDetailFooterView.xib in Resources */,
-				673A6E8D13F0D453005B2F4C /* ModuleDetailViewController.xib in Resources */,
-				67F8A3EF13F7FB7500FA3D22 /* ModuleListViewController(iPhone).xib in Resources */,
-				67C9624C13FAA495000CCD96 /* ModuleDetailViewController(iPhone).xib in Resources */,
+				B01AC67013F0DB34003F695A /* WeekViewController(iPhone).xib in Resources */,
+				B05D5B6613FC0CA200319760 /* ClassView(iPhone).xib in Resources */,
+				B05D5B7613FC0F4900319760 /* ModuleDetailFooterView.xib in Resources */,
+				B05D5B7813FC0F4900319760 /* ModuleDetailViewController.xib in Resources */,
+				676736B91400EB1300CA4719 /* ModuleListViewController(iPhone).xib in Resources */,
+				67FAFCF81400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,9 +600,9 @@
 				678536C513D203E4003F753E /* NUS_ModAppDelegate.m in Sources */,
 				678536C913D2048C003F753E /* MainViewController.m in Sources */,
 				B0688AF713D2959200817DB8 /* AddCell.m in Sources */,
-				673A6E8C13F0D453005B2F4C /* ModuleDetailViewController.m in Sources */,
-				67F8A3EE13F7FB7500FA3D22 /* ModuleListViewController(iPhone).m in Sources */,
-				67C9624B13FAA495000CCD96 /* ModuleDetailViewController(iPhone).m in Sources */,
+				B05D5B7713FC0F4900319760 /* ModuleDetailViewController.m in Sources */,
+				676736B81400EB1300CA4719 /* ModuleListViewController(iPhone).m in Sources */,
+				67FAFCF71400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,7 +640,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -655,7 +663,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -670,10 +678,11 @@
 		671824A013BE1A0E00443C08 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ARC_MIGRATION = donothing;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NUS Mod/NUS Mod-Prefix.pch";
 				INFOPLIST_FILE = "NUS Mod/NUS Mod-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "NUS Planner";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -683,10 +692,11 @@
 		671824A113BE1A0E00443C08 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ARC_MIGRATION = donothing;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NUS Mod/NUS Mod-Prefix.pch";
 				INFOPLIST_FILE = "NUS Mod/NUS Mod-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "NUS Planner";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

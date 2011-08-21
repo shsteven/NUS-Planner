@@ -70,17 +70,11 @@
     if (blink) {
         CGFloat duration = 0.5;
         
-        self.alpha = 0.8;
+        self.alpha = 0.6;
         
         [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat animations:^{
-            self.alpha = 0.3;
-        } completion:^(BOOL finished) {
-            //        [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationCurveEaseInOut animations:^{
-            //            self.alpha = 1.0;
-            //        } completion:^(BOOL finished) {
-            //            
-            //        }];
-        }];
+            self.alpha = 0.1;
+        } completion:NULL];
     } else {
         self.alpha = 1;
     }

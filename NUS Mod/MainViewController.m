@@ -24,7 +24,6 @@
 
 #import "MilestoneViewController.h"
 #import <MessageUI/MessageUI.h>
-//#import "NSData+Base64.h"
 #import <QuartzCore/QuartzCore.h>
 
 #import "ModuleListViewController(iPhone).h"
@@ -47,7 +46,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
@@ -66,41 +64,41 @@
     
     self.navigationItem.rightBarButtonItem = actionButton;
     
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        self.navigationItem.leftBarButtonItem = modulesButton;
+    
     id delegate = [[UIApplication sharedApplication] delegate];
     self.managedObjectContext = [delegate managedObjectContext];
 
+    // Calculate dimensions 
+    CGRect frame;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        frame = moduleListViewController.view.frame;
+        frame.origin.x += frame.size.width;
+        frame.size.width = self.view.bounds.size.width - frame.size.width;
+    } else {
+        frame = self.view.bounds;
+    }
 
-    
-    // The main timetable view
-//    weekViewController = [[WeekViewController alloc] initWithNibName:@"WeekViewController" bundle:nil];
-    
-    CGRect frame = moduleListViewController.view.frame;
-    frame.origin.x += frame.size.width;
-    frame.size.width = self.view.bounds.size.width - frame.size.width;
     
     visiblePages = [NSMutableSet new];
     
+    // Paging scroll view (for browsing all timetable combinations)
     pagingScrollView = [[UIScrollView alloc] initWithFrame:frame];
     pagingScrollView.delegate = self;
     pagingScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-//    frame.origin = CGPointZero;
-//    weekViewController.view.frame = [self frameForPageAtIndex: 0];
+
 
     pagingScrollView.contentSize = frame.size;
     pagingScrollView.pagingEnabled = YES;
     
-//    [pagingScrollView addSubview:weekViewController.view];
     
     [self.view addSubview:pagingScrollView];
-    
-    
-//    timetableController.weekViewController = weekViewController;
-//    timetableController.selections = [moduleManager.combinations objectAtIndex:0];
-//    [timetableController reloadData];
+
     [self tilePages];
     
     
+    // Watch for notifications from ModuleManager
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(configurePagingScrollView) name:kGeneratedCombinationsDidUpdateNotification object:nil];
     
@@ -124,6 +122,10 @@
     [actionSheet showFromBarButtonItem:actionButton animated:YES];
 }
 
+- (IBAction)handleModulesButton:(id)sender {
+    // TODO: SHOW MODULE LIST AND SEARCH
+}
+
 - (void)setPagingMode: (BOOL)mode {
     inPagingMode = mode;
     [self configurePagingScrollView];
@@ -143,7 +145,6 @@
     
     if (inPagingMode) {
         pageCount = [moduleManager.combinations count];
-//        if (pageCount == 0) pageCount = 1;
         if (pageCount == 0) {
             pagingScrollView.scrollEnabled = NO;
             [self setShowsNoCombinationView: YES];
@@ -230,6 +231,7 @@
     CGRect frame = pagingScrollView.bounds;
     frame.origin.x = index * frame.size.width;
     return frame;
+
 }
 
 #pragma mark - PagingScrollView delegate
@@ -319,8 +321,13 @@
 - (WeekViewController *)pageViewControllerAtIndex: (NSUInteger)index {
     // Create a week view controller and hook up to a timetable controller
     
-    WeekViewController *weekVC = [[WeekViewController alloc] initWithNibName:@"WeekViewController" bundle:nil];
-    weekVC.delegate = self;
+    WeekViewController *weekVC;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    weekVC = [[WeekViewController alloc] initWithNibName:@"WeekViewController" bundle:nil];
+    else
+        weekVC = [[WeekViewController alloc] initWithNibName:@"WeekViewController(iPhone)" bundle:nil];
+    weekVC.delegate = self;    
+
     weekVC.view.frame = [self frameForPageAtIndex:index];
     
     weekVC.index = index;
@@ -335,7 +342,7 @@
     [weekVC setInPagingMode:inPagingMode animated:NO];
     
     [tc reloadData];
-    
+      
     
     return weekVC;
     
@@ -355,6 +362,7 @@
     moduleListViewController = nil;
     timetableController = nil;
     [self setSearchViewController:nil];
+    modulesButton = nil;
     [super viewDidUnload];
 }
 
@@ -399,6 +407,9 @@
 #pragma mark ActionSheet delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
+//        case 0:
+//            [self presentMilestoneVC];
+//            break;
         case 0:
             [self emailTimetable];
             break;
@@ -420,6 +431,8 @@
     
 }
 
+
+#pragma mark Mailing Timetable
 - (void)emailTimetable {
     //Create a string with HTML formatting for the email body
     NSMutableString *emailBody = [[NSMutableString alloc] initWithString:@"<html><body>"];
