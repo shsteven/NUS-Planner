@@ -15,5 +15,6 @@
 #define GRID_LINE_WIDTH 1.0
 
 #define kGeneratedCombinationsDidUpdateNotification @"GeneratedCombinationsDidUpdate"
+#define kNumberOfPagesDidChangeNotification @"NumberOfPageChanged"
 
 #endif

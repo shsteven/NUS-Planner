@@ -168,7 +168,8 @@
         // Update logic
         [moduleManager addClass:detail.moduleClass];
     }
-    [self.weekViewController updateScrollViewWithIndex:[moduleManager updateGeneratedCombinations:selections]];
+    [moduleManager updateGeneratedCombinations:selections currentIndex:weekViewController.index];
+    
     [self reloadData];
 
 }

@@ -966,20 +966,23 @@ bool flagFreeSlots[28*6+1];
     return YES;
 }
 
-- (NSInteger)updateGeneratedCombinations:(NSSet *)selectedSet {
+- (void)updateGeneratedCombinations:(NSSet *)selectedSet currentIndex:(NSInteger)index {
     NSMutableArray *selected = [NSMutableArray arrayWithArray:[selectedSet allObjects]];
     bool found = false;
     int idx = 0;
     for (NSMutableArray *timetable in generatedCombinations) {
         if ([self equal:timetable with:selected]) {
-            return idx;
+            found = true;
+            NSMutableArray *temp = [generatedCombinations objectAtIndex:index];
+            [generatedCombinations replaceObjectAtIndex:index withObject:timetable];
+            [generatedCombinations replaceObjectAtIndex:idx withObject:temp];
+            return;
         }
         idx++;
     }
-    if (!found) {
-        [generatedCombinations addObject:selected];
-        return [generatedCombinations count] - 1;
-    }
+    
+    [generatedCombinations insertObject:selected atIndex:index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNumberOfPagesDidChangeNotification object:self];
 }
 
 @end

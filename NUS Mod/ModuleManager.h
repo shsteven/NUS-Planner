@@ -125,5 +125,6 @@
 
 - (NSMutableSet *)splitAndNormalized:(NSString *)str;
 
-- (NSInteger)updateGeneratedCombinations:(NSSet *)selected;
+- (void)updateGeneratedCombinations:(NSSet *)selectedSet currentIndex:(NSInteger)index;
+
 @end

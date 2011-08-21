@@ -37,12 +37,6 @@
 @synthesize searchViewController;
 @synthesize popover;
 
-- (void)updateCurrentTimetableWithIndex:(NSNumber *)idx {
-    currentPageIndex = [idx intValue];
-    [self configurePagingScrollView];
-    [pagingScrollView scrollRectToVisible:[self frameForPageAtIndex:[idx intValue]] animated:NO];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -101,6 +95,9 @@
     // Watch for notifications from ModuleManager
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(configurePagingScrollView) name:kGeneratedCombinationsDidUpdateNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(configurePagingScrollViewWithoutReloading) name:kNumberOfPagesDidChangeNotification object:nil];
     
     [self setPagingMode:YES];
     
@@ -167,6 +164,39 @@
 
 
 }
+
+- (void)configurePagingScrollViewWithoutReloading {
+    NSLog(@"configure paging scroll view");
+    
+    NSUInteger pageCount = 1;
+//    pagingScrollView.contentOffset = CGPointZero;
+    
+    
+    if (inPagingMode) {
+        pageCount = [moduleManager.combinations count];
+        if (pageCount == 0) {
+            pagingScrollView.scrollEnabled = NO;
+            [self setShowsNoCombinationView: YES];
+            
+            return;
+        } else
+            [self setShowsNoCombinationView: NO];
+        pagingScrollView.scrollEnabled = YES; 
+    } else 
+        pagingScrollView.scrollEnabled = NO;
+    
+    CGSize size = pagingScrollView.bounds.size;
+    size.width *= pageCount;
+    pagingScrollView.contentSize = size;
+    
+    
+//    [self reloadData];
+    
+    [self scrollViewDidEndDecelerating:pagingScrollView]; // Trigger data source to be set correctly
+    
+
+}
+
 
 - (void) setShowsNoCombinationView: (BOOL)show {
     if (show) {
@@ -326,7 +356,6 @@
     weekVC = [[WeekViewController alloc] initWithNibName:@"WeekViewController" bundle:nil];
     else
         weekVC = [[WeekViewController alloc] initWithNibName:@"WeekViewController(iPhone)" bundle:nil];
-    weekVC.delegate = self;    
 
     weekVC.view.frame = [self frameForPageAtIndex:index];
     
