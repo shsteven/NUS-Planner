@@ -50,6 +50,8 @@ static NSString const * const HOURS_24[] = {
     NSArray *overlappingViewsInQuestion;
 }
 
+@property (assign) id delegate;
+
 @property (strong) NSMutableSet *eventViews;
 @property (strong, atomic) IBOutlet ClassView *classView;
 @property (assign) NSUInteger index;
@@ -74,6 +76,8 @@ static NSString const * const HOURS_24[] = {
 // Emailing timetable
 - (UIImage *)snapshot;
 
+- (void)updateScrollViewWithIndex:(NSInteger)idx;
+
 // For checking whether there is a clash
 - (BOOL) eventView: (EventView *)ev1 overlapsWithEventView: (EventView *)ev2;
 
@@ -84,7 +88,6 @@ static NSString const * const HOURS_24[] = {
 // Tag = 0: no clash
 // Tag > 0: this view needs to be offset to reveal other views in the same slot
 - (void)tagEventViews;
-
 
 CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2);
 

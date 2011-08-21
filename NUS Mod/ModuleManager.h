@@ -123,6 +123,7 @@
 
 - (BOOL)colorIsUsed: (UIColor *)color;
 
-
 - (NSMutableSet *)splitAndNormalized:(NSString *)str;
+
+- (NSInteger)updateGeneratedCombinations:(NSSet *)selected;
 @end

@@ -37,6 +37,8 @@
 		6758108113D13BA500EA6969 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758108013D13BA500EA6969 /* SearchViewController.m */; };
 		6758108A13D1446200EA6969 /* AddModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758108813D1444100EA6969 /* AddModuleViewController.m */; };
 		6758108B13D1446200EA6969 /* AddModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6758108913D1444300EA6969 /* AddModuleViewController.xib */; };
+		676736B81400EB1300CA4719 /* ModuleListViewController(iPhone).m in Sources */ = {isa = PBXBuildFile; fileRef = 676736B61400EB1300CA4719 /* ModuleListViewController(iPhone).m */; };
+		676736B91400EB1300CA4719 /* ModuleListViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = 676736B71400EB1300CA4719 /* ModuleListViewController(iPhone).xib */; };
 		6772ED8513DC55D400DB129A /* NUS Mod.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 6772ED8413DC55D400DB129A /* NUS Mod.sqlite */; };
 		677A3D4513C1914000A20041 /* ModuleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677A3D4413C1914000A20041 /* ModuleManager.m */; };
 		678536A613D20082003F753E /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678536A513D20082003F753E /* SearchViewController.xib */; };
@@ -54,6 +56,8 @@
 		67FA75A413BF9B8E002C6BA1 /* NUS Mod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67FA75A213BF9B8E002C6BA1 /* NUS Mod.xcdatamodeld */; };
 		67FA75EF13C03F10002C6BA1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FA75EE13C03F10002C6BA1 /* CoreData.framework */; };
 		67FA760513C08D97002C6BA1 /* Changelogs.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67FA760413C08D97002C6BA1 /* Changelogs.txt */; };
+		67FAFCF71400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m in Sources */ = {isa = PBXBuildFile; fileRef = 67FAFCF51400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m */; };
+		67FAFCF81400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = 67FAFCF61400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib */; };
 		B00A2DF413D2DC0000EB062D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00A2DF313D2DC0000EB062D /* MessageUI.framework */; };
 		B01AC66A13F03128003F695A /* MainViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = B01AC66913F03128003F695A /* MainViewController(iPhone).xib */; };
 		B01AC67013F0DB34003F695A /* WeekViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = B01AC66F13F0DB34003F695A /* WeekViewController(iPhone).xib */; };
@@ -129,6 +133,9 @@
 		6758108713D1443400EA6969 /* AddModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddModuleViewController.h; sourceTree = "<group>"; };
 		6758108813D1444100EA6969 /* AddModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddModuleViewController.m; sourceTree = "<group>"; };
 		6758108913D1444300EA6969 /* AddModuleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddModuleViewController.xib; sourceTree = "<group>"; };
+		676736B51400EB1300CA4719 /* ModuleListViewController(iPhone).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ModuleListViewController(iPhone).h"; sourceTree = "<group>"; };
+		676736B61400EB1300CA4719 /* ModuleListViewController(iPhone).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ModuleListViewController(iPhone).m"; sourceTree = "<group>"; };
+		676736B71400EB1300CA4719 /* ModuleListViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ModuleListViewController(iPhone).xib"; sourceTree = "<group>"; };
 		6772ED8413DC55D400DB129A /* NUS Mod.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NUS Mod.sqlite"; sourceTree = "<group>"; };
 		677A3D4313C1914000A20041 /* ModuleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleManager.h; sourceTree = "<group>"; };
 		677A3D4413C1914000A20041 /* ModuleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleManager.m; sourceTree = "<group>"; };
@@ -154,6 +161,9 @@
 		67FA75A313BF9B8E002C6BA1 /* NUS Mod.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NUS Mod.xcdatamodel"; sourceTree = "<group>"; };
 		67FA75EE13C03F10002C6BA1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		67FA760413C08D97002C6BA1 /* Changelogs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changelogs.txt; sourceTree = SOURCE_ROOT; };
+		67FAFCF41400ECCB002C4B0B /* ModuleDetailViewController(iPhone).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ModuleDetailViewController(iPhone).h"; sourceTree = "<group>"; };
+		67FAFCF51400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ModuleDetailViewController(iPhone).m"; sourceTree = "<group>"; };
+		67FAFCF61400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ModuleDetailViewController(iPhone).xib"; sourceTree = "<group>"; };
 		B00A2DF313D2DC0000EB062D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		B01AC66913F03128003F695A /* MainViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainViewController(iPhone).xib"; sourceTree = "<group>"; };
 		B01AC66F13F0DB34003F695A /* WeekViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WeekViewController(iPhone).xib"; sourceTree = "<group>"; };
@@ -361,6 +371,12 @@
 			children = (
 				B0C0D8CF13CDCA6A007C7D69 /* ModuleListViewController.h */,
 				B0C0D8D013CDCA6A007C7D69 /* ModuleListViewController.m */,
+				676736B51400EB1300CA4719 /* ModuleListViewController(iPhone).h */,
+				676736B61400EB1300CA4719 /* ModuleListViewController(iPhone).m */,
+				676736B71400EB1300CA4719 /* ModuleListViewController(iPhone).xib */,
+				67FAFCF41400ECCB002C4B0B /* ModuleDetailViewController(iPhone).h */,
+				67FAFCF51400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m */,
+				67FAFCF61400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib */,
 				B06B594A13CF42EC005614E6 /* ModuleCell.h */,
 				B06B594B13CF42EC005614E6 /* ModuleCell.m */,
 				B0688AF513D2959200817DB8 /* AddCell.h */,
@@ -535,6 +551,8 @@
 				B05D5B6613FC0CA200319760 /* ClassView(iPhone).xib in Resources */,
 				B05D5B7613FC0F4900319760 /* ModuleDetailFooterView.xib in Resources */,
 				B05D5B7813FC0F4900319760 /* ModuleDetailViewController.xib in Resources */,
+				676736B91400EB1300CA4719 /* ModuleListViewController(iPhone).xib in Resources */,
+				67FAFCF81400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +601,8 @@
 				678536C913D2048C003F753E /* MainViewController.m in Sources */,
 				B0688AF713D2959200817DB8 /* AddCell.m in Sources */,
 				B05D5B7713FC0F4900319760 /* ModuleDetailViewController.m in Sources */,
+				676736B81400EB1300CA4719 /* ModuleListViewController(iPhone).m in Sources */,
+				67FAFCF71400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

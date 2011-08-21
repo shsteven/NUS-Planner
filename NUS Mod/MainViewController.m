@@ -26,6 +26,8 @@
 #import <MessageUI/MessageUI.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import "ModuleListViewController(iPhone).h"
+
 @implementation MainViewController
 
 @synthesize managedObjectContext = __managedObjectContext;
@@ -34,6 +36,12 @@
 @synthesize moduleList;
 @synthesize searchViewController;
 @synthesize popover;
+
+- (void)updateCurrentTimetableWithIndex:(NSNumber *)idx {
+    currentPageIndex = [idx intValue];
+    [self configurePagingScrollView];
+    [pagingScrollView scrollRectToVisible:[self frameForPageAtIndex:[idx intValue]] animated:NO];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -49,6 +57,10 @@
     
     moduleManager = [ModuleManager sharedManager];
     self.title = @"My Timetable 1";
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        self.navigationItem.leftBarButtonItem = moduleBtn;
+    }
     
     self.navigationItem.rightBarButtonItem = actionButton;
     
@@ -92,10 +104,15 @@
     
     [self setPagingMode:YES];
     
-    // Top right action button
-    actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email my timetable", @"Clear all modules",nil];
+    NSString *cancelBtn = UI_USER_INTERFACE_IDIOM() ==UIUserInterfaceIdiomPad ? nil : @"Cancel";
+    actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:cancelBtn destructiveButtonTitle:nil otherButtonTitles:@"Email my timetable", @"Clear all modules",nil];
 }
 
+- (IBAction)handleModuleButton:(id)sender {
+    ModuleListViewController_iPhone_ *listVC = [[ModuleListViewController_iPhone_ alloc] initWithNibName:@"ModuleListViewController(iPhone)" bundle:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:listVC];
+    [self.navigationController presentModalViewController:navController animated:YES];
+}
 
 - (IBAction)handleActionButton:(id)sender {
     if([actionSheet isVisible]) {
@@ -309,7 +326,8 @@
     weekVC = [[WeekViewController alloc] initWithNibName:@"WeekViewController" bundle:nil];
     else
         weekVC = [[WeekViewController alloc] initWithNibName:@"WeekViewController(iPhone)" bundle:nil];
-    
+    weekVC.delegate = self;    
+
     weekVC.view.frame = [self frameForPageAtIndex:index];
     
     weekVC.index = index;

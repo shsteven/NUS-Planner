@@ -22,6 +22,8 @@
 @synthesize selections;
 @synthesize alternativeClasses;
 
+@synthesize delegate = _delegate;
+
 - (id)init
 {
     self = [super init];
@@ -166,6 +168,7 @@
         // Update logic
         [moduleManager addClass:detail.moduleClass];
     }
+    [self.weekViewController updateScrollViewWithIndex:[moduleManager updateGeneratedCombinations:selections]];
     [self reloadData];
 
 }
