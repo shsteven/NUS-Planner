@@ -34,6 +34,14 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
 @synthesize index;
 @synthesize timetableController;
 
+@synthesize delegate = _delegate;
+
+- (void)updateScrollViewWithIndex:(NSInteger)idx {
+    if([_delegate respondsToSelector:@selector(updateCurrentTimetableWithIndex:)]) {
+        [_delegate performSelector:@selector(updateCurrentTimetableWithIndex:) withObject:[NSNumber numberWithInt:idx]];
+    }
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

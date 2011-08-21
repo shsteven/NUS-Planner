@@ -180,9 +180,8 @@
     Module *aModule = [fetchedResultsController objectAtIndexPath:indexPath]; //[resultArray objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (mainViewController.popover) {        
-        ModuleDetailViewController *detailVC = [[ModuleDetailViewController alloc] initWithNibName:@"ModuleDetailViewController" bundle:nil];
+        ModuleDetailViewController *detailVC = [[ModuleDetailViewController alloc] initWithNibName:@"ModuleDetailViewController" bundle:nil showButtons:NO];
         detailVC.module = aModule;
-        detailVC.showButtons = NO;
         popover = [[UIPopoverController alloc] initWithContentViewController:detailVC];
         [popover presentPopoverFromRect:[mainViewController.view convertRect:cell.frame fromView:_tableView] inView:mainViewController.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
         
@@ -332,32 +331,17 @@
 - (void)updatePredicate {
     NSPredicate *pre;
     NSFetchRequest *req = self.fetchedResultsController.fetchRequest;
-    //ModuleManager *manager = [ModuleManager sharedManager];
+
     switch (segmentedControl.selectedSegmentIndex) {
         case kSegmentedControlCodeIndex: {
             pre = [NSPredicate predicateWithFormat:@"code CONTAINS[cd] %@",searchString];
-            
-            //NSLog(@"%@", pre);
-            
             
             req.predicate = pre;
             req.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"code" ascending:YES]];
         }
             break;
         case kSegmentedControlTitleIndex: {
-            //            
-            //            NSMutableSet *splitAndNormalize = [manager splitAndNormalized:searchString];
-            //            NSMutableArray *newArray = [NSMutableArray array];
-            //            for (NSString *term in splitAndNormalize) {
-            //                [newArray addObject:[NSString stringWithFormat:@"title CONTAINS[cd] \"%@\"", term]];
-            //            }
-            //                        
-            //            NSString *predicateString = predicateString = [newArray componentsJoinedByString:@" OR "];
-            //            
-            
-            //            pre = [NSPredicate predicateWithFormat:predicateString];
             pre = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@",searchString];
-            
         }
             break;
         case kSegmentedControlDescriptionIndex: {
@@ -374,8 +358,6 @@
     
     req.predicate = pre;
     req.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"code" ascending:YES]];
-    //    if (searchString)
-    //      pre = [NSPredicate predicateWithFormat:@"code CONTAINS[cd] %@", searchString];
     self.fetchedResultsController.fetchRequest.predicate = pre;
 }
 

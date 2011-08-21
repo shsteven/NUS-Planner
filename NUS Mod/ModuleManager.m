@@ -944,4 +944,42 @@ bool flagFreeSlots[28*6+1];
     return NO;
 }
 
+- (BOOL)equal:(NSMutableArray *)t1 with:(NSMutableArray *)t2 {
+    NSMutableDictionary *used = [[NSMutableDictionary alloc] init];
+    for (ModuleClass *mod in t1) {
+        NSString *key = [NSString stringWithFormat:@"%@-%@-%@", mod.module.code, mod.classNumber, mod.type];
+        [used setObject:[NSNumber numberWithBool:YES] forKey:key];
+    }
+    for (ModuleClass *mod in t2) {
+        NSString *key = [NSString stringWithFormat:@"%@-%@-%@", mod.module.code, mod.classNumber, mod.type];
+        if (![used objectForKey:key]) return NO;
+    }
+    used = [[NSMutableDictionary alloc] init];
+    for (ModuleClass *mod in t2) {
+        NSString *key = [NSString stringWithFormat:@"%@-%@-%@", mod.module.code, mod.classNumber, mod.type];
+        [used setObject:[NSNumber numberWithBool:YES] forKey:key];
+    }
+    for (ModuleClass *mod in t1) {
+        NSString *key = [NSString stringWithFormat:@"%@-%@-%@", mod.module.code, mod.classNumber, mod.type];
+        if (![used objectForKey:key]) return NO;
+    }
+    return YES;
+}
+
+- (NSInteger)updateGeneratedCombinations:(NSSet *)selectedSet {
+    NSMutableArray *selected = [NSMutableArray arrayWithArray:[selectedSet allObjects]];
+    bool found = false;
+    int idx = 0;
+    for (NSMutableArray *timetable in generatedCombinations) {
+        if ([self equal:timetable with:selected]) {
+            return idx;
+        }
+        idx++;
+    }
+    if (!found) {
+        [generatedCombinations addObject:selected];
+        return [generatedCombinations count] - 1;
+    }
+}
+
 @end

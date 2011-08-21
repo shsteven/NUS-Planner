@@ -1,26 +1,27 @@
 //
-//  ModuleDetailViewController.m
+//  ModuleDetailViewController(iPhone).m
 //  NUS Mod
 //
-//  Created by Raymond Hendy on 8/9/11.
+//  Created by Raymond Hendy on 8/16/11.
 //  Copyright 2011 NUS. All rights reserved.
 //
 
-#import "ModuleDetailViewController.h"
+#import "ModuleDetailViewController(iPhone).h"
+
 #import "Module.h"
+#import "ModuleManager.h"
 
-@implementation ModuleDetailViewController
+@implementation ModuleDetailViewController_iPhone_
 
-@synthesize delegate = _delegate;
-@synthesize tableFooterView = __tableFooterView;
-@synthesize enableButton = __enableButton, removeButton = __removeButton;
-@synthesize showButtons;
+@synthesize module, searchMode, delegate = _delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil showButtons:(BOOL)yesOrNo
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil module:(Module *)m searchMode:(BOOL)yesOrNo delegate:(id)del {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.showButtons = yesOrNo;
+        // Custom initialization
+        self.module = m;
+        self.searchMode = yesOrNo;
+        self.delegate = del;
     }
     return self;
 }
@@ -38,27 +39,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    if (module) {
-        [self updateButtons];
-    }; // trigger UI update
-    
-    [[NSBundle mainBundle] loadNibNamed:@"ModuleDetailFooterView" owner:self options:nil];
-    
-    self.enableButton.hidden = !self.showButtons;
-    self.removeButton.hidden = !self.showButtons;
-    
-    self.tableView.tableFooterView = __tableFooterView;
-    self.tableView.allowsSelectionDuringEditing = YES;
 
-    CGRect frame = self.tableView.frame;
-    self.tableView.frame = CGRectMake(frame.origin.x, frame.origin.y, 600, 550);
+    self.title = module.code;
+    
+    footerView.backgroundColor = [UIColor clearColor];
+    
+    if(!searchMode) {
+        self.tableView.tableFooterView = footerView;
+    }
+    
+    /*if(!searchMode) {
+        if (module) {
+            [self updateButtons];
+        }
+        self.navigationController.toolbarHidden = NO;
+        UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        self.toolbarItems = [NSArray arrayWithObjects:enableButton, space, removeButton, nil];
+    } else {
+        self.navigationController.toolbarHidden = YES;
+        self.navigationItem.rightBarButtonItem = addButton;
+    }*/
+    
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
 {
-    enableButton = nil;
-    removeButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -74,8 +84,9 @@
     [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [self setModule:nil];
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -86,59 +97,16 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-	return YES;
-}
-
-- (void)setModule:(Module *)newModule {
-    if (module)
-        [module removeObserver:self forKeyPath:@"enabled"];
-    
-    //NSLog(@"setModule:");
-    
-    module = newModule;
-
-    [self updateButtons];
-    [module addObserver:self forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:NULL];
-    
-}
-
-- (Module *)module {
-    return module;
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"enabled"]) {
-        [self updateButtons];
-    }
-}
-
-- (void)updateButtons {
-    if ([module.enabled boolValue]) {
-        [enableButton setTitle:@"Hide" forState:UIControlStateNormal];
-        [enableButton setTitle:@"Hide" forState:UIControlStateHighlighted];
-    } else  {
-        [enableButton setTitle:@"Show" forState:UIControlStateNormal];
-        [enableButton setTitle:@"Show" forState:UIControlStateHighlighted];
-    }
-}
-
-- (IBAction)handleEnableButton:(id)sender {
-    if ([_delegate respondsToSelector:@selector(enableButtonTappedForModule:)]) {
-        [_delegate performSelector:@selector(enableButtonTappedForModule:) withObject:module];
-    }
-}
-
-- (IBAction)handleRemoveButton:(id)sender {
-    if ([_delegate respondsToSelector:@selector(removeButtonTappedForModule:)]) {
-        [_delegate performSelector:@selector(removeButtonTappedForModule:) withObject:module];
-    }
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
 
+/*
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return module.code;
 }
+*/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -233,7 +201,6 @@
 }
 */
 
-
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -258,7 +225,7 @@
     
     UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:[UIFont labelFontSize]];
     
-    CGFloat width = self.tableView.frame.size.width * 0.7;
+    CGFloat width = self.tableView.frame.size.width * 0.87;
     
     CGSize size = CGSizeMake(width, 1e9);
     
@@ -275,6 +242,36 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+}
+
+- (IBAction)handleAddButton:(id)sender {
+    if ([_delegate respondsToSelector:@selector(addButtonTappedForModule:)]) {
+        [_delegate performSelector:@selector(addButtonTappedForModule:) withObject:module];
+    }
+}
+
+- (IBAction)handleEnableButton:(id)sender {
+    if ([_delegate respondsToSelector:@selector(enableButtonTappedForModule:)]) {
+        [_delegate performSelector:@selector(enableButtonTappedForModule:) withObject:module];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (IBAction)handleRemoveButton:(id)sender {
+    if ([_delegate respondsToSelector:@selector(removeButtonTappedForModule:)]) {
+        [_delegate performSelector:@selector(removeButtonTappedForModule:) withObject:module];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)updateButtons {
+    if ([module.enabled boolValue]) {
+        [enableButton setTitle:@"Hide Module" forState:UIControlStateNormal];
+        [enableButton setTitle:@"Hide Module" forState:UIControlStateHighlighted];
+    } else  {
+        [enableButton setTitle:@"Show Module" forState:UIControlStateNormal];
+        [enableButton setTitle:@"Show Module" forState:UIControlStateHighlighted];
+    }
 }
 
 @end

@@ -49,6 +49,9 @@
     UINavigationController *milestoneNavigationVC;
     
     UIActionSheet *actionSheet;
+    
+    // iPhone
+    IBOutlet UIBarButtonItem *moduleBtn;
 }
 
 @property (strong, nonatomic) Timetable *timetable;
@@ -59,7 +62,9 @@
 @property (nonatomic, strong) IBOutlet SearchViewController *searchViewController;
 
 @property (strong) UIPopoverController *popover;
+
 - (IBAction)handleActionButton:(id)sender;
+- (IBAction)handleModuleButton:(id)sender;
 
 - (void)setPagingMode: (BOOL)mode;
 - (void)configurePagingScrollView;

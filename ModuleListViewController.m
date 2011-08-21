@@ -251,12 +251,12 @@
 
     Module *module = [moduleList objectAtIndex:indexPath.row];
 //    [moduleManager removeModule:module];
-    ModuleDetailViewController *detailVC = [[ModuleDetailViewController alloc] initWithNibName:@"ModuleDetailViewController" bundle:nil];
+    ModuleDetailViewController *detailVC = [[ModuleDetailViewController alloc] initWithNibName:@"ModuleDetailViewController" bundle:nil showButtons:YES];
     
     detailVC.delegate = self;
     [detailVC setModule:module];
     
-    detailVC.contentSizeForViewInPopover = detailVC.view.frame.size;
+    detailVC.contentSizeForViewInPopover = detailVC.tableView.frame.size;
     mainViewController.popover = [[UIPopoverController alloc] initWithContentViewController:detailVC];
     CGRect rowRect = [self.tableView rectForRowAtIndexPath:indexPath];
     [mainViewController.popover presentPopoverFromRect:[mainViewController.view convertRect:rowRect fromView:self.tableView]

@@ -20,11 +20,15 @@
     
     NSMutableSet *alternativeClasses;
 
+    __unsafe_unretained id delegate;
+    
 }
 
 @property (assign) WeekViewController *weekViewController;
 @property (strong) NSSet *selections;
 @property (strong) NSMutableSet *alternativeClasses;
+
+@property (assign) id delegate;
 
 - (void)generatedCombinationsDidUpdate: (NSNotification *)notification;
 - (void)reloadData;

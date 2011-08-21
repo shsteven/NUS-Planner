@@ -47,6 +47,8 @@ static NSString const * const HOURS_24[] = {
     CGPoint viewDraggingOffset;
 }
 
+@property (assign) id delegate;
+
 @property (strong) NSMutableSet *eventViews;
 @property (strong, atomic) IBOutlet ClassView *classView;
 @property (assign) NSUInteger index;
@@ -67,6 +69,8 @@ static NSString const * const HOURS_24[] = {
 - (ClassView *)destinationClassViewForGestureRecognizer: (UIGestureRecognizer *)gr;
 
 - (UIImage *)snapshot;
+
+- (void)updateScrollViewWithIndex:(NSInteger)idx;
 
 CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2);
 

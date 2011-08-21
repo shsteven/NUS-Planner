@@ -19,6 +19,9 @@
 		6718248F13BE1A0D00443C08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6718248D13BE1A0D00443C08 /* InfoPlist.strings */; };
 		6718249113BE1A0D00443C08 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6718249013BE1A0D00443C08 /* main.m */; };
 		671824A413BE1AC700443C08 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 671824A313BE1AC700443C08 /* AccountManager.m */; };
+		673A6E8513F0D17A005B2F4C /* ModuleDetailFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 673A6E8413F0D17A005B2F4C /* ModuleDetailFooterView.xib */; };
+		673A6E8C13F0D453005B2F4C /* ModuleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 673A6E8A13F0D452005B2F4C /* ModuleDetailViewController.m */; };
+		673A6E8D13F0D453005B2F4C /* ModuleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 673A6E8B13F0D452005B2F4C /* ModuleDetailViewController.xib */; };
 		6758102913D0136300EA6969 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758102713D0136300EA6969 /* LoginViewController.m */; };
 		6758102C13D01C3A00EA6969 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6758102B13D01C3A00EA6969 /* LoginViewController.xib */; };
 		6758103613D024CF00EA6969 /* Keyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 6758103513D024CF00EA6969 /* Keyword.m */; };
@@ -48,11 +51,13 @@
 		678536BC13D20290003F753E /* ZSVerticalGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536B413D20290003F753E /* ZSVerticalGridView.m */; };
 		678536BD13D20290003F753E /* TimelineLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536B613D20290003F753E /* TimelineLabelView.m */; };
 		678536BE13D20290003F753E /* ZSHorizontalGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536B813D20290003F753E /* ZSHorizontalGridView.m */; };
-		678536C213D202A0003F753E /* ModuleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536C013D202A0003F753E /* ModuleDetailViewController.m */; };
-		678536C313D202A0003F753E /* ModuleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678536C113D202A0003F753E /* ModuleDetailViewController.xib */; };
 		678536C513D203E4003F753E /* NUS_ModAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536C413D203E4003F753E /* NUS_ModAppDelegate.m */; };
 		678536C913D2048C003F753E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678536C713D2048C003F753E /* MainViewController.m */; };
 		678536CA13D2048C003F753E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678536C813D2048C003F753E /* MainViewController.xib */; };
+		67C9624B13FAA495000CCD96 /* ModuleDetailViewController(iPhone).m in Sources */ = {isa = PBXBuildFile; fileRef = 67C9624913FAA495000CCD96 /* ModuleDetailViewController(iPhone).m */; };
+		67C9624C13FAA495000CCD96 /* ModuleDetailViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = 67C9624A13FAA495000CCD96 /* ModuleDetailViewController(iPhone).xib */; };
+		67F8A3EE13F7FB7500FA3D22 /* ModuleListViewController(iPhone).m in Sources */ = {isa = PBXBuildFile; fileRef = 67F8A3EC13F7FB7500FA3D22 /* ModuleListViewController(iPhone).m */; };
+		67F8A3EF13F7FB7500FA3D22 /* ModuleListViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = 67F8A3ED13F7FB7500FA3D22 /* ModuleListViewController(iPhone).xib */; };
 		67FA75A413BF9B8E002C6BA1 /* NUS Mod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67FA75A213BF9B8E002C6BA1 /* NUS Mod.xcdatamodeld */; };
 		67FA75EF13C03F10002C6BA1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FA75EE13C03F10002C6BA1 /* CoreData.framework */; };
 		67FA760513C08D97002C6BA1 /* Changelogs.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67FA760413C08D97002C6BA1 /* Changelogs.txt */; };
@@ -93,6 +98,10 @@
 		6718249213BE1A0D00443C08 /* NUS Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NUS Mod-Prefix.pch"; sourceTree = "<group>"; };
 		671824A213BE1AC700443C08 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
 		671824A313BE1AC700443C08 /* AccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManager.m; sourceTree = "<group>"; };
+		673A6E8413F0D17A005B2F4C /* ModuleDetailFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ModuleDetailFooterView.xib; path = "NUS Mod/ModuleDetailFooterView.xib"; sourceTree = "<group>"; };
+		673A6E8913F0D452005B2F4C /* ModuleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleDetailViewController.h; sourceTree = "<group>"; };
+		673A6E8A13F0D452005B2F4C /* ModuleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleDetailViewController.m; sourceTree = "<group>"; };
+		673A6E8B13F0D452005B2F4C /* ModuleDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleDetailViewController.xib; sourceTree = "<group>"; };
 		6758102613D0136300EA6969 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		6758102713D0136300EA6969 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		6758102B13D01C3A00EA6969 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -144,13 +153,16 @@
 		678536B613D20290003F753E /* TimelineLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineLabelView.m; sourceTree = "<group>"; };
 		678536B713D20290003F753E /* ZSHorizontalGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSHorizontalGridView.h; sourceTree = "<group>"; };
 		678536B813D20290003F753E /* ZSHorizontalGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSHorizontalGridView.m; sourceTree = "<group>"; };
-		678536BF13D202A0003F753E /* ModuleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleDetailViewController.h; sourceTree = "<group>"; };
-		678536C013D202A0003F753E /* ModuleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleDetailViewController.m; sourceTree = "<group>"; };
-		678536C113D202A0003F753E /* ModuleDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModuleDetailViewController.xib; sourceTree = "<group>"; };
 		678536C413D203E4003F753E /* NUS_ModAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NUS_ModAppDelegate.m; sourceTree = "<group>"; };
 		678536C613D2048C003F753E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		678536C713D2048C003F753E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		678536C813D2048C003F753E /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		67C9624813FAA495000CCD96 /* ModuleDetailViewController(iPhone).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ModuleDetailViewController(iPhone).h"; sourceTree = "<group>"; };
+		67C9624913FAA495000CCD96 /* ModuleDetailViewController(iPhone).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ModuleDetailViewController(iPhone).m"; sourceTree = "<group>"; };
+		67C9624A13FAA495000CCD96 /* ModuleDetailViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ModuleDetailViewController(iPhone).xib"; sourceTree = "<group>"; };
+		67F8A3EB13F7FB7500FA3D22 /* ModuleListViewController(iPhone).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ModuleListViewController(iPhone).h"; sourceTree = "<group>"; };
+		67F8A3EC13F7FB7500FA3D22 /* ModuleListViewController(iPhone).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ModuleListViewController(iPhone).m"; sourceTree = "<group>"; };
+		67F8A3ED13F7FB7500FA3D22 /* ModuleListViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ModuleListViewController(iPhone).xib"; sourceTree = "<group>"; };
 		67FA75A313BF9B8E002C6BA1 /* NUS Mod.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NUS Mod.xcdatamodel"; sourceTree = "<group>"; };
 		67FA75EE13C03F10002C6BA1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		67FA760413C08D97002C6BA1 /* Changelogs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changelogs.txt; sourceTree = SOURCE_ROOT; };
@@ -329,9 +341,10 @@
 		678536AD13D2026C003F753E /* Module Detail */ = {
 			isa = PBXGroup;
 			children = (
-				678536BF13D202A0003F753E /* ModuleDetailViewController.h */,
-				678536C013D202A0003F753E /* ModuleDetailViewController.m */,
-				678536C113D202A0003F753E /* ModuleDetailViewController.xib */,
+				673A6E8413F0D17A005B2F4C /* ModuleDetailFooterView.xib */,
+				673A6E8913F0D452005B2F4C /* ModuleDetailViewController.h */,
+				673A6E8A13F0D452005B2F4C /* ModuleDetailViewController.m */,
+				673A6E8B13F0D452005B2F4C /* ModuleDetailViewController.xib */,
 			);
 			name = "Module Detail";
 			sourceTree = "<group>";
@@ -358,6 +371,12 @@
 				B0688AF513D2959200817DB8 /* AddCell.h */,
 				B0688AF613D2959200817DB8 /* AddCell.m */,
 				B06B594813CF41C5005614E6 /* ModuleCell.xib */,
+				67F8A3EB13F7FB7500FA3D22 /* ModuleListViewController(iPhone).h */,
+				67F8A3EC13F7FB7500FA3D22 /* ModuleListViewController(iPhone).m */,
+				67F8A3ED13F7FB7500FA3D22 /* ModuleListViewController(iPhone).xib */,
+				67C9624813FAA495000CCD96 /* ModuleDetailViewController(iPhone).h */,
+				67C9624913FAA495000CCD96 /* ModuleDetailViewController(iPhone).m */,
+				67C9624A13FAA495000CCD96 /* ModuleDetailViewController(iPhone).xib */,
 			);
 			name = "Module List";
 			sourceTree = "<group>";
@@ -515,7 +534,6 @@
 				678536A613D20082003F753E /* SearchViewController.xib in Resources */,
 				678536AB13D2018F003F753E /* ClassView.xib in Resources */,
 				678536BA13D20290003F753E /* WeekViewController.xib in Resources */,
-				678536C313D202A0003F753E /* ModuleDetailViewController.xib in Resources */,
 				678536CA13D2048C003F753E /* MainViewController.xib in Resources */,
 				B0CD167A13D2861E009B4CB5 /* StartHere.png in Resources */,
 				B0688AF313D2926E00817DB8 /* CirclePlus.png in Resources */,
@@ -523,6 +541,10 @@
 				B09699AA13D32EB900E878CB /* Icon.png in Resources */,
 				6772ED8513DC55D400DB129A /* NUS Mod.sqlite in Resources */,
 				B01AC66A13F03128003F695A /* MainViewController(iPhone).xib in Resources */,
+				673A6E8513F0D17A005B2F4C /* ModuleDetailFooterView.xib in Resources */,
+				673A6E8D13F0D453005B2F4C /* ModuleDetailViewController.xib in Resources */,
+				67F8A3EF13F7FB7500FA3D22 /* ModuleListViewController(iPhone).xib in Resources */,
+				67C9624C13FAA495000CCD96 /* ModuleDetailViewController(iPhone).xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,10 +589,12 @@
 				678536BC13D20290003F753E /* ZSVerticalGridView.m in Sources */,
 				678536BD13D20290003F753E /* TimelineLabelView.m in Sources */,
 				678536BE13D20290003F753E /* ZSHorizontalGridView.m in Sources */,
-				678536C213D202A0003F753E /* ModuleDetailViewController.m in Sources */,
 				678536C513D203E4003F753E /* NUS_ModAppDelegate.m in Sources */,
 				678536C913D2048C003F753E /* MainViewController.m in Sources */,
 				B0688AF713D2959200817DB8 /* AddCell.m in Sources */,
+				673A6E8C13F0D453005B2F4C /* ModuleDetailViewController.m in Sources */,
+				67F8A3EE13F7FB7500FA3D22 /* ModuleListViewController(iPhone).m in Sources */,
+				67C9624B13FAA495000CCD96 /* ModuleDetailViewController(iPhone).m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
