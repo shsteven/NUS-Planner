@@ -81,9 +81,7 @@
                          point.y += 15.0;
                          tipView.center = point;
                          
-                     } completion:^(BOOL finished){
-                         
-                     }];
+                     } completion:NULL];
                             
     
                       

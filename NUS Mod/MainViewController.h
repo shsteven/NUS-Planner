@@ -25,6 +25,7 @@
     IBOutlet UITableView *timetableView;
         
     IBOutlet UIBarButtonItem *actionButton;
+    IBOutlet UIBarButtonItem *modulesButton;
     IBOutlet UITextField *searchField;
     
     UIBarButtonItem *searchItem;    // Container for searchField
@@ -60,6 +61,7 @@
 
 @property (strong) UIPopoverController *popover;
 - (IBAction)handleActionButton:(id)sender;
+- (IBAction)handleModulesButton:(id)sender;
 
 - (void)setPagingMode: (BOOL)mode;
 - (void)configurePagingScrollView;

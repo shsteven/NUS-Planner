@@ -47,7 +47,7 @@
 
 - (void)reloadData {
 #ifdef DEBUG
-    NSLog(@"reloadData");
+    NSLog(@"timetable controller: reloadData");
 #endif
     [weekViewController clearAllEventViews];
     
@@ -55,14 +55,10 @@
     
     
     for (ModuleClass *class in selections) {
-//        NSLog(@"a class: %@", class.type);
         for (ModuleClassDetail *detail in class.details) {
-//            NSLog(@"a detail: %@", detail.venue);
             ClassView *classView = [self newClassViewFromClassDetail:detail];
             
             [weekViewController addEventView:classView];
-            
-//            [classView setBlinking:YES]; // Testing
             
         }
 
@@ -70,13 +66,47 @@
             
     }
     
+#ifdef DEBUG
     
+    // Debugging only
+    for (int i = 0; i < 2; i++) {
+        // Testing overlapping event views;
+        ClassView *classView = [weekViewController newClassView];
+        //    [weekViewController newClassView];
+        
+        classView.codeLabel.text = @"Test class";
+        
+        //    classView.classDetail = detail;
+        
+        int day = 1;
+        NSRange r = NSMakeRange((NSUInteger)day, 1);  
+        classView.columnRange = r;
+        
+        NSUInteger start = 4;
+        NSUInteger end = 6;
+        classView.rowRange = NSMakeRange(start, end-start);
+        
+        //    NSString *type = detail.moduleClass.type;
+        //    if (detail.moduleClass.classNumber)
+        //        type = [type stringByAppendingFormat:@"(%@)", detail.moduleClass.classNumber];
+        classView.typeLabel.text = @"Type";
+        classView.venueLabel.text = @"venue";
+        
+        classView.tintColor = [UIColor lightGrayColor];
+        
+        [weekViewController addEventView:classView];
+    }
+
+     
+     
+     
+#endif
     
 }
 
 - (ClassView *)newClassViewFromClassDetail: (ModuleClassDetail *)detail {
     ClassView *classView = [weekViewController newClassView];
-    [weekViewController newClassView];
+//    [weekViewController newClassView];
     
     classView.codeLabel.text = detail.moduleClass.module.code;
     
@@ -101,6 +131,8 @@
     return classView;
 }
 
+
+#pragma mark Drag and Drop
 - (void)beginChoosingAlternativeClassesWithModuleClassDetail: (ModuleClassDetail *)detail {
     NSArray *array = [moduleManager alternativesForClass: detail.moduleClass];
     // NSLog(@"%@", [[array objectAtIndex:0] class]);
@@ -124,7 +156,7 @@
     }
     
     [alternativeClasses removeAllObjects];
-    NSLog(@"detail: %@", detail);
+//    NSLog(@"detail: %@", detail);
     
     if (detail) {
         // Update logic
@@ -134,20 +166,4 @@
 
 }
 
-/*
-int dayToInt(NSString *day) {
-    if([day isEqual:@"MONDAY"]) {
-        return 0;
-    } else if([day isEqual:@"TUESDAY"]) {
-        return 1;
-    } else if([day isEqual:@"WEDNESDAY"]) {
-        return 2;
-    } else if([day isEqual:@"THURSDAY"]) {
-        return 3;
-    } else if([day isEqual:@"FRIDAY"]) {
-        return 4;
-    } else {
-        return 5;
-    }
-}*/
 @end

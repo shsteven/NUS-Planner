@@ -10,14 +10,17 @@
 #import "Module.h"
 
 @implementation ModuleDetailViewController
-@synthesize delegate = _delegate;
-@synthesize module;
 
-- (id)initWithStyle:(UITableViewStyle)style
+@synthesize delegate = _delegate;
+@synthesize tableFooterView = __tableFooterView;
+@synthesize enableButton = __enableButton, removeButton = __removeButton;
+@synthesize showButtons;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil showButtons:(BOOL)yesOrNo
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.showButtons = yesOrNo;
     }
     return self;
 }
@@ -35,16 +38,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (module) {
+        [self updateButtons];
+    }; // trigger UI update
+    
+    [[NSBundle mainBundle] loadNibNamed:@"ModuleDetailFooterView" owner:self options:nil];
+    
+    self.enableButton.hidden = !self.showButtons;
+    self.removeButton.hidden = !self.showButtons;
+    
+    self.tableView.tableFooterView = __tableFooterView;
+    self.tableView.allowsSelectionDuringEditing = YES;
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    CGRect frame = self.tableView.frame;
+    self.tableView.frame = CGRectMake(frame.origin.x, frame.origin.y, 600, 550);
 }
 
 - (void)viewDidUnload
 {
+    enableButton = nil;
+    removeButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -60,9 +74,8 @@
     [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+    [self setModule:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -76,33 +89,108 @@
 	return YES;
 }
 
+- (void)setModule:(Module *)newModule {
+    if (module)
+        [module removeObserver:self forKeyPath:@"enabled"];
+    
+    //NSLog(@"setModule:");
+    
+    module = newModule;
+
+    [self updateButtons];
+    [module addObserver:self forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:NULL];
+    
+}
+
+- (Module *)module {
+    return module;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"enabled"]) {
+        [self updateButtons];
+    }
+}
+
+- (void)updateButtons {
+    if ([module.enabled boolValue]) {
+        [enableButton setTitle:@"Hide" forState:UIControlStateNormal];
+        [enableButton setTitle:@"Hide" forState:UIControlStateHighlighted];
+    } else  {
+        [enableButton setTitle:@"Show" forState:UIControlStateNormal];
+        [enableButton setTitle:@"Show" forState:UIControlStateHighlighted];
+    }
+}
+
+- (IBAction)handleEnableButton:(id)sender {
+    if ([_delegate respondsToSelector:@selector(enableButtonTappedForModule:)]) {
+        [_delegate performSelector:@selector(enableButtonTappedForModule:) withObject:module];
+    }
+}
+
+- (IBAction)handleRemoveButton:(id)sender {
+    if ([_delegate respondsToSelector:@selector(removeButtonTappedForModule:)]) {
+        [_delegate performSelector:@selector(removeButtonTappedForModule:) withObject:module];
+    }
+}
+
 #pragma mark - Table view data source
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return module.code;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"ModuleDetailCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
+    NSString *textLabel = @"", *detailTextLabel = @"";
+    switch (indexPath.row) {
+        case 0:
+            textLabel = @"title";
+            detailTextLabel = module.title;
+            break;
+        case 1:
+            textLabel = @"mc";
+            detailTextLabel = module.modularCredit;
+            break;
+        case 2:
+            textLabel = @"workload";
+            detailTextLabel = module.workload;
+            break;
+        case 3:
+            textLabel = @"description";
+            detailTextLabel = module.moduleDescription;
+            break;
+        default:
+            break;
+    }
     
+    cell.textLabel.text = textLabel;
+    cell.detailTextLabel.text = detailTextLabel;
+    cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+    cell.detailTextLabel.numberOfLines = 0;
+    
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -145,7 +233,37 @@
 }
 */
 
+
 #pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *text = @"";
+    switch (indexPath.row) {
+        case 0:
+            text = module.title;
+            break;
+        case 1:
+            text = module.modularCredit;
+            break;
+        case 2:
+            text = module.workload;
+            break;
+        case 3:
+            text = module.moduleDescription;
+            break;
+        default:
+            break;
+    }
+    
+    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:[UIFont labelFontSize]];
+    
+    CGFloat width = self.tableView.frame.size.width * 0.7;
+    
+    CGSize size = CGSizeMake(width, 1e9);
+    
+    return [text sizeWithFont:font constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap].height;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

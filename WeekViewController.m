@@ -107,7 +107,15 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
         label.textAlignment = UITextAlignmentCenter;
         label.backgroundColor = [UIColor clearColor];
 
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            
+        } else
+            label.font = [UIFont systemFontOfSize:12];
+        
+        
         [array addObject:label];
+        
+        
     }
     [headerVerticalGridView setTitleViews:array];
  
@@ -129,7 +137,11 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
     UILongPressGestureRecognizer *longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [self.view addGestureRecognizer:longPressGR];
     
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self.view addGestureRecognizer:tapGR];
+    
 //    [self testEventViews];
+    overlappingViewsInQuestion = nil;
 }
 
 - (void)testEventViews {
@@ -146,7 +158,13 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
 }
 
 - (ClassView *)newClassView {
-    UINib *nib = [UINib nibWithNibName:@"ClassView" bundle:nil];
+    UINib *nib;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            nib = [UINib nibWithNibName:@"ClassView" bundle:nil];
+    } else {
+            nib = [UINib nibWithNibName:@"ClassView(iPhone)" bundle:nil];
+    }
+
     [nib instantiateWithOwner:self options:NULL];
     ClassView *view = self.classView;
     self.classView = nil;
@@ -161,21 +179,10 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
     timelineLabelView = nil;
     containerScrollView = nil;
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-//    isHandlingLongPress = NO;
 }
 
 - (void)setInPagingMode: (BOOL)mode animated: (BOOL)animated {
-//    CGFloat duration = 0.0;
-//    if (animated) duration = 0.3;
-//    [UIView animateWithDuration:duration
-//                     animations:^{
-//                        if (mode)
-//                            self.view.transform = CGAffineTransformMakeScale(0.8, 0.8);
-//                         else
-//                             self.view.transform = CGAffineTransformIdentity;
-//                     }];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -184,21 +191,19 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
 	return YES;
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-//    CGSize size = containerScrollView.bounds.size;
-//    size.height *= 2;
-//    containerScrollView.contentSize = size;
-}
 
 - (void)addEventView: (EventView *)view {
     [eventViews addObject:view];
     [mainHorizontalGridView addSubview:view];
+    [self tagEventViews];
     [mainHorizontalGridView setNeedsLayout];
 }
 
 - (void)removeEventView: (EventView *)view {
     [view removeFromSuperview];
     [eventViews removeObject:view];
+    [self tagEventViews];
+    [mainHorizontalGridView setNeedsLayout];
 }
 
 - (void)clearAllEventViews {
@@ -209,35 +214,73 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
 
 - (void)classViewWasTapped: (ClassView *)view {
 //    [timetableController beginChoosingAlternativeClassesWithModuleClassDetail:view.classDetail];
+    // TODO: show detail view
+
+    
+    
+    
+    if (overlappingViewsInQuestion) {
+        if ([overlappingViewsInQuestion indexOfObject:view] == NSNotFound) {
+            // Not dealing with a bunch of spaced out overlapping views
+            [mainHorizontalGridView collapseOverllapingViews:overlappingViewsInQuestion];
+            overlappingViewsInQuestion = nil;
+        }
+
+        return;
+    } 
+    
+    
+    // Space out overlapping views (if any)
+    NSArray *overlappingViews = [self overlappingEventViewsForEventView:view];
+    if ([overlappingViews count]) {
+        [mainHorizontalGridView spaceOutOverlappingViews:overlappingViews];
+        overlappingViewsInQuestion = overlappingViews;
+    }
+    
+}
+
+- (void)handleTap: (UITapGestureRecognizer *)gr {
+    if (overlappingViewsInQuestion) {
+        [mainHorizontalGridView collapseOverllapingViews:overlappingViewsInQuestion];
+        overlappingViewsInQuestion = nil;
+    }
 }
 
 - (void)handleLongPress: (UILongPressGestureRecognizer *) gr {
     switch (gr.state) {
         case UIGestureRecognizerStateBegan: {
+            // Picked up a class
             UIView *view = [self.view hitTest:[gr locationInView:self.view] withEvent:nil];
             if ([view isKindOfClass:[ClassView class]] || [view.class isSubclassOfClass:[ClassView class]]) {
                 
-//                isHandlingLongPress = YES;
+                if (overlappingViewsInQuestion) {
+                    // Leave the picked up view along...restore the positions of the rest
+                    NSMutableArray *array = [overlappingViewsInQuestion mutableCopy];
+                    [array removeObject:view];
+                    [mainHorizontalGridView collapseOverllapingViews:array];
+                    
+                    overlappingViewsInQuestion = nil;
+                }
+                
                 viewForDragging = view;
                 viewForDragging.userInteractionEnabled = NO;
 
                 [UIView animateWithDuration:0.3 animations:^{
-//                    viewForDragging.alpha = 0.9;
-
                     viewForDragging.transform = CGAffineTransformMakeScale(1.2, 1.2);
                 }];
                 
                 ClassView *cView = (ClassView *)view;
-                [timetableController beginChoosingAlternativeClassesWithModuleClassDetail:cView.classDetail];
-                
+                [timetableController beginChoosingAlternativeClassesWithModuleClassDetail:cView.classDetail];                
                 CGPoint point = [gr locationInView:self.view];
                 
                 viewDraggingOffset = CGPointMake(point.x - view.center.x, point.y - view.center.y);
+                proposedDestinationView = nil;
             }
         }
             
             break;
         case UIGestureRecognizerStateChanged: {
+            // Dragging a classView around
             if (!viewForDragging)
                 return;
             
@@ -249,7 +292,9 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
         }
             break;
         case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateCancelled: {
+         {
+             // Dropped a view
+             
             if (!viewForDragging)
                 return;
             
@@ -257,21 +302,38 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
             ClassView *cView = [self destinationClassViewForGestureRecognizer:gr];
             
             CGFloat duration = 0.3;
-            //NSMutableArray *temp = [[NSMutableArray alloc] init];
-            //NSMutableSet *minusSet = [timetableController alternativeClasses];
-            NSSet *setOfSelections = [[ModuleManager sharedManager] timetable].selections;
-            /*for (UIView *view in mainHorizontalGridView.subviews) {
-                if ([view class] == [ClassView class]) {
-                    ClassView *aClassView = (ClassView *)view;
-                    if ([minusSet containsObject:[aClassView classDetail].moduleClass]) continue;
-                    [temp addObject:[aClassView classDetail].moduleClass];
-                }
-            }
-            NSSet *selections = [[NSSet alloc] initWithArray:temp];*/
+
+             NSSet *setOfSelections = [[ModuleManager sharedManager] timetable].selections;
             
             if (cView){ 
+                if (cView == viewForDragging) {
+                    // View dropped on itself
+                    // Drop back to original place 
+                    [UIView animateWithDuration:duration
+                                     animations:^{
+                                         viewForDragging.frame = [mainHorizontalGridView frameForEventView:(EventView *)viewForDragging];
+                                         viewForDragging.alpha = 1;
+                                         viewForDragging.transform = CGAffineTransformIdentity;
+                                     } completion:^(BOOL finished) {
+                                         [timetableController endChoosingAlternativeClassesWithModuleClassDetail:nil];
+                                         
+                                     }];
+                    viewForDragging = nil;
+                    return;
+                }
+                
                 BOOL overlaps = [[ModuleManager sharedManager] overlapsWithSet:setOfSelections withModuleClass:[cView classDetail].moduleClass];
-                if (!overlaps && (ClassView *)viewForDragging != cView) {
+                
+                if (overlaps) {
+                    // Ask the user: "there's a clash..."
+                    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"This time slot is taken by another class" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"Ignore clash" otherButtonTitles:@"Cancel", nil];
+                    CGPoint point = [gr locationInView:self.view];
+                    [actionSheet showFromRect:CGRectMake(point.x, point.y, 1.0, 1.0) inView:self.view animated:YES];
+                    proposedDestinationView = cView;  
+                    return;
+                }
+
+                if (!overlaps) {
                     [UIView animateWithDuration:duration
                                      animations:^{
                                          viewForDragging.frame = cView.frame;
@@ -307,8 +369,25 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
             
             viewForDragging.userInteractionEnabled = YES;
             viewForDragging = nil;
-//            isHandlingLongPress = NO;
+             proposedDestinationView = nil;
             
+        }
+            break;
+        case UIGestureRecognizerStateCancelled: {
+            // Restore to original state
+            
+            CGFloat duration = 0.3;
+
+            [UIView animateWithDuration:duration
+                             animations:^{
+                                 viewForDragging.frame = [mainHorizontalGridView frameForEventView:(EventView *)viewForDragging];
+                                 viewForDragging.alpha = 1;
+                                 viewForDragging.transform = CGAffineTransformIdentity;
+                             } completion:^(BOOL finished) {
+                                 [timetableController endChoosingAlternativeClassesWithModuleClassDetail:nil];
+                                 
+                             }];
+            proposedDestinationView = nil;
         }
             break;
         default:
@@ -317,16 +396,18 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
 }
 
 - (ClassView *)destinationClassViewForGestureRecognizer: (UIGestureRecognizer *)gr {
-    UIView *view = [self.view hitTest:[gr locationInView:self.view] withEvent:nil];
+    CGPoint point = [gr locationInView:self.view];
+    
+    UIView *view = [self.view hitTest:point withEvent:nil];
 
     if ([view isKindOfClass:[ClassView class]] || [view.class isSubclassOfClass:[ClassView class]]) {
         if ([timetableController.alternativeClasses containsObject:view])
-        return (ClassView *)view;   // Touch within destination view
+            return (ClassView *)view;   // Touch within destination view
         else
             return nil;
-    }
+    } 
     
-    
+    // Find out the closest event view
     CGFloat minDistance = CGFLOAT_MAX;
     CGFloat threashold = 30.0; // For snapping to view
     
@@ -341,12 +422,96 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
         }
         
         if (minDistance < threashold) {
-            return cView;
+            return viewWithMinDistance;
         }
     }
     
     return nil;
 }
 
+- (BOOL) eventView: (EventView *)ev1 overlapsWithEventView: (EventView *)ev2 {
+    // If both columnRange and rowRange have overlaps
+    if (NSIntersectionRange(ev1.columnRange, ev2.columnRange).length && NSIntersectionRange(ev1.rowRange, ev2.rowRange).length)
+        return YES;
+    
+    return NO;
+}
 
+- (NSArray *)overlappingEventViewsForEventView: (EventView *)eventView {
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:eventView];
+    for (EventView *view in self.eventViews) {
+        if (eventView == view) continue;
+        if ([self eventView:view overlapsWithEventView:eventView])
+            [array addObject:view];
+    }
+    
+    // Sort event views
+    // Earlier event comes first
+    // Larger event comes first
+    [array sortUsingComparator:^(id obj1, id obj2) {
+        EventView *ev1 = (EventView *)obj1;
+        EventView *ev2 = (EventView *)obj2;
+        if (ev1.rowRange.location < ev2.rowRange.location) return NSOrderedAscending;
+        if (ev1.rowRange.location > ev2.rowRange.location) return NSOrderedDescending;
+
+        if (ev1.rowRange.length > ev2.rowRange.length) return NSOrderedAscending;
+        if (ev1.rowRange.length < ev2.rowRange.length) return NSOrderedDescending;
+
+        return NSOrderedSame;
+    }];
+
+    return [array copy];
+}
+
+- (void)tagEventViews {
+    NSMutableArray *array = [[self.eventViews allObjects] mutableCopy];
+    while ([array count]) {
+        EventView *eventView = [array lastObject];
+        NSArray *clashingEventViews = [self overlappingEventViewsForEventView:eventView];
+        [array removeObjectsInArray:clashingEventViews];
+        if ([clashingEventViews count]) {
+            for (EventView *anEventView in clashingEventViews)
+                anEventView.tag = [clashingEventViews indexOfObject:anEventView];
+        }
+    }
+}
+
+
+#pragma mark Action Sheet
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    CGFloat duration = 0.3;
+    if (buttonIndex == actionSheet.firstOtherButtonIndex) {
+        // Restore to original position
+        [UIView animateWithDuration:duration
+                         animations:^{
+                             viewForDragging.frame = [mainHorizontalGridView frameForEventView:(EventView *)viewForDragging];
+                             viewForDragging.alpha = 1;
+                             viewForDragging.transform = CGAffineTransformIdentity;
+                         } completion:^(BOOL finished) {
+                             [timetableController endChoosingAlternativeClassesWithModuleClassDetail:nil];
+                             
+                         }];
+        
+    
+    
+        viewForDragging.userInteractionEnabled = YES;
+        viewForDragging = nil;
+        return;
+    }
+    
+    
+    if (buttonIndex == actionSheet.destructiveButtonIndex) {
+        [UIView animateWithDuration:duration
+                         animations:^{
+                             viewForDragging.frame = proposedDestinationView.frame;
+                         } completion:^(BOOL finished) {
+                             [timetableController endChoosingAlternativeClassesWithModuleClassDetail:proposedDestinationView.classDetail];
+                             
+                         }];
+        viewForDragging = nil;
+        proposedDestinationView = nil;
+        return;
+    }
+}
 @end
