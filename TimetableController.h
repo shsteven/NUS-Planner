@@ -37,7 +37,8 @@
 
 - (void)beginChoosingAlternativeClassesWithModuleClassDetail: (ModuleClassDetail *)detail;
 - (void)endChoosingAlternativeClassesWithModuleClassDetail:(ModuleClassDetail *)detail;
-
+//- (NSArray *)arrayByRemovingDuplicateClasses: (NSArray *)array; // Removes duplicates with the same time slot
+- (BOOL)classView: (ClassView *)classView1 hasIdenticalTimeSlotToClassView: (ClassView *)classView2;
 int dayToInt(NSString *day); // From ModuleManager
 
 @end

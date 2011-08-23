@@ -510,11 +510,12 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
     
     
     if (buttonIndex == actionSheet.destructiveButtonIndex) {
+        ClassView *destinationClassView = proposedDestinationView;  // Remember the value before it's set to nil
         [UIView animateWithDuration:duration
                          animations:^{
                              viewForDragging.frame = proposedDestinationView.frame;
                          } completion:^(BOOL finished) {
-                             [timetableController endChoosingAlternativeClassesWithModuleClassDetail:proposedDestinationView.classDetail];
+                             [timetableController endChoosingAlternativeClassesWithModuleClassDetail:destinationClassView.classDetail];
                              
                          }];
         viewForDragging = nil;
