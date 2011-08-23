@@ -46,9 +46,14 @@
     
     if(!searchMode) {
         self.tableView.tableFooterView = footerView;
+        [self updateButtons];
+    } else {
+        self.navigationItem.rightBarButtonItem = addButton;
+
     }
     
-    /*if(!searchMode) {
+    /*
+    if(!searchMode) {
         if (module) {
             [self updateButtons];
         }
@@ -58,8 +63,8 @@
     } else {
         self.navigationController.toolbarHidden = YES;
         self.navigationItem.rightBarButtonItem = addButton;
-    }*/
-    
+    }
+    */
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
