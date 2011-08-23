@@ -69,7 +69,7 @@
     }
     
 #ifdef DEBUG
-    
+    /*
     // Debugging only
     for (int i = 0; i < 2; i++) {
         // Testing overlapping event views;
@@ -100,7 +100,7 @@
     }
 
      
-     
+     */
      
 #endif
     
@@ -141,11 +141,25 @@
 #pragma mark Drag and Drop
 - (void)beginChoosingAlternativeClassesWithModuleClassDetail: (ModuleClassDetail *)detail {
     NSArray *array = [moduleManager alternativesForClass: detail.moduleClass];
-    // NSLog(@"%@", [[array objectAtIndex:0] class]);
+    
+//    array = [self arrayByRemovingDuplicateClasses:array];
+
     if (![array count]) return;
     for (ModuleClass *moduleCalss in array) {
         for (ModuleClassDetail *anotherDetail in moduleCalss.details) {
             ClassView *classView = [self newClassViewFromClassDetail:anotherDetail];   
+            
+            // Don't add it if this class has the same time slot, but different venue, compared to another class
+            BOOL shouldAddClass = YES;
+            for (ClassView *existingClassView in alternativeClasses) {
+                if ([self classView:classView hasIdenticalTimeSlotToClassView:existingClassView]) {
+                    shouldAddClass = NO;
+                    break;
+                }
+            }
+            
+            if (!shouldAddClass) continue;
+            
             [alternativeClasses addObject:classView];
             [classView setBlinking:YES];
             [weekViewController addEventView:classView];
@@ -173,5 +187,38 @@
     [self reloadData];
 
 }
+
+// This method is for removing duplicates when performing Drag N Drop
+- (BOOL)classView: (ClassView *)classView1 hasIdenticalTimeSlotToClassView: (ClassView *)classView2 {
+    if (NSEqualRanges(classView1.columnRange, classView2.columnRange) &&
+        NSEqualRanges(classView1.rowRange, classView2.rowRange)) {
+        return YES;
+    }
+    return NO;
+}
+
+// Removes duplicates
+// "Duplicates" referring to classes having the same time slot, perhaps different venues
+//- (NSArray *)arrayByRemovingDuplicateClasses: (NSArray *)array {
+//    NSMutableArray *newArray = [array mutableCopy];
+//    int i = 0;
+//    while (i < [newArray count]) {
+//        ModuleClassDetail *detail = [newArray objectAtIndex:i];
+//        NSMutableArray *duplicates = [NSMutableArray array];
+//        for (int j = i+1; j < [newArray count]; j++) {
+//            BOOL equal = NO;
+//            ModuleClassDetail *anotherClassDetail = [newArray objectAtIndex:j];
+//            if ([anotherClassDetail.day isEqualToString:detail.day] &&
+//                [anotherClassDetail.startTime isEqualToString:detail.startTime] &&
+//                [anotherClassDetail.endTime isEqualToString:detail.endTime]) 
+//                equal = YES;
+//            if (equal)
+//                [duplicates addObject:anotherClassDetail];
+//        }
+//        [newArray removeObjectsInArray:duplicates];
+//        i ++;
+//    }
+//    return [newArray copy];
+//}
 
 @end

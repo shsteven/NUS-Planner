@@ -16,7 +16,7 @@
 
 @implementation ModuleListViewController_iPhone_
 
-@synthesize managedObjectContext = __managedObjectContext;
+//@synthesize managedObjectContext = __managedObjectContext;
 @synthesize fetchedResultsController = __fetchedResultsController;
 
 - (void)didReceiveMemoryWarning

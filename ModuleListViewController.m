@@ -56,6 +56,8 @@
 //    self.tableView.delaysContentTouches = NO;
     if (![moduleManager.timetable.modules count])
     [self performSelector:@selector(showBouncingTooltip) withObject:nil afterDelay:1.0];    // After view is shown
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidResume) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewDidUnload
@@ -65,6 +67,11 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)appDidResume {
+    if (![moduleManager.timetable.modules count])
+        [self performSelector:@selector(showBouncingTooltip) withObject:nil afterDelay:1.0];    // After view is shown
 }
 
 - (void)showBouncingTooltip {
