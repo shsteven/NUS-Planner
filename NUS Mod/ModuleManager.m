@@ -985,4 +985,33 @@ bool flagFreeSlots[28*6+1];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNumberOfPagesDidChangeNotification object:self];
 }
 
+- (BOOL)sameTimeModule:(ModuleClass *)cls1 withModule:(ModuleClass *)cls2 {
+    for(ModuleClassDetail *d1 in cls1.details) {
+        NSString *time1 = [NSString stringWithFormat:@"%@-%@-%@",d1.day,d1.startTime,d1.endTime];
+        BOOL found = NO;
+        for(ModuleClassDetail *d2 in cls2.details) {
+            NSString *time2 = [NSString stringWithFormat:@"%@-%@-%@",d2.day,d2.startTime,d2.endTime];
+            if ([time1 isEqualToString:time2]) {
+                found = YES;
+                break;
+            }
+        }
+        if(!found) return NO;
+    }
+    return YES;
+}
+
+- (NSSet *)findModuleClassWithSameTime:(ModuleClass *)cls {
+    NSMutableSet *result = [[NSMutableSet alloc] init];
+    NSSet *classes = cls.module.moduleClasses;
+    for(ModuleClass *c in classes) {
+        if([cls.type isEqualToString:c.type]) {
+            if([self sameTimeModule:cls withModule:c]) {
+                [result addObject:c];
+            }
+        }
+    }
+    return [NSSet setWithSet:result];
+}
+
 @end
