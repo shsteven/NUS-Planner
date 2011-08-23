@@ -20,6 +20,8 @@
 #import "Constants.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Timetable.h"
+#import "MainViewController.h"
+#import "ModuleDetailViewController.h"
 
 CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
     CGFloat dx = point2.x - point1.x;
@@ -33,6 +35,7 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
 @synthesize classView;
 @synthesize index;
 @synthesize timetableController;
+@synthesize mainViewController;
 
 @synthesize delegate = _delegate;
 
@@ -221,10 +224,7 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
 }
 
 - (void)classViewWasTapped: (ClassView *)view {
-//    [timetableController beginChoosingAlternativeClassesWithModuleClassDetail:view.classDetail];
-    // TODO: show detail view
 
-    
     
     
     if (overlappingViewsInQuestion) {
@@ -233,17 +233,45 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
             [mainHorizontalGridView collapseOverllapingViews:overlappingViewsInQuestion];
             overlappingViewsInQuestion = nil;
         }
-
+        
         return;
     } 
     
     
     // Space out overlapping views (if any)
     NSArray *overlappingViews = [self overlappingEventViewsForEventView:view];
-    if ([overlappingViews count]) {
+    if ([overlappingViews count] > 1) {
         [mainHorizontalGridView spaceOutOverlappingViews:overlappingViews];
         overlappingViewsInQuestion = overlappingViews;
+        return;
     }
+    
+    
+    
+    
+    // Dismiss popover if any
+    if (mainViewController.popover && [mainViewController.popover isPopoverVisible])
+        [mainViewController.popover dismissPopoverAnimated:YES];
+    
+    // Show detail view
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        Module *module = view.classDetail.moduleClass.module;
+        //    [moduleManager removeModule:module];
+        ModuleDetailViewController *detailVC = [[ModuleDetailViewController alloc] initWithNibName:@"ModuleDetailViewController" bundle:nil showButtons:YES];
+        
+        detailVC.delegate = mainViewController.moduleListViewController;
+        [detailVC setModule:module];
+        
+        detailVC.contentSizeForViewInPopover = CGSizeMake(500, 300);        mainViewController.popover = [[UIPopoverController alloc] initWithContentViewController:detailVC];
+        CGRect rect = view.frame;
+        [mainViewController.popover presentPopoverFromRect:[mainViewController.view convertRect:rect fromView:mainHorizontalGridView]
+                                                    inView:mainViewController.view
+                                  permittedArrowDirections:UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight animated:YES];    
+        return;
+    }
+    
+    
+
     
 }
 
@@ -479,8 +507,11 @@ CGFloat DistanceBetweenTwoPoints(CGPoint point1,CGPoint point2){
         NSArray *clashingEventViews = [self overlappingEventViewsForEventView:eventView];
         [array removeObjectsInArray:clashingEventViews];
         if ([clashingEventViews count]) {
-            for (EventView *anEventView in clashingEventViews)
+            for (EventView *anEventView in clashingEventViews) {
                 anEventView.tag = [clashingEventViews indexOfObject:anEventView];
+                [mainHorizontalGridView bringSubviewToFront:anEventView]; // Ensure overlapping views displayed in order
+
+            }
         }
     }
 }

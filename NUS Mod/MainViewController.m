@@ -36,6 +36,7 @@
 @synthesize moduleList;
 @synthesize searchViewController;
 @synthesize popover;
+@synthesize moduleListViewController;
 
 - (void)didReceiveMemoryWarning
 {
@@ -119,9 +120,9 @@
     [actionSheet showFromBarButtonItem:actionButton animated:YES];
 }
 
-- (IBAction)handleModulesButton:(id)sender {
-    // TODO: SHOW MODULE LIST AND SEARCH
-}
+//- (IBAction)handleModulesButton:(id)sender {
+//    // TODO: SHOW MODULE LIST AND SEARCH
+//}
 
 - (void)setPagingMode: (BOOL)mode {
     inPagingMode = mode;
@@ -360,6 +361,8 @@
     weekVC.view.frame = [self frameForPageAtIndex:index];
     
     weekVC.index = index;
+    
+    weekVC.mainViewController = self;
     
     // Hook up to timetableController
     TimetableController *tc = [[TimetableController alloc] init];

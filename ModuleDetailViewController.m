@@ -13,7 +13,8 @@
 
 @synthesize delegate = _delegate;
 @synthesize tableFooterView = __tableFooterView;
-@synthesize enableButton = __enableButton, removeButton = __removeButton;
+@synthesize enableButton;// = __enableButton, removeButton = __removeButton;
+@synthesize removeButton;
 @synthesize showButtons;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil showButtons:(BOOL)yesOrNo
@@ -34,6 +35,10 @@
 }
 
 #pragma mark - View lifecycle
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self updateButtons];
+}
 
 - (void)viewDidLoad
 {
@@ -62,11 +67,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -113,6 +113,9 @@
 }
 
 - (void)updateButtons {
+#ifdef DEBUG
+    NSLog(@"Update Buttons");
+#endif
     if ([module.enabled boolValue]) {
         [enableButton setTitle:@"Hide" forState:UIControlStateNormal];
         [enableButton setTitle:@"Hide" forState:UIControlStateHighlighted];
@@ -258,9 +261,9 @@
     
     UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:[UIFont labelFontSize]];
     
-    CGFloat width = self.tableView.frame.size.width * 0.7;
+    CGFloat width = self.tableView.frame.size.width * 0.8;
     
-    CGSize size = CGSizeMake(width, 1e9);
+    CGSize size = CGSizeMake(width, CGFLOAT_MAX);
     
     return [text sizeWithFont:font constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap].height;
 }

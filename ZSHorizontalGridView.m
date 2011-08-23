@@ -38,6 +38,11 @@
         if (aView.class == [EventView class] || [aView.class isSubclassOfClass:[EventView class]]) {
             EventView *eventView = (EventView *)aView;
             eventView.frame = [self frameForEventView:eventView];
+            if (eventView.tag) {
+                // Bring view with higher tag to the front
+                // Highest tag number = front most
+                
+            }
         }
     }
 }

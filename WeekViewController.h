@@ -13,6 +13,7 @@
 @class EventView;
 @class ClassView;
 @class TimetableController;
+@class MainViewController;
 
 static NSString const * const HOURS_AM_PM[] = {
 	@" 12 AM", @" 1 AM", @" 2 AM", @" 3 AM", @" 4 AM", @" 5 AM", @" 6 AM", @" 7 AM", @" 8 AM", @" 9 AM", @" 10 AM", @" 11 AM",
@@ -48,6 +49,8 @@ static NSString const * const HOURS_24[] = {
     CGPoint viewDraggingOffset;
    
     NSArray *overlappingViewsInQuestion;
+
+    __weak MainViewController *mainViewController;
 }
 
 @property (assign) id delegate;
@@ -56,6 +59,8 @@ static NSString const * const HOURS_24[] = {
 @property (strong, atomic) IBOutlet ClassView *classView;
 @property (assign) NSUInteger index;
 @property (strong) TimetableController *timetableController;
+@property (weak) MainViewController *mainViewController;
+
 - (void)addEventView: (EventView *)view;
 - (void)removeEventView: (EventView *)view;
 - (void)clearAllEventViews;

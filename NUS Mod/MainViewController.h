@@ -63,6 +63,7 @@
 @property (nonatomic, strong) IBOutlet SearchViewController *searchViewController;
 
 @property (strong) UIPopoverController *popover;
+@property (strong) IBOutlet ModuleListViewController *moduleListViewController;
 
 - (IBAction)handleActionButton:(id)sender;
 

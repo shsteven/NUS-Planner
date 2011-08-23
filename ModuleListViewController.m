@@ -75,6 +75,7 @@
 }
 
 - (void)showBouncingTooltip {
+    if (tipView && [tipView superview]) [tipView removeFromSuperview];
     tipView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StartHere.png"]];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     CGPoint center = cell.center;
