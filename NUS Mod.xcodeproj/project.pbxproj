@@ -58,6 +58,8 @@
 		67FA760513C08D97002C6BA1 /* Changelogs.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67FA760413C08D97002C6BA1 /* Changelogs.txt */; };
 		67FAFCF71400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m in Sources */ = {isa = PBXBuildFile; fileRef = 67FAFCF51400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m */; };
 		67FAFCF81400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = 67FAFCF61400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib */; };
+		B00972421499E23500C47CC3 /* Icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = B00972411499E23500C47CC3 /* Icon_57.png */; };
+		B00972451499E23E00C47CC3 /* Icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = B00972441499E23E00C47CC3 /* Icon_57.png */; };
 		B00A2DF413D2DC0000EB062D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00A2DF313D2DC0000EB062D /* MessageUI.framework */; };
 		B01AC66A13F03128003F695A /* MainViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = B01AC66913F03128003F695A /* MainViewController(iPhone).xib */; };
 		B01AC67013F0DB34003F695A /* WeekViewController(iPhone).xib in Resources */ = {isa = PBXBuildFile; fileRef = B01AC66F13F0DB34003F695A /* WeekViewController(iPhone).xib */; };
@@ -164,6 +166,8 @@
 		67FAFCF41400ECCB002C4B0B /* ModuleDetailViewController(iPhone).h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ModuleDetailViewController(iPhone).h"; sourceTree = "<group>"; };
 		67FAFCF51400ECCB002C4B0B /* ModuleDetailViewController(iPhone).m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ModuleDetailViewController(iPhone).m"; sourceTree = "<group>"; };
 		67FAFCF61400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ModuleDetailViewController(iPhone).xib"; sourceTree = "<group>"; };
+		B00972411499E23500C47CC3 /* Icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_57.png; sourceTree = "<group>"; };
+		B00972441499E23E00C47CC3 /* Icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_57.png; sourceTree = "<group>"; };
 		B00A2DF313D2DC0000EB062D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		B01AC66913F03128003F695A /* MainViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainViewController(iPhone).xib"; sourceTree = "<group>"; };
 		B01AC66F13F0DB34003F695A /* WeekViewController(iPhone).xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "WeekViewController(iPhone).xib"; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 		6718247513BE1A0D00443C08 = {
 			isa = PBXGroup;
 			children = (
+				B00972441499E23E00C47CC3 /* Icon_57.png */,
 				B09699A913D32EB900E878CB /* Icon.png */,
 				B082E59F13CC93FD008BB446 /* Constants.h */,
 				B082E5A213CC9411008BB446 /* Categories */,
@@ -288,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				6772ED8413DC55D400DB129A /* NUS Mod.sqlite */,
+				B00972411499E23500C47CC3 /* Icon_57.png */,
 				B09699A613D32EA100E878CB /* Icon.png */,
 				B0CD167813D28603009B4CB5 /* Artwork */,
 				6718248C13BE1A0D00443C08 /* NUS Mod-Info.plist */,
@@ -553,6 +559,8 @@
 				B05D5B7813FC0F4900319760 /* ModuleDetailViewController.xib in Resources */,
 				676736B91400EB1300CA4719 /* ModuleListViewController(iPhone).xib in Resources */,
 				67FAFCF81400ECCB002C4B0B /* ModuleDetailViewController(iPhone).xib in Resources */,
+				B00972421499E23500C47CC3 /* Icon_57.png in Resources */,
+				B00972451499E23E00C47CC3 /* Icon_57.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,11 +701,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ARC_MIGRATION = donothing;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NUS Mod/NUS Mod-Prefix.pch";
 				INFOPLIST_FILE = "NUS Mod/NUS Mod-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "NUS Planner";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

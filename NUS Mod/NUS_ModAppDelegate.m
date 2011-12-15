@@ -154,7 +154,7 @@
     manager = [ModuleManager sharedManager];
     
     // uncomment for first time use
-    //[self dataInit];
+//    [self dataInit];
 //    [self searchTesting];
     //[self initTesting];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)

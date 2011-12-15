@@ -519,5 +519,9 @@
     [moduleManager generateCombinations];
 }
 
+- (void)showAbout {
+    
+}
+
 
 @end
