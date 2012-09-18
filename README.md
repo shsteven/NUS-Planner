@@ -2,7 +2,7 @@
 
 NUS Planner is a course planning app for the students of National University of Singapore. It allows students to plan their timetables in an interactive manner, including drag-n-drop of time slots, automatic generation of timetables and sharing through email.
 
-![Screenshot](./screenshot.jpg)
+![Screenshot](https://github.com/shsteven/NUS-Planner/raw/master/screenshot.jpg)
 
 LICENSE
 
